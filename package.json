@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "bunx --bun vite",
+    "build": "bunx --bun vite build",
     "lint": "eslint .",
+    "format": "prettier --write 'src/**/*.{js,jsx}'",
     "preview": "vite preview"
   },
   "dependencies": {
