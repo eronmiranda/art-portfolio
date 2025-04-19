@@ -6,11 +6,10 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="flex h-full bg-zinc-50">
       <Router>
-        <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col min-h-screen">
           <Header />
-          <main className="flex-grow">
+          <main className="flex-grow bg-zinc-50 text-zinc-800">
             <Routes>
               <Route path="/" element={<Home />} />
             {/* <Route path="/about" element={<Work />} /> */}
@@ -21,7 +20,6 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </div>
   );
 }
 
