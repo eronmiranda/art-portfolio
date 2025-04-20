@@ -14,13 +14,13 @@ export default function Header() {
   const memoizedNavLinks = useMemo(() => navLinks, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 bg-zinc-100 backdrop-blur">
       <div className="h-16 pt-6 mb-2">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex flex-1">
-              <div className="size-10 rounded-full bg-white/90 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm flex items-center justify-center">
+              <div className="size-10 rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm flex items-center justify-center">
                 <Link
                   to="/"
                   className="pointer-events-auto"
