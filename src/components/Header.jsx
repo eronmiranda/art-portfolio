@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { routes } from '../resources/config';
 
 const navLinks = [
   { to: '/work', label: 'Work' },
@@ -21,19 +22,21 @@ export default function Header() {
             {/* Logo */}
             <div className="flex flex-1">
               <div className="size-10 rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm flex items-center justify-center">
-                <Link
-                  to="/"
-                  className="pointer-events-auto"
-                  aria-label="Home"
-                >
-                  <img 
-                    className="rounded-full bg-zinc-100 h-full w-full object-cover" 
-                    alt="logo" 
-                    fetchPriority="high"
-                    src="/src/assets/dogs/morty.png"
-                    loading="lazy"
-                  />
-                </Link>
+                {routes["/"] && (
+                  <Link
+                    to="/"
+                    className="pointer-events-auto"
+                    aria-label="Home"
+                  >
+                    <img 
+                      className="rounded-full bg-zinc-100 h-full w-full object-cover" 
+                      alt="logo" 
+                      fetchPriority="high"
+                      src="/src/assets/dogs/morty.png"
+                      loading="lazy"
+                    />
+                  </Link>
+                )}
               </div>
             </div>
             {/* Navigation */}
@@ -44,15 +47,17 @@ export default function Header() {
               >
                 <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
                   {memoizedNavLinks.map(({ to, label }) => (
-                    <li key={to}>
-                      <Link
-                        to={to}
-                        className="block px-3 py-2 transition hover:text-teal-500"
-                        aria-current={location.pathname === to ? 'page' : undefined}
-                      >
-                        {label}
-                      </Link>
-                    </li>
+                    routes[to] && (
+                      <li key={to}>
+                        <Link
+                          to={to}
+                          className="block px-3 py-2 transition hover:text-teal-500"
+                          aria-current={location.pathname === to ? 'page' : undefined}
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    )
                   ))}
                 </ul>
               </nav>
