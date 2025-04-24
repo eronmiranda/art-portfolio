@@ -1,18 +1,8 @@
-import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { routes } from '../resources/config';
 
-const navLinks = [
-  { to: '/work', label: 'Work' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-];
-
 export default function Header() {
   const location = useLocation();
-
-  // Memoize the navigation links
-  const memoizedNavLinks = useMemo(() => navLinks, []);
 
   return (
     <header className="sticky top-0 z-50 bg-zinc-100 backdrop-blur">
@@ -22,21 +12,19 @@ export default function Header() {
             {/* Logo */}
             <div className="flex flex-1">
               <div className="size-10 rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm flex items-center justify-center">
-                {routes["/"] && (
-                  <Link
-                    to="/"
-                    className="pointer-events-auto"
-                    aria-label="Home"
-                  >
-                    <img 
-                      className="rounded-full bg-zinc-100 h-full w-full object-cover" 
-                      alt="logo" 
-                      fetchPriority="high"
-                      src="/src/assets/dogs/morty.png"
-                      loading="lazy"
-                    />
-                  </Link>
-                )}
+                <Link
+                  to="/"
+                  className="pointer-events-auto"
+                  aria-label="Home"
+                >
+                  <img 
+                    className="rounded-full bg-zinc-100 h-full w-full object-cover" 
+                    alt="logo" 
+                    fetchPriority="high"
+                    src="/src/assets/dogs/morty.png"
+                    loading="lazy"
+                  />
+                </Link>
               </div>
             </div>
             {/* Navigation */}
@@ -46,8 +34,8 @@ export default function Header() {
                 aria-label="Main navigation"  
               >
                 <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
-                  {memoizedNavLinks.map(({ to, label }) => (
-                    routes[to] && (
+                  {routes.map(({ isEnabled, to, label }) => (
+                    isEnabled && (
                       <li key={to}>
                         <Link
                           to={to}
