@@ -40,6 +40,7 @@ export default function Header() {
                         <Link
                           to={to}
                           className="block px-3 py-2 transition hover:text-teal-500"
+                          aria-label={label}
                           aria-current={location.pathname === to ? 'page' : undefined}
                         >
                           {label}
