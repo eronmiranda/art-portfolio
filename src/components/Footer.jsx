@@ -1,3 +1,5 @@
+import { person } from '../resources/content.js'
+
 const Footer = () => {
   return (
     <footer className="mt-auto bg-zinc-100">
@@ -6,8 +8,7 @@ const Footer = () => {
           <div className="mx-auto max-w-2xl lg:max-w-5xl">
             <div className="flex flex-col items-center justify-end sm:flex-row">
               <p className="text-sm text-zinc-500">
-                © {new Date().getFullYear()} Marave Bautista. All rights
-                reserved.
+                © {new Date().getFullYear()} {person.name}. All rights reserved.
               </p>
             </div>
           </div>
