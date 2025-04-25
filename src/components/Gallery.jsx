@@ -1,7 +1,9 @@
-const Gallery = ({ artworks }) => {
+import { sampleArtworks } from '../resources/content';
+
+const Gallery = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {artworks.map((artwork) => (
+      {sampleArtworks.map((artwork) => (
         <div key={artwork.id} className="group relative">
           <img
             src={artwork.imageUrl}

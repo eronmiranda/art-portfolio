@@ -35,4 +35,55 @@ const about = {
   // },
 }
 
-export { person, about };
+const home = {
+  title: 'Home | Stickers by Marave',
+  description: 'Stickers by Marave - A digital artist creating unique stickers and illustrations.',
+  headline: 'Stickers by Marave',
+  subline: 'A brief introduction about the artist and their work. Keep it simple and elegant.',
+  cta: {
+    display: true,
+    text: 'See my work',
+    link: '/gallery'
+  },
+}
+
+const sampleArtworks = [
+  {
+    id: 1,
+    title: "Artwork 1",
+    imageUrl: "https://placeholder.com/800x600",
+    description: "Description of artwork 1"
+  },
+  {
+    id: 2,
+    title: "Artwork 2",
+    imageUrl: "https://placeholder.com/800x600",
+    description: "Description of artwork 2"
+  },
+  {
+    id: 3,
+    title: "Artwork 3",
+    imageUrl: "https://placeholder.com/800x600",
+    description: "Description of artwork 3"
+  },
+  {
+    id: 4,
+    title: "Artwork 4",
+    imageUrl: "https://placeholder.com/800x600",
+    description: "Description of artwork 4"
+  },
+  {
+    id: 5,
+    title: "Artwork 5",
+    imageUrl: "https://placeholder.com/800x600",
+    description: "Description of artwork 5"
+  },
+  {
+    id: 6,
+    title: "Artwork 6",
+    imageUrl: "https://placeholder.com/800x600",
+    description: "Description of artwork 6"
+  },
+];
+
+export { person, about, home, sampleArtworks };
