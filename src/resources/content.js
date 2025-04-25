@@ -41,7 +41,7 @@ const home = {
   headline: 'Stickers by Marave',
   subline: 'A brief introduction about the artist and their work. Keep it simple and elegant.',
   cta: {
-    display: true,
+    display: false,
     text: 'See my work',
     link: '/gallery'
   },
@@ -86,4 +86,27 @@ const sampleArtworks = [
   },
 ];
 
-export { person, about, home, sampleArtworks };
+const artworks = [
+  {
+    src: "/src/assets/morty2.png",
+    alt: "image",
+    orientation: "horizontal",
+  },
+  {
+    src: "/src/assets/dogs/kali.png",
+    alt: "image",
+    orientation: "vertical",
+  },
+  {
+    src: "/src/assets/dogs/koko-morty.png",
+    alt: "image",
+    orientation: "vertical",
+  },
+  {
+    src: "/src/assets/dogs/morty.png",
+    alt: "image",
+    orientation: "horizontal",
+  },
+]
+
+export { person, about, home, sampleArtworks, artworks};

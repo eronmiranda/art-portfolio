@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
+import Work from './pages/Work';
 import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 
@@ -14,7 +15,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              {/* <Route path="/Contact" element={<Work />} /> */}
+              <Route path="/work" element={<Work />} />
               {/* <Route path="/Contact" element={<Contact />} /> */}
               {/* <Route path="/Gallery" element={<Gallery />} /> */}
               {/* <Route path="/Blog" element={<Blog />} /> */}
