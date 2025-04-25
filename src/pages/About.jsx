@@ -21,10 +21,8 @@ function About() {
             {about.intro.headline}
           </h1>
           <div className="mt-6 space-y-7 text-base text-zinc-700">
-            {about.intro.subline.map((line) => (
-              <p>
-                {line}
-              </p>
+            {about.intro.subline.map((line, idx) => (
+              <p key={idx}>{line}</p>
             ))}
           </div>
         </div>)}
