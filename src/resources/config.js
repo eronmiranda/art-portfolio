@@ -2,27 +2,27 @@ const routes = [
   {
     isEnabled: true,
     to: "/work",
-    label: "Work"
+    label: "Work",
   },
   {
     isEnabled: true,
     to: "/about",
-    label: "About"
+    label: "About",
   },
   {
     isEnabled: true,
     to: "/contact",
-    label: "Contact"
+    label: "Contact",
   },
   {
     isEnabled: false,
     to: "/blog",
-    label: "Blog"
+    label: "Blog",
   },
   {
     isEnabled: false,
     to: "/gallery",
-    label: "Gallery"
+    label: "Gallery",
   },
 ];
 

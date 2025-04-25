@@ -1,9 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
-// import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Footer from './components/Footer';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -14,8 +14,12 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-            {/* <Route path="/contact" element={<Contact />} /> */}
-            {/* <Route path="/articles" element={<Articles />} /> */}
+              {/* <Route path="/Contact" element={<Work />} /> */}
+              {/* <Route path="/Contact" element={<Contact />} /> */}
+              {/* <Route path="/Gallery" element={<Gallery />} /> */}
+              {/* <Route path="/Blog" element={<Blog />} /> */}
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
           </main>
           <Footer />
