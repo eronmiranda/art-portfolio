@@ -41,9 +41,9 @@ const home = {
   headline: 'Stickers by Marave',
   subline: 'A brief introduction about the artist and their work. Keep it simple and elegant.',
   cta: {
-    display: false,
+    display: true,
     text: 'See my work',
-    link: '/gallery'
+    link: '/work'
   },
 }
 
