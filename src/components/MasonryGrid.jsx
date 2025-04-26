@@ -10,10 +10,10 @@ export default function MasonryGrid() {
   }));
   const artworks = images.filter((artwork) => artwork.src !== undefined);
   const breakpointColumnsObj = {
-    default: 4,
-    1440: 3,
-    1024: 2,
-    560: 1,
+    default: 5,
+    1440: 4,
+    1024: 3,
+    560: 2,
   };
 
   return (
