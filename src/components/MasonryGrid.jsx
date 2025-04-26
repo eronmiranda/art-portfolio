@@ -1,7 +1,14 @@
 import Masonry from "react-masonry-css";
-import { artworks } from "../resources/content";
+import useFirestore from "../hooks/useFirestore";
 
 export default function MasonryGrid() {
+  const { docs } = useFirestore("images");
+  const images = docs.map((doc) => ({
+    src: doc.url,
+    alt: doc.fileName,
+    orientation: doc.orientation,
+  }));
+  const artworks = images.filter((artwork) => artwork.src !== undefined);
   const breakpointColumnsObj = {
     default: 4,
     1440: 3,

@@ -90,12 +90,12 @@ const artworks = [
   {
     src: "/src/assets/morty2.png",
     alt: "image",
-    orientation: "horizontal",
+    orientation: "vertical",
   },
   {
     src: "/src/assets/dogs/kali.png",
     alt: "image",
-    orientation: "vertical",
+    orientation: "horizontal",
   },
   {
     src: "/src/assets/dogs/koko-morty.png",
@@ -105,7 +105,7 @@ const artworks = [
   {
     src: "/src/assets/dogs/morty.png",
     alt: "image",
-    orientation: "horizontal",
+    orientation: "vertical",
   },
 ]
 
