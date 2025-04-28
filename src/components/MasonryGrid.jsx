@@ -6,7 +6,6 @@ export default function MasonryGrid() {
   const images = docs.map((doc) => ({
     src: doc.url,
     alt: doc.fileName,
-    orientation: doc.orientation,
   }));
   const artworks = images.filter((artwork) => artwork.src !== undefined);
   const breakpointColumnsObj = {
@@ -25,10 +24,7 @@ export default function MasonryGrid() {
       {artworks.map((artwork, index) => (
         <div
           key={index}
-          className="mb-4 rounded-md overflow-hidden"
-          style={{
-            aspectRatio: artwork.orientation === "horizontal" ? "16/9" : "9/16",
-          }}
+          className="mb-4 rounded-md overflow-hidden aspect-square"
         >
           <img
             src={artwork.src}
