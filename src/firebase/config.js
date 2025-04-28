@@ -8,7 +8,7 @@ const firebaseConfig = {
   projectId: "marave-portfolio",
   storageBucket: "marave-portfolio.appspot.com",
   messagingSenderId: "393831752307",
-  appId: "1:393831752307:web:b44065bf78256eb0628006"
+  appId: "1:393831752307:web:b44065bf78256eb0628006",
 };
 
 const app = initializeApp(firebaseConfig);

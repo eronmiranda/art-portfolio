@@ -21,27 +21,27 @@ export default function MasonryGrid() {
   return (
     <Masonry
       breakpointCols={breakpointColumnsObj}
-      className="flex ml-[-4px] w-full"
+      className="ml-[-4px] flex w-full"
       columnClassName="pl-4 bg-clip-padding"
     >
       {isLoading
         ? skeletons.map((_, index) => (
             <div
               key={index}
-              className="mb-4 rounded-md overflow-hidden aspect-square bg-gray-200 animate-pulse"
+              className="mb-4 aspect-square animate-pulse overflow-hidden rounded-md bg-gray-200"
             >
-              <div className="w-full h-full bg-gray-300" />
+              <div className="h-full w-full bg-gray-300" />
             </div>
           ))
         : artworks.map((artwork, index) => (
             <div
               key={index}
-              className="mb-4 rounded-md overflow-hidden aspect-square"
+              className="mb-4 aspect-square overflow-hidden rounded-md"
             >
               <img
                 src={artwork.src}
                 alt={artwork.alt}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 loading={index < 10 ? "eager" : "lazy"}
                 sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
               />

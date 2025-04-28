@@ -1,9 +1,7 @@
-import MasonryGrid from "../components/MasonryGrid"
+import MasonryGrid from "../components/MasonryGrid";
 
 function Work() {
-  return (
-    <MasonryGrid />
-  )
+  return <MasonryGrid />;
 }
 
-export default Work
+export default Work;
