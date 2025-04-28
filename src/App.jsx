@@ -9,9 +9,9 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
       <Router>
-        <div className="flex w-full flex-col min-h-screen">
+        <div className="flex w-full flex-col min-h-screen bg-zinc-100">
           <Header />
-          <main className="flex-grow bg-zinc-100 text-zinc-800">
+          <main className="flex-grow text-zinc-800 w-full max-w-7xl px-4 sm:px-8 lg:px-12 mx-auto">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
