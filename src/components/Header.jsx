@@ -39,7 +39,11 @@ export default function Header() {
                       <li key={to}>
                         <Link
                           to={to}
-                          className="block px-3 py-2 transition hover:text-teal-500"
+                          className={`block px-3 py-2 transition ${
+                            location.pathname === to
+                              ? 'text-teal-500 font-semibold'
+                              : 'text-zinc-800'
+                          } hover:text-teal-500`}
                           aria-label={label}
                           aria-current={location.pathname === to ? 'page' : undefined}
                         >
