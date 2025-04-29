@@ -12,7 +12,7 @@ const about = {
   description: `Meet ${person.name} from ${person.location}`,
   avatar: {
     display: true,
-    src: "/src/assets/morty2.png",
+    src: "/src/assets/about-image.png",
     alt: `${person.name} avatar`,
   },
   altText: "A digital artwork of a character with a colorful background",
@@ -41,7 +41,7 @@ const home = {
     "Stickers by Marave - A digital artist creating unique stickers and illustrations.",
   headline: "Stickers by Marave",
   subline:
-    "A brief introduction about the artist and their work. Keep it simple and elegant.",
+    "Discover vibrant digital art and stickers that capture stories, emotions, and imagination.",
   cta: {
     display: true,
     text: "See my work",
