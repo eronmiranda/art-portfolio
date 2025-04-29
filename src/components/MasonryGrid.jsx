@@ -1,18 +1,19 @@
 import Masonry from "react-masonry-css";
+const defaultBreakpointColumnsObj = {
+  default: 5,
+  1440: 4,
+  1024: 3,
+  560: 2,
+};
 
-export default function MasonryGrid({ setSelectedImg, artworks }) {
-  const breakpointColumnsObj = {
-    default: 5,
-    1440: 4,
-    1024: 3,
-    560: 2,
-  };
+export default function MasonryGrid({ setSelectedImg, artworks, breakpointColumnsObj}) {
+  const columns = breakpointColumnsObj || defaultBreakpointColumnsObj;
   const isLoading = artworks.length === 0;
   const skeletons = Array.from({ length: 12 });
 
   return (
     <Masonry
-      breakpointCols={breakpointColumnsObj}
+      breakpointCols={columns}
       className="ml-[-4px] flex w-full"
       columnClassName="pl-4 bg-clip-padding"
     >
