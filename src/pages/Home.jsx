@@ -1,7 +1,24 @@
+import { useState } from "react";
 import { home } from "../resources/content";
-import Gallery from "../components/Gallery";
+import MasonryGrid from "../components/MasonryGrid";
+import Modal from "../components/Modal";
+import useFirestore from "../hooks/useFirestore";
+
+const imageBreakpointColumnsObj = {
+  default: 3,
+  560: 2,
+};
+
 
 const Home = () => {
+  const { docs } = useFirestore("images");
+  const artworks = docs
+    .filter((doc) => doc.url !== undefined)
+    .map((doc) => ({
+      src: doc.url,
+      alt: doc.fileName,
+    }));
+  const [selectedImg, setSelectedImg] = useState(null);
   return (
     <div className="pt-20">
       <section className="mx-auto max-w-5xl px-4 py-16">
@@ -10,7 +27,14 @@ const Home = () => {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
-        <Gallery />
+        <MasonryGrid 
+          setSelectedImg={setSelectedImg} 
+          artworks={artworks.slice(0, 6)}
+          breakpointColumnsObj={imageBreakpointColumnsObj}
+        />
+        {selectedImg && (
+          <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+        )}
       </section>
       {home.cta.display && (
         <section className="mx-auto max-w-5xl px-4 py-8">
