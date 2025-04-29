@@ -29,7 +29,7 @@ export default function Modal({ selectedImg, setSelectedImg }) {
       <motion.img
         src={selectedImg}
         alt="enlarged pic"
-        className="block max-w-[90%] max-h-[90%] my-16 mx-auto shadow-lg border-4 border-gray-100 bg-white"
+        className="block max-w-[90%] max-h-[90%] my-16 mx-auto shadow-lg bg-white"
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
