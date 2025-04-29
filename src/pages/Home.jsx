@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { home } from "../resources/content";
 import MasonryGrid from "../components/MasonryGrid";
-import Modal from "../components/Modal";
 import useFirestore from "../hooks/useFirestore";
 
 const imageBreakpointColumnsObj = {
@@ -18,7 +16,6 @@ const Home = () => {
       src: doc.url,
       alt: doc.fileName,
     }));
-  const [selectedImg, setSelectedImg] = useState(null);
   return (
     <div className="pt-20">
       <section className="mx-auto max-w-5xl px-4 py-16">
@@ -28,13 +25,9 @@ const Home = () => {
 
       <section className="mx-auto max-w-5xl px-4 py-8">
         <MasonryGrid 
-          setSelectedImg={setSelectedImg} 
           artworks={artworks.slice(0, 6)}
           breakpointColumnsObj={imageBreakpointColumnsObj}
         />
-        {selectedImg && (
-          <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
-        )}
       </section>
       {home.cta.display && (
         <section className="mx-auto max-w-5xl px-4 py-8">
