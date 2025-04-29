@@ -17,10 +17,10 @@ const Home = () => {
       alt: doc.fileName,
     }));
   return (
-    <div className="pt-20">
+    <>
       <section className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="mb-4 text-4xl font-light">{home.headline}</h1>
-        <p className="max-w-2xl text-xl text-gray-600">{home.subline}</p>
+        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">{home.headline}</h1>
+        <p className="max-w-2xl text-xl mt-3 text-zinc-700">{home.subline}</p>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
@@ -41,7 +41,7 @@ const Home = () => {
           </div>
         </section>
       )}
-    </div>
+    </>
   );
 };
 
