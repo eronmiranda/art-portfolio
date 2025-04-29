@@ -1,7 +1,7 @@
 import Masonry from "react-masonry-css";
 import useFirestore from "../hooks/useFirestore";
 
-export default function MasonryGrid() {
+export default function MasonryGrid({ setSelectedImg }) {
   const { docs } = useFirestore("images");
   const images = docs.map((doc) => ({
     src: doc.url,
@@ -36,11 +36,12 @@ export default function MasonryGrid() {
         : artworks.map((artwork, index) => (
             <div
               key={index}
+              onClick={() => setSelectedImg(artwork.src)}
               className="mb-4 aspect-square overflow-hidden rounded-md"
             >
               <img
                 src={artwork.src}
-                alt={artwork.alt}
+                alt=""
                 className="h-full w-full object-cover"
                 loading={index < 10 ? "eager" : "lazy"}
                 sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
