@@ -12,7 +12,7 @@ const about = {
   description: `Meet ${person.name} from ${person.location}`,
   avatar: {
     display: true,
-    src: "/src/assets/about-image.png",
+    src: "/src/assets/avatar.png",
     alt: `${person.name} avatar`,
   },
   altText: "A digital artwork of a character with a colorful background",
