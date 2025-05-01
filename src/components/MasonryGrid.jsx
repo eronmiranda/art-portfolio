@@ -40,7 +40,7 @@ export default function MasonryGrid({ artworks, breakpointColumnsObj}) {
                 src={artwork.src}
                 alt=""
                 className="h-full w-full object-cover transition-opacity hover:opacity-90"
-                loading={index < 10 ? "eager" : "lazy"}
+                loading="lazy"
                 sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
               />
               <div className="absolute right-0 bottom-0 left-0 bg-white/80 p-4 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
@@ -51,7 +51,10 @@ export default function MasonryGrid({ artworks, breakpointColumnsObj}) {
           ))}
       </Masonry>
       {selectedImg && (
-        <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+        <Modal 
+          selectedImg={selectedImg} 
+          setSelectedImg={setSelectedImg} 
+        />
       )}
     </>
     
