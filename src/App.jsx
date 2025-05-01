@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Work from "./pages/Work";
+import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import NotFound from "./pages/NotFound";
 
@@ -21,7 +22,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
-            {/* <Route path="/Contact" element={<Contact />} /> */}
+            <Route path="/Contact" element={<Contact />} />
             {/* <Route path="/Gallery" element={<Gallery />} /> */}
             {/* <Route path="/Blog" element={<Blog />} /> */}
             <Route path="/404" element={<NotFound />} />
