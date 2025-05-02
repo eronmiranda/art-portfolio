@@ -3,7 +3,7 @@ import ContactForm from '../components/ContactForm'
 
 export default function Contact() {
   return (
-    <div className="isolate px-6 py-12 sm:py-24 lg:px-8">
+    <div className="isolate px-6 py-8 sm:py-18 lg:px-8">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
@@ -16,7 +16,7 @@ export default function Contact() {
           className="relative left-1/2 -z-10 aspect-1155/678 w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
         />
       </div>
-      <div className="mx-auto max-w-5xl px-4 py-16">
+      <div className="mx-auto max-w-5xl px-4 py-12">
         <h2 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
           Get in touch
         </h2>
