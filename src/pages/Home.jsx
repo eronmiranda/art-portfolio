@@ -1,6 +1,7 @@
 import { home } from "../resources/content";
 import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
+import { title } from "motion/react-client";
 
 const imageBreakpointColumnsObj = {
   default: 3,
@@ -14,7 +15,8 @@ const Home = () => {
     .filter((doc) => doc.url !== undefined)
     .map((doc) => ({
       src: doc.url,
-      alt: doc.fileName,
+      alt: doc.title,
+      title: doc.title,
     }));
   return (
     <>

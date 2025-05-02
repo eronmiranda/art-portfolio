@@ -43,9 +43,8 @@ export default function MasonryGrid({ artworks, breakpointColumnsObj}) {
                 loading="lazy"
                 sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
               />
-              <div className="absolute right-0 bottom-0 left-0 bg-white/80 p-4 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
-                <h3 className="text-lg font-light">{artwork.alt}</h3>
-                <p className="text-sm text-gray-600">{artwork.alt}</p>
+              <div className="absolute right-0 bottom-0 left-0 bg-white/80 p-2 md:p-4 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+                <h4 className="text-xs md:text-lg font-light">{artwork.title}</h4>
               </div>
             </div>
           ))}

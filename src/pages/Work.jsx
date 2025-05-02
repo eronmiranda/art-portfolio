@@ -7,7 +7,8 @@ function Work() {
     .filter((doc) => doc.url !== undefined)
     .map((doc) => ({
       src: doc.url,
-      alt: doc.fileName,
+      alt: doc.title,
+      title: doc.title,
   }));
 
   return <MasonryGrid artworks={artworks} />;
