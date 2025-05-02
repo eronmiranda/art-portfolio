@@ -1,15 +1,22 @@
+function handleForm(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData.entries());
+  console.log('Form submitted:', data);
+}
+
 export default function ContactForm() {
   return (
-    <form action="#" method="POST" className="mx-auto mt-12 max-w-xl sm:mt-16">
+    <form onSubmit={handleForm} action="#" method="POST" className="mx-auto mt-12 max-w-xl sm:mt-16">
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="first-name" className="block text-sm/6 font-semibold text-gray-900">
+          <label htmlFor="firstName" className="block text-sm/6 font-semibold text-gray-900">
             First name
           </label>
           <div className="mt-2.5">
             <input
-              id="first-name"
-              name="first-name"
+              id="firstName"
+              name="firstName"
               type="text"
               autoComplete="given-name"
               className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -17,13 +24,13 @@ export default function ContactForm() {
           </div>
         </div>
         <div>
-          <label htmlFor="last-name" className="block text-sm/6 font-semibold text-gray-900">
+          <label htmlFor="lastName" className="block text-sm/6 font-semibold text-gray-900">
             Last name
           </label>
           <div className="mt-2.5">
             <input
-              id="last-name"
-              name="last-name"
+              id="lastName"
+              name="lastName"
               type="text"
               autoComplete="family-name"
               className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
