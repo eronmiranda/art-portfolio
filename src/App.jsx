@@ -1,4 +1,7 @@
-import { useRef, useLayoutEffect } from "react";
+import { 
+  useRef, 
+  useLayoutEffect 
+} from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,14 +9,18 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import { AnimatePresence, motion } from "motion/react";
-import Header from "./components/Header";
+import { 
+  AnimatePresence, 
+  motion 
+} from "motion/react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Work from "./pages/Work";
 import Contact from "./pages/Contact";
-import Footer from "./components/Footer";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const routeOrder = ["/", "/work", "/about", "/contact", "/404"];
 
@@ -44,7 +51,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/work" element={<Work />} />
               <Route path="/about" element={<About />} />
-              <Route path="/Contact" element={<Contact />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
