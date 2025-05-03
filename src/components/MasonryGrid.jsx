@@ -10,7 +10,11 @@ const defaultBreakpointColumnsObj = {
   560: 2,
 };
 
-export default function MasonryGrid({ artworks, breakpointColumnsObj, className }) {
+export default function MasonryGrid({
+  artworks,
+  breakpointColumnsObj,
+  className,
+}) {
   const [selectedImg, setSelectedImg] = useState(null);
   const [modalRect, setModalRect] = useState(null);
   const [loaded, setLoaded] = useState(Array(artworks.length).fill(false));
