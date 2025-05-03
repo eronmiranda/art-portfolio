@@ -11,7 +11,7 @@ function Work() {
       title: doc.title,
     }));
 
-  return <MasonryGrid artworks={artworks} />;
+  return <MasonryGrid artworks={artworks} className="mt-6 md:mt-9" />;
 }
 
 export default Work;

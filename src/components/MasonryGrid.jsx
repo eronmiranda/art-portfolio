@@ -8,7 +8,7 @@ const defaultBreakpointColumnsObj = {
   560: 2,
 };
 
-export default function MasonryGrid({ artworks, breakpointColumnsObj }) {
+export default function MasonryGrid({ artworks, breakpointColumnsObj, className }) {
   const [selectedImg, setSelectedImg] = useState(null);
   const columns = breakpointColumnsObj || defaultBreakpointColumnsObj;
   const isLoading = artworks.length === 0;
@@ -18,7 +18,7 @@ export default function MasonryGrid({ artworks, breakpointColumnsObj }) {
     <>
       <Masonry
         breakpointCols={columns}
-        className="ml-[-4px] flex w-full"
+        className={`flex w-full${className ? ` ${className}` : ""}`}
         columnClassName="pl-4 bg-clip-padding"
       >
         {isLoading
