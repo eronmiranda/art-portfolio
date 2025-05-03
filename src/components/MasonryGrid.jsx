@@ -53,9 +53,10 @@ export default function MasonryGrid({
               </div>
             ))
           : artworks.map((artwork, index) => (
-              <div
+              <motion.div
                 key={index}
                 onClick={(event) => handleImageClick(artwork.src, event)}
+                whileTap={{ y: 4 }}
                 className="group relative mb-4 aspect-square overflow-hidden rounded-md"
               >
                 {!loaded[index] && (
@@ -88,7 +89,7 @@ export default function MasonryGrid({
                     {artwork.title}
                   </h4>
                 </div>
-              </div>
+              </motion.div>
             ))}
       </Masonry>
       <AnimatePresence>
