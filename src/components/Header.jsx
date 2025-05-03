@@ -17,7 +17,7 @@ export default function Header() {
                     className="h-full w-full rounded-full bg-zinc-100 object-cover"
                     alt="logo"
                     fetchPriority="high"
-                    src="/src/assets/dogs/morty.png"
+                    src="/assets/dogs/morty.png"
                     loading="lazy"
                   />
                 </Link>
