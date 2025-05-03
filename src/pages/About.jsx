@@ -5,7 +5,7 @@ function About() {
     <div className="mx-auto mt-16 max-w-7xl px-4 sm:mt-32 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-y-16 md:flex-row-reverse md:items-start">
         {about.avatar.display && (
-          <div className="flex flex-shrink-0 justify-center lg:justify-end md:pl-8 lg:pl-15">
+          <div className="flex flex-shrink-0 justify-center md:pl-8 lg:justify-end lg:pl-15">
             <div className="max-w-xs px-2.5 lg:max-w-md">
               <img
                 src={about.avatar.src}

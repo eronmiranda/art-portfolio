@@ -21,7 +21,7 @@ export default function Modal({ selectedImg, setSelectedImg }) {
 
   return (
     <motion.div
-      className="fixed inset-0 w-full h-full bg-black/50 flex items-center justify-center z-50"
+      className="fixed inset-0 z-50 flex h-full w-full items-center justify-center bg-black/50"
       onClick={handleClick}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -29,7 +29,7 @@ export default function Modal({ selectedImg, setSelectedImg }) {
       <motion.img
         src={selectedImg}
         alt="enlarged pic"
-        className="block max-w-[90%] max-h-[90%] my-16 mx-auto shadow-lg bg-white"
+        className="mx-auto my-16 block max-h-[90%] max-w-[90%] bg-white shadow-lg"
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}

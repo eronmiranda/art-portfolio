@@ -1,13 +1,11 @@
 import { home } from "../resources/content";
 import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
-import { title } from "motion/react-client";
 
 const imageBreakpointColumnsObj = {
   default: 3,
   560: 2,
 };
-
 
 const Home = () => {
   const { docs } = useFirestore("images");
@@ -21,12 +19,14 @@ const Home = () => {
   return (
     <>
       <section className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">{home.headline}</h1>
-        <p className="max-w-2xl text-xl mt-3 text-zinc-700">{home.subline}</p>
+        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+          {home.headline}
+        </h1>
+        <p className="mt-3 max-w-2xl text-xl text-zinc-700">{home.subline}</p>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
-        <MasonryGrid 
+        <MasonryGrid
           artworks={artworks.slice(0, 6)}
           breakpointColumnsObj={imageBreakpointColumnsObj}
         />

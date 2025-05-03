@@ -9,7 +9,7 @@ function Work() {
       src: doc.url,
       alt: doc.title,
       title: doc.title,
-  }));
+    }));
 
   return <MasonryGrid artworks={artworks} />;
 }
