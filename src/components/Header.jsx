@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "../resources/config";
+import { motion } from "motion/react";
 
 export default function Header() {
   const location = useLocation();
@@ -11,7 +12,10 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex flex-1">
-              <div className="flex size-10 items-center justify-center rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
+              <motion.div 
+                className="flex size-10 items-center justify-center rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm" 
+                whileHover={{ scale: 1.3 }}
+              >
                 <Link to="/" className="pointer-events-auto" aria-label="Home">
                   <img
                     className="h-full w-full rounded-full bg-zinc-100 object-cover"
@@ -21,7 +25,7 @@ export default function Header() {
                     loading="lazy"
                   />
                 </Link>
-              </div>
+              </motion.div>
             </div>
             {/* Navigation */}
             <div className="flex flex-1 justify-end md:justify-center">
