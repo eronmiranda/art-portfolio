@@ -33,14 +33,21 @@ export default function Header() {
                 className="pointer-events-auto md:block"
                 aria-label="Main navigation"
               >
-                <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
+                <ul className="relative flex rounded-lg bg-white/90 text-sm md:text-md font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
                   {routes.map(
                     ({ isEnabled, to, label }) =>
                       isEnabled && (
-                        <li key={to}>
+                        <li key={to} className="relative">
+                          {location.pathname === to && (
+                            <motion.div
+                              layoutId="tab-active-bg"
+                              className="absolute inset-0 z-0 rounded-lg bg-teal-100"
+                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                            />
+                          )}
                           <Link
                             to={to}
-                            className={`block px-3 py-2 transition ${
+                            className={`relative z-10 block px-3.5 py-2 transition ${
                               location.pathname === to
                                 ? "font-semibold text-teal-500"
                                 : "text-zinc-800"

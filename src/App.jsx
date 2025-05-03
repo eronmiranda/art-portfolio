@@ -1,9 +1,12 @@
+import { useRef, useLayoutEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
+import { AnimatePresence, motion } from "motion/react";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -12,27 +15,51 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import NotFound from "./pages/NotFound";
 
+const routeOrder = ["/", "/work", "/about", "/contact", "/404"];
+
 function App() {
+  const location = useLocation();
+  const prevIndex = useRef(routeOrder.indexOf(location.pathname));
+  const currentIndex = routeOrder.indexOf(location.pathname);
+
+  const direction = currentIndex > prevIndex.current ? 1 : -1;
+
+  useLayoutEffect(() => {
+    prevIndex.current = currentIndex;
+  }, [currentIndex]);
+
   return (
-    <Router>
-      <div className="flex min-h-screen w-full flex-col bg-zinc-100">
-        <Header />
-        <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/Contact" element={<Contact />} />
-            {/* <Route path="/Gallery" element={<Gallery />} /> */}
-            {/* <Route path="/Blog" element={<Blog />} /> */}
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <div className="flex min-h-screen w-full flex-col bg-zinc-100">
+      <Header />
+      <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, x: 64 * direction }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 64 * direction }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+          >
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/work" element={<Work />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="*" element={<Navigate to="/404" />} />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
-export default App;
+export default function AnimatedApp() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
