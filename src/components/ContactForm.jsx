@@ -5,7 +5,7 @@ function handleForm(event) {
   console.log("Form submitted:", data);
 }
 
-export default function ContactForm() {
+export default function ContactForm({submitButtonText}) {
   return (
     <form
       onSubmit={handleForm}
@@ -88,7 +88,7 @@ export default function ContactForm() {
           type="submit"
           className="block w-full rounded-md bg-teal-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Let's talk
+          {submitButtonText || "Let's talk!"}
         </button>
       </div>
     </form>

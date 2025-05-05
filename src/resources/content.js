@@ -47,6 +47,20 @@ const home = {
     text: "See my work",
     link: "/work",
   },
+  // cta: {
+  //   display: false,
+  //   text: "Contact me",
+  //   link: "/contact",
+  // },
 };
 
-export { person, about, home };
+const contact = {
+  title: "Contact | Stickers by Marave",
+  description:
+    "Get in touch with Marave for collaborations, commissions, or inquiries about stickers and digital art.",
+  headline: "Get in touch",
+  subline:
+    "Interested in buying stickers? Reach out—I'm open to selling my stickers and also exploring creative collaborations!",
+  submitButtonText: "Let's talk",
+};
+export { person, about, home, contact };

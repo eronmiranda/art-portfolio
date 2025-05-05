@@ -1,3 +1,4 @@
+import { contact } from "../resources/content";
 import ContactForm from "../components/ContactForm";
 
 export default function Contact() {
@@ -17,15 +18,13 @@ export default function Contact() {
       </div>
       <div className="mx-auto max-w-5xl px-4 py-12">
         <h2 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
-          Get in touch
+          {contact.headline}
         </h2>
         <p className="mt-6 text-base text-zinc-600">
-          Interested in buying stickers or collaborating on new art projects?
-          Reach out—I'm open to selling my stickers and exploring creative
-          collaborations!
+          {contact.subline}
         </p>
       </div>
-      <ContactForm />
+      <ContactForm submitButtonText={contact.submitButtonText} />
     </div>
   );
 }
