@@ -2,11 +2,6 @@ import { home } from "../resources/content";
 import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
 
-const imageBreakpointColumnsObj = {
-  default: 3,
-  560: 2,
-};
-
 const Home = () => {
   const { docs } = useFirestore("images");
   const artworks = docs
@@ -15,7 +10,8 @@ const Home = () => {
       src: doc.url,
       alt: doc.title,
       title: doc.title,
-    }));
+    }))
+    .slice(0, 6);
   return (
     <>
       <section className="mx-auto max-w-5xl px-4 py-16">
@@ -27,8 +23,8 @@ const Home = () => {
 
       <section className="mx-auto max-w-5xl px-4 py-8">
         <MasonryGrid
-          artworks={artworks.slice(0, 6)}
-          breakpointColumnsObj={imageBreakpointColumnsObj}
+          artworks={artworks}
+          breakpointColumnsObj={{ default: 3, 560: 2 }}
         />
       </section>
       {home.cta.display && (
