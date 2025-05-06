@@ -15,7 +15,7 @@ function TagButton({ tag, selected, onClick }) {
         <motion.span
           layoutId="tag-active-bg"
           className="absolute inset-0 z-0 rounded-full bg-teal-700"
-          transition={{ type: "tween", stiffness: 50 }}
+          transition={{ type: "spring", stiffness: 200, damping: 25 }}
         />
       )}
       <span
@@ -64,7 +64,7 @@ function Work() {
   );
 
   return (
-    <div>
+    <>
       <div className="my-4 flex flex-wrap gap-2">
         <TagButton
           tag="All"
@@ -91,7 +91,7 @@ function Work() {
           <MasonryGrid artworks={filteredArtworks} className="mt-6 md:mt-9" />
         </motion.div>
       </AnimatePresence>
-    </div>
+    </>
   );
 }
 
