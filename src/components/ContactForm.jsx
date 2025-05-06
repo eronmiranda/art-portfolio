@@ -11,7 +11,7 @@ export default function ContactForm({submitButtonText}) {
       onSubmit={handleForm}
       action="#"
       method="POST"
-      className="mx-auto mt-12 max-w-xl sm:mt-16"
+      className="mx-auto max-w-xl sm:mt-16"
     >
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
