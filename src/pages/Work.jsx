@@ -26,7 +26,7 @@ function Work() {
 
   return (
     <div>
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="my-4 flex flex-wrap gap-2">
         <button
           className={`px-4 py-1.5 rounded-full font-medium transition-all duration-200 border outline-none focus:ring-2 focus:ring-blue-300
             ${selectedTag === "" 
