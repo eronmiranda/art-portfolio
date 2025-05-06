@@ -28,22 +28,22 @@ function Work() {
     <div>
       <div className="my-4 flex flex-wrap gap-2">
         <button
-          className={`px-4 py-1.5 rounded-full font-medium transition-all duration-200 border outline-none focus:ring-2 focus:ring-blue-300
+          className={`px-3 py-1.5 rounded-full font-medium transition-all duration-200 border outline-none focus:ring-2 focus:ring-teal-500
             ${selectedTag === "" 
-              ? "bg-blue-600 text-white border-blue-600 shadow-md"
-              : "bg-white text-blue-700 border-blue-200 hover:bg-blue-50 hover:border-blue-400"}`
+              ? "bg-teal-600 text-white border-teak-600 shadow-md"
+              : "bg-white text-zinc-800 border-teal-500 hover:bg-teal-50 hover:border-teal-400"}`
           }
           onClick={() => setSelectedTag("")}
         >
-          All
+          all
         </button>
         {allTags.map((tag) => (
           <button
             key={tag}
-            className={`px-4 py-1.5 rounded-full font-medium transition-all duration-200 border outline-none focus:ring-2 focus:ring-blue-300
+            className={`px-4 py-1.5 rounded-full text-sm md:text-md font-medium transition-all duration-200 border outline-none focus:ring-2 focus:ring-teal-300
               ${selectedTag === tag 
-                ? "bg-blue-600 text-white border-blue-600 shadow-md"
-                : "bg-white text-blue-700 border-blue-200 hover:bg-blue-50 hover:border-blue-400"}`
+                ? "bg-teal-600 text-white border-teal-600 shadow-md"
+                : "bg-white text-zinc-700 border-teal-500 hover:bg-teal-50 hover:border-teal-400"}`
             }
             onClick={() => setSelectedTag(tag)}
           >
