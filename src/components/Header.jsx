@@ -6,14 +6,14 @@ export default function Header() {
   const location = useLocation();
 
   return (
-    <header className="bg-transparent sticky top-0 z-50 backdrop-blur">
+    <header className="sticky top-0 z-50 bg-transparent backdrop-blur">
       <div className="mb-2 h-16 pt-6">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex flex-1">
-              <motion.div 
-                className="flex size-10 items-center justify-center rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm" 
+              <motion.div
+                className="flex size-10 items-center justify-center rounded-full bg-zinc-100 p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm"
                 whileHover={{ scale: 1.3 }}
               >
                 <Link to="/" className="pointer-events-auto" aria-label="Home">
@@ -33,7 +33,7 @@ export default function Header() {
                 className="pointer-events-auto md:block"
                 aria-label="Main navigation"
               >
-                <ul className="relative flex rounded-full px-3 bg-white/90 text-sm md:text-md font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
+                <ul className="md:text-md relative flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
                   {routes.map(
                     ({ isEnabled, to, label }) =>
                       isEnabled && (
@@ -52,10 +52,14 @@ export default function Header() {
                           >
                             {label}
                             {location.pathname === to && (
-                              <motion.span 
-                                className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 " 
+                              <motion.span
+                                className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0"
                                 layoutId="tab-active-underline"
-                                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 500,
+                                  damping: 30,
+                                }}
                               />
                             )}
                           </Link>

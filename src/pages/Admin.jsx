@@ -17,7 +17,7 @@ function Admin() {
 
   console.log("File selected:", file);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
       <h1 className="text-2xl font-bold">Admin Page</h1>
       {error && <p className="text-red-500">{error}</p>}
       {file && <p className="text-green-500">File selected: {file.name}</p>}
@@ -32,7 +32,7 @@ function Admin() {
         </label>
       </form>
     </div>
-  )
+  );
 }
 
-export default Admin
+export default Admin;

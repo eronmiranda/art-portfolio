@@ -9,7 +9,7 @@ function Avatar({ src, display, onLoad, loaded }) {
       <div className="max-w-xs px-2.5 lg:max-w-md">
         {!loaded && (
           <div className="animate-pulse">
-            <div className="h-full w-full aspect-square rotate-3 rounded-2xl bg-gray-300 shadow-xl" />
+            <div className="aspect-square h-full w-full rotate-3 rounded-2xl bg-gray-300 shadow-xl" />
           </div>
         )}
         <motion.img

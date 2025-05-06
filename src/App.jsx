@@ -1,7 +1,4 @@
-import { 
-  useRef, 
-  useLayoutEffect 
-} from "react";
+import { useRef, useLayoutEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,10 +6,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import { 
-  AnimatePresence, 
-  motion 
-} from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Work from "./pages/Work";
@@ -36,7 +30,7 @@ function App() {
   }, [currentIndex]);
 
   return (
-    <div className="isolate flex min-h-screen relative w-full flex-col bg-zinc-100">
+    <div className="relative isolate flex min-h-screen w-full flex-col bg-zinc-100">
       <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#efd7e5_100%)]"></div>
       <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12">

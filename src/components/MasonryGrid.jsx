@@ -89,7 +89,7 @@ export default function MasonryGrid({
                   </h4>
                 </div>
               </motion.div>
-          ))}
+            ))}
       </Masonry>
       <AnimatePresence>
         {selectedImg && (
