@@ -6,7 +6,7 @@ export default function Header() {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 bg-transparent backdrop-blur">
+    <header className="sticky top-0 z-50 bg-zinc-100 backdrop-blur">
       <div className="mb-2 h-16 pt-6">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">

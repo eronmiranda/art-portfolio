@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="relative isolate flex min-h-screen w-full flex-col bg-zinc-100">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#efd7e5_100%)]"></div>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-zinc-100 [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#efd7e5_100%)]"></div>
       <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12">
         <AnimatePresence mode="wait" initial={false}>
