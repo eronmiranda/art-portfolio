@@ -66,7 +66,7 @@ export default function MasonryGrid({
                 )}
                 <motion.img
                   src={artwork.src}
-                  alt=""
+                  alt={artwork.alt}
                   layoutId={`artwork-img-${index}`}
                   initial={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
                   animate={
@@ -89,7 +89,7 @@ export default function MasonryGrid({
                   </h4>
                 </div>
               </motion.div>
-            ))}
+          ))}
       </Masonry>
       <AnimatePresence>
         {selectedImg && (
