@@ -49,7 +49,7 @@ function Work() {
 
   const allTags = useMemo(
     () =>
-      Array.from(new Set(artworks.flatMap((artwork) => artwork.tags || []))),
+      Array.from(new Set(artworks.flatMap((artwork) => artwork.tags || []))).sort(),
     [artworks],
   );
 
