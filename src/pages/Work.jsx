@@ -1,19 +1,26 @@
 import { useState, useMemo } from "react";
 import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
+import { motion, AnimatePresence } from "framer-motion";
 
 function TagButton({ tag, selected, onClick }) {
   return (
     <button
-      className={`md:text-md rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 outline-none focus:ring-2 focus:ring-teal-300 ${
-        selected
-          ? "border-teal-600 bg-teal-600 text-white shadow-md"
-          : "border-teal-500 bg-white text-zinc-700 hover:border-teal-400 hover:bg-teal-50"
-      }`}
+      className="md:text-md relative overflow-hidden rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 outline-none"
       aria-pressed={selected}
       onClick={onClick}
     >
-      {tag}
+      {selected && (
+        <motion.span
+          layoutId="tag-active-bg"
+          className="absolute inset-0 z-0 rounded-full bg-teal-600"
+          initial={false}
+          transition={{ type: "tween", stiffness: 50 }}
+        />
+      )}
+      <span className={`relative z-10 ${selected ? "text-white" : "text-zinc-700"}`}>
+        {tag}
+      </span>
     </button>
   );
 }
@@ -71,7 +78,17 @@ function Work() {
           />
         ))}
       </div>
-      <MasonryGrid artworks={filteredArtworks} className="mt-6 md:mt-9" />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedTag}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0}}
+          transition={{ duration: 0.3 }}
+        >
+          <MasonryGrid artworks={filteredArtworks} className="mt-6 md:mt-9" />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

@@ -56,7 +56,7 @@ export default function Header() {
                                 className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0"
                                 layoutId="tab-active-underline"
                                 transition={{
-                                  type: "spring",
+                                  type: "tween",
                                   stiffness: 500,
                                   damping: 30,
                                 }}
