@@ -18,7 +18,9 @@ function TagButton({ tag, selected, onClick }) {
           transition={{ type: "tween", stiffness: 50 }}
         />
       )}
-      <span className={`relative z-10 ${selected ? "text-white" : "text-zinc-700"}`}>
+      <span
+        className={`relative z-10 ${selected ? "text-white" : "text-zinc-700"}`}
+      >
         {tag}
       </span>
     </button>
@@ -83,7 +85,7 @@ function Work() {
           key={selectedTag}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0}}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
           <MasonryGrid artworks={filteredArtworks} className="mt-6 md:mt-9" />
