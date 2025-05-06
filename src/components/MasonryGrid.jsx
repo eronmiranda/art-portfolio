@@ -22,20 +22,20 @@ export default function MasonryGrid({
 
   const imageVariants = {
     initial: {
-        opacity: 0, 
-        scale: 1.1, 
-        filter: "blur(12px)",
+      opacity: 0,
+      scale: 1.1,
+      filter: "blur(12px)",
     },
-    animate: index => {
+    animate: (index) => {
       return {
-        opacity: loaded[index] ? 1 : 0, 
+        opacity: loaded[index] ? 1 : 0,
         scale: loaded[index] ? 1 : 1.1,
-        filter: loaded[index] ? "blur(0px)" : "blur(12px)", 
+        filter: loaded[index] ? "blur(0px)" : "blur(12px)",
         transition: {
           duration: 0.5,
           delay: index * 0.1,
-        }
-      }
+        },
+      };
     },
   };
 
@@ -87,14 +87,12 @@ export default function MasonryGrid({
                 sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
                 onLoad={() => handleImageLoad(index)}
                 draggable={false}
-                onContextMenu={event => event.preventDefault()}
+                onContextMenu={(event) => event.preventDefault()}
               />
             </AnimatePresence>
-            
+
             <div className="absolute right-0 bottom-0 left-0 bg-white/80 p-2 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 md:p-4">
-              <h4 className="text-xs font-light md:text-lg">
-                {artwork.title}
-              </h4>
+              <h4 className="text-xs font-light md:text-lg">{artwork.title}</h4>
             </div>
           </motion.div>
         ))}

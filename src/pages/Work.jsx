@@ -6,8 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 function TagButton({ tag, selected, onClick }) {
   return (
     <button
-      className={`md:text-md relative overflow-hidden rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 outline-none
-        ${selected ? "" : "hover:border-teal-500"}`}
+      className={`md:text-md relative overflow-hidden rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 outline-none ${selected ? "" : "hover:border-teal-500"}`}
       aria-pressed={selected}
       onClick={onClick}
     >
@@ -49,7 +48,9 @@ function Work() {
 
   const allTags = useMemo(
     () =>
-      Array.from(new Set(artworks.flatMap((artwork) => artwork.tags || []))).sort(),
+      Array.from(
+        new Set(artworks.flatMap((artwork) => artwork.tags || [])),
+      ).sort(),
     [artworks],
   );
 

@@ -30,7 +30,7 @@ export default function Modal({ selectedImg, setSelectedImg, layoutId }) {
         layoutId={layoutId}
         className="max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
         draggable={false}
-        onContextMenu={event => event.preventDefault()}
+        onContextMenu={(event) => event.preventDefault()}
       />
     </motion.div>
   );
