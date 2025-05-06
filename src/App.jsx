@@ -29,18 +29,48 @@ function App() {
     prevIndex.current = currentIndex;
   }, [currentIndex]);
 
+  const motionVariants = {
+    initial: direction => {
+      return {
+        x: direction > 0 ? 1000 : -1000,
+        opacity: 0,
+      }
+    },
+    animate: {
+      x: 0,
+      opacity: 1,
+      // transition: 'ease-in',
+      transition: {
+        x: { type: 'spring', stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 },
+      },
+    },
+    exit: direction => {
+      return {
+        x: direction > 0 ? -1000 : 1000,
+        opacity: 0,
+        // transition: 'ease-in',
+        transition: {
+          x: { type: 'spring', stiffness: 300, damping: 30 },
+          opacity: { duration: 0.2 },
+        },
+      }
+    },
+  }
+
   return (
-    <div className="relative isolate flex min-h-screen w-full flex-col bg-zinc-100">
+    <div className="relative isolate flex min-h-screen w-full flex-col bg-zinc-100 overflow-hidden">
       <div className="absolute inset-0 -z-10 h-full w-full bg-zinc-100 [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#efd7e5_100%)]"></div>
       <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12">
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, x: 64 * direction }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 64 * direction }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            variants={motionVariants}
+            custom={direction}
+            initial="initial"
+            animate="animate"
+            exit="exit"
           >
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<Home />} />

@@ -14,7 +14,6 @@ function TagButton({ tag, selected, onClick }) {
         <motion.span
           layoutId="tag-active-bg"
           className="absolute inset-0 z-0 rounded-full bg-teal-600"
-          initial={false}
           transition={{ type: "tween", stiffness: 50 }}
         />
       )}
