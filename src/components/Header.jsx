@@ -33,7 +33,7 @@ export default function Header() {
                 className="pointer-events-auto md:block"
                 aria-label="Main navigation"
               >
-                <ul className="relative flex rounded-lg bg-white/90 text-sm md:text-md font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
+                <ul className="relative flex rounded-full px-3 bg-white/90 text-sm md:text-md font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm">
                   {routes.map(
                     ({ isEnabled, to, label }) =>
                       isEnabled && (
