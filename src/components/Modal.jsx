@@ -29,6 +29,8 @@ export default function Modal({ selectedImg, setSelectedImg, layoutId }) {
         alt=""
         layoutId={layoutId}
         className="max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
+        draggable={false}
+        onContextMenu={event => event.preventDefault()}
       />
     </motion.div>
   );
