@@ -38,13 +38,6 @@ export default function Header() {
                     ({ isEnabled, to, label }) =>
                       isEnabled && (
                         <li key={to} className="relative">
-                          {location.pathname === to && (
-                            <motion.div
-                              layoutId="tab-active-bg"
-                              className="absolute inset-0 z-0 rounded-lg bg-teal-100"
-                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            />
-                          )}
                           <Link
                             to={to}
                             className={`relative z-10 block px-3.5 py-2 transition ${
@@ -58,6 +51,13 @@ export default function Header() {
                             }
                           >
                             {label}
+                            {location.pathname === to && (
+                              <motion.span 
+                                className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 " 
+                                layoutId="tab-active-underline"
+                                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                              />
+                            )}
                           </Link>
                         </li>
                       ),
