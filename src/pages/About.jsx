@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { about } from "../resources/content.js";
+import { about } from "../resources/content";
 import { motion } from "motion/react";
 
 function Avatar({ src, display, onLoad, loaded }) {
