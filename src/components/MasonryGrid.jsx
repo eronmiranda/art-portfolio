@@ -16,8 +16,8 @@ export default function MasonryGrid({
   className,
 }) {
   const [selectedImg, setSelectedImg] = useState(null);
-  const [modalRect, setModalRect] = useState(null);
   const [loaded, setLoaded] = useState(Array(artworks.length).fill(false));
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const columns = breakpointColumnsObj || defaultBreakpointColumnsObj;
   const isLoading = artworks.length === 0;
   const skeletons = Array.from({ length: 12 });
@@ -30,10 +30,9 @@ export default function MasonryGrid({
     });
   };
 
-  const handleImageClick = (src, event) => {
-    const rect = event.target.getBoundingClientRect();
-    setModalRect(rect);
+  const handleImageClick = (src, index) => {
     setSelectedImg(src);
+    setSelectedIndex(index);
   };
 
   return (
@@ -55,7 +54,8 @@ export default function MasonryGrid({
           : artworks.map((artwork, index) => (
               <motion.div
                 key={index}
-                onClick={(event) => handleImageClick(artwork.src, event)}
+                layoutId={`artwork-${index}`}
+                onClick={() => handleImageClick(artwork.src, index)}
                 whileTap={{ y: 4 }}
                 className="group relative mb-4 aspect-square overflow-hidden rounded-md"
               >
@@ -67,6 +67,7 @@ export default function MasonryGrid({
                 <motion.img
                   src={artwork.src}
                   alt=""
+                  layoutId={`artwork-img-${index}`}
                   initial={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
                   animate={
                     loaded[index]
@@ -74,9 +75,7 @@ export default function MasonryGrid({
                       : { opacity: 0, scale: 1.1, filter: "blur(12px)" }
                   }
                   transition={{
-                    duration: 1,
-                    delay: loaded[index] ? index * 0.08 : 0,
-                    ease: "easeOut",
+                    duration: 0.4,
                   }}
                   className="h-full w-full object-cover hover:opacity-90"
                   loading="lazy"
@@ -98,7 +97,7 @@ export default function MasonryGrid({
             key={selectedImg}
             selectedImg={selectedImg}
             setSelectedImg={setSelectedImg}
-            originRect={modalRect}
+            layoutId={`artwork-img-${selectedIndex}`}
           />
         )}
       </AnimatePresence>
