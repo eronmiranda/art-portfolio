@@ -6,19 +6,20 @@ import { motion, AnimatePresence } from "framer-motion";
 function TagButton({ tag, selected, onClick }) {
   return (
     <button
-      className="md:text-md relative overflow-hidden rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 outline-none"
+      className={`md:text-md relative overflow-hidden rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 outline-none
+        ${selected ? "" : "hover:border-teal-500"}`}
       aria-pressed={selected}
       onClick={onClick}
     >
       {selected && (
         <motion.span
           layoutId="tag-active-bg"
-          className="absolute inset-0 z-0 rounded-full bg-teal-600"
+          className="absolute inset-0 z-0 rounded-full bg-teal-700"
           transition={{ type: "tween", stiffness: 50 }}
         />
       )}
       <span
-        className={`relative z-10 ${selected ? "text-white" : "text-zinc-700"}`}
+        className={`relative z-10 ${selected ? "text-white" : "text-zinc-700 hover:text-teal-700"}`}
       >
         {tag}
       </span>
