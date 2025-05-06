@@ -25,6 +25,7 @@ function Avatar({ src, display, onLoad, loaded }) {
           loading="lazy"
           decoding="async"
           onLoad={onLoad}
+          fetchPriority="high"
         />
       </div>
     </div>
