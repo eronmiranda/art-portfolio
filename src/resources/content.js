@@ -58,9 +58,9 @@ const contact = {
   title: "Contact | Stickers by Marave",
   description:
     "Get in touch with Marave for collaborations, commissions, or inquiries about stickers and digital art.",
-  headline: "Get in touch",
+  headline: "Let's connect",
   subline:
-    "Interested in buying stickers? Reach out—I'm open to selling my stickers and also exploring creative collaborations!",
+    "Get in touch for buying sticker or just to say hi! 👋🏼",
   submitButtonText: "Let's talk",
 };
 export { person, about, home, contact };
