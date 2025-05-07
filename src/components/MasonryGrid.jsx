@@ -26,17 +26,28 @@ export default function MasonryGrid({
       scale: 1.1,
       filter: "blur(12px)",
     },
-    animate: (index) => {
+    loaded: (index) => {
       return {
-        opacity: loaded[index] ? 1 : 0,
-        scale: loaded[index] ? 1 : 1.1,
-        filter: loaded[index] ? "blur(0px)" : "blur(12px)",
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
         transition: {
           duration: 0.4,
           delay: index * 0.1,
-        },
-      };
+        }
+      }
     },
+    loading: (index) => {
+      return {
+        opacity: 0,
+        scale: 1.1,
+        filter: "blur(12px)",
+        transition: {
+          duration: 0.4,
+          delay: index * 0.1,
+        }
+      }
+    }
   };
 
   const handleImageLoad = (index) => {
@@ -79,7 +90,7 @@ export default function MasonryGrid({
                 layoutId={`artwork-img-${index}`}
                 variants={imageVariants}
                 initial="initial"
-                animate="animate"
+                animate={loaded[index] ? "loaded" : "loading"}
                 custom={index}
                 className="h-full w-full object-cover hover:opacity-90"
                 loading="lazy"
