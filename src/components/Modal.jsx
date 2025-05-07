@@ -1,37 +1,23 @@
 import { useEffect } from "react";
-import { motion } from "motion/react";
-
-export default function Modal({ selectedImg, setSelectedImg, layoutId }) {
-  const handleClick = (event) => {
-    if (event.target === event.currentTarget) {
-      setSelectedImg(null);
-    }
-  };
-
+function Modal({ onBackdropClick, children }) {
   // Close on Escape key
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === "Escape") {
-        setSelectedImg(null);
+        onBackdropClick();
       }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [setSelectedImg]);
-
+  }, [onBackdropClick]);
   return (
-    <motion.div
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-      onClick={handleClick}
+      onClick={onBackdropClick}
     >
-      <motion.img
-        src={selectedImg}
-        alt=""
-        layoutId={layoutId}
-        className="max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
-        draggable={false}
-        onContextMenu={(event) => event.preventDefault()}
-      />
-    </motion.div>
+      {children}
+    </div>
   );
 }
+
+export default Modal

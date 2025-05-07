@@ -100,11 +100,17 @@ export default function MasonryGrid({
       <AnimatePresence>
         {selectedImg && (
           <Modal
-            key={selectedImg}
-            selectedImg={selectedImg}
-            setSelectedImg={setSelectedImg}
-            layoutId={`artwork-img-${selectedIndex}`}
-          />
+            onBackdropClick={()=> setSelectedImg(null)}
+          >
+            <motion.img
+              src={selectedImg}
+              alt=""
+              layoutId={`artwork-img-${selectedIndex}`}
+              className="max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
+              draggable={false}
+              onContextMenu={(event) => event.preventDefault()}
+            />
+          </Modal>
         )}
       </AnimatePresence>
     </>
