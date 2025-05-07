@@ -32,7 +32,7 @@ export default function MasonryGrid({
         scale: loaded[index] ? 1 : 1.1,
         filter: loaded[index] ? "blur(0px)" : "blur(12px)",
         transition: {
-          duration: 0.5,
+          duration: 0.4,
           delay: index * 0.1,
         },
       };
