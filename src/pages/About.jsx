@@ -50,12 +50,9 @@ function About() {
   return (
     <div className="mx-auto mt-16 max-w-7xl px-4 sm:mt-32 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-y-16 md:flex-row-reverse md:items-start">
-        {avatar.display && ( <Avatar src={avatar.src} /> )}
+        {avatar.display && <Avatar src={avatar.src} />}
         {intro.display && (
-          <Intro
-            headline={intro.headline}
-            subline={intro.subline}
-          />
+          <Intro headline={intro.headline} subline={intro.subline} />
         )}
       </div>
     </div>
