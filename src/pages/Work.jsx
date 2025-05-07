@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import useFirestore from "../hooks/useFirestore";
 import MasonryGrid from "../components/MasonryGrid";
@@ -8,38 +8,26 @@ function Work() {
   const [selectedTag, setSelectedTag] = useState("All");
   const { docs } = useFirestore("images");
 
-  const artworks = useMemo(
-    () =>
-      docs
-        .filter(
-          (doc) =>
-            doc.url !== undefined &&
-            (doc.display === undefined || doc.display === true),
-        )
-        .map((doc) => ({
-          src: doc.url,
-          alt: doc.title,
-          title: doc.title,
-          tags: doc.tags,
-        })),
-    [docs],
-  );
+  const artworks =
+    docs
+      .filter((doc) => doc.url !== undefined)
+      .filter((doc) => doc.display === undefined || doc.display === true)
+      .map((doc) => ({
+        src: doc.url,
+        alt: doc.title,
+        title: doc.title,
+        tags: doc.tags,
+      }));
 
-  const allTags = useMemo(
-    () =>
-      Array.from(
-        new Set(artworks.flatMap((artwork) => artwork.tags || [])),
-      ).sort(),
-    [artworks],
-  );
+  const allTags =
+    Array.from(
+      new Set(artworks.flatMap((artwork) => artwork.tags || [])),
+    ).sort();
 
-  const filteredArtworks = useMemo(
-    () =>
-      selectedTag !== "All"
-        ? artworks.filter((artwork) => artwork.tags?.includes(selectedTag))
-        : artworks,
-    [artworks, selectedTag],
-  );
+  const filteredArtworks =
+    selectedTag !== "All"
+      ? artworks.filter((artwork) => artwork.tags?.includes(selectedTag))
+      : artworks;
 
   return (
     <>
