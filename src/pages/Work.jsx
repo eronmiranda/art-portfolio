@@ -36,7 +36,7 @@ function Work() {
         selectedTag={selectedTag}
         onSelectTag={setSelectedTag}
       />
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={selectedTag}
           initial={{ opacity: 0 }}
