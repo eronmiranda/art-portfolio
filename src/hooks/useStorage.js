@@ -7,7 +7,7 @@ import {
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
-const useStorage = (file) => {
+function useStorage(file) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
@@ -39,6 +39,6 @@ const useStorage = (file) => {
   }, [file]);
 
   return { progress, url, error };
-};
+}
 
 export default useStorage;

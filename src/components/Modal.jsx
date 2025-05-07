@@ -10,6 +10,7 @@ function Modal({ onBackdropClick, children }) {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onBackdropClick]);
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
@@ -20,4 +21,4 @@ function Modal({ onBackdropClick, children }) {
   );
 }
 
-export default Modal
+export default Modal;

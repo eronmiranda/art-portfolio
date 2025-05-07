@@ -1,4 +1,4 @@
-export default function NotFound() {
+function NotFound() {
   return (
     <section className="flex min-h-[60vh] flex-col items-center justify-center pb-40">
       <div className="mb-2 text-6xl font-extrabold tracking-tight">404</div>
@@ -9,3 +9,5 @@ export default function NotFound() {
     </section>
   );
 }
+
+export default NotFound;

@@ -18,7 +18,7 @@ import Footer from "./components/Footer";
 
 const routeOrder = ["/", "/work", "/about", "/contact", "/404"];
 
-function App() {
+function AnimatedApp() {
   const location = useLocation();
   const prevIndex = useRef(routeOrder.indexOf(location.pathname));
   const currentIndex = routeOrder.indexOf(location.pathname);
@@ -89,10 +89,12 @@ function App() {
   );
 }
 
-export default function AnimatedApp() {
+function App() {
   return (
     <Router>
-      <App />
+      <AnimatedApp />
     </Router>
   );
 }
+
+export default App;

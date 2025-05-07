@@ -1,7 +1,7 @@
 import { contact } from "../resources/content";
 import ContactForm from "../components/ContactForm";
 
-export default function Contact() {
+function Contact() {
   return (
     <div className="isolate px-6 py-8 sm:py-18 lg:px-8">
       <div className="mx-auto max-w-5xl px-4 py-12 lg:px-25">
@@ -16,3 +16,5 @@ export default function Contact() {
     </div>
   );
 }
+
+export default Contact;

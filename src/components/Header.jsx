@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { routes } from "../resources/config";
 import { motion } from "motion/react";
 
-export default function Header() {
+function Header() {
   const location = useLocation();
 
   return (
@@ -77,3 +77,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;

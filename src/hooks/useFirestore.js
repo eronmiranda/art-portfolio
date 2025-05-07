@@ -2,7 +2,7 @@ import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { projectFirestore } from "../firebase/config";
 
-const useFirestore = (collectionName) => {
+function useFirestore(collectionName) {
   const [docs, setDocs] = useState([]);
 
   useEffect(() => {
@@ -21,6 +21,6 @@ const useFirestore = (collectionName) => {
   }, [collectionName]);
 
   return { docs };
-};
+}
 
 export default useFirestore;

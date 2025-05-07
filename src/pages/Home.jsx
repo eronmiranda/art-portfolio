@@ -2,7 +2,7 @@ import { home } from "../resources/content";
 import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
 
-const Home = () => {
+function Home() {
   const { docs } = useFirestore("images");
   const artworks = docs
     .filter(
@@ -45,6 +45,6 @@ const Home = () => {
       )}
     </>
   );
-};
+}
 
 export default Home;

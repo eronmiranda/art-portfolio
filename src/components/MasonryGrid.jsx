@@ -10,11 +10,7 @@ const defaultBreakpointColumnsObj = {
   560: 2,
 };
 
-export default function MasonryGrid({
-  artworks,
-  breakpointColumnsObj,
-  className,
-}) {
+function MasonryGrid({ artworks, breakpointColumnsObj, className }) {
   const [selectedImg, setSelectedImg] = useState(null);
   const [loaded, setLoaded] = useState(Array(artworks.length).fill(false));
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -34,8 +30,8 @@ export default function MasonryGrid({
         transition: {
           duration: 0.4,
           delay: index * 0.1,
-        }
-      }
+        },
+      };
     },
     loading: (index) => {
       return {
@@ -45,9 +41,9 @@ export default function MasonryGrid({
         transition: {
           duration: 0.4,
           delay: index * 0.1,
-        }
-      }
-    }
+        },
+      };
+    },
   };
 
   const handleImageLoad = (index) => {
@@ -110,9 +106,7 @@ export default function MasonryGrid({
       </Masonry>
       <AnimatePresence>
         {selectedImg && (
-          <Modal
-            onBackdropClick={()=> setSelectedImg(null)}
-          >
+          <Modal onBackdropClick={() => setSelectedImg(null)}>
             <motion.img
               src={selectedImg}
               alt=""
@@ -127,3 +121,5 @@ export default function MasonryGrid({
     </>
   );
 }
+
+export default MasonryGrid;

@@ -5,7 +5,7 @@ function handleForm(event) {
   console.log("Form submitted:", data);
 }
 
-export default function ContactForm({ submitButtonText }) {
+function ContactForm({ submitButtonText }) {
   return (
     <form
       onSubmit={handleForm}
@@ -94,3 +94,5 @@ export default function ContactForm({ submitButtonText }) {
     </form>
   );
 }
+
+export default ContactForm;
