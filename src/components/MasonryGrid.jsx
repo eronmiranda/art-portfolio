@@ -14,7 +14,7 @@ function MasonryGrid({ artworks, breakpointColumnsObj, className }) {
   const [selectedImg, setSelectedImg] = useState(null);
   const [loaded, setLoaded] = useState(Array(artworks.length).fill(false));
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const columns = breakpointColumnsObj || defaultBreakpointColumnsObj;
+  const columns = breakpointColumnsObj ?? defaultBreakpointColumnsObj;
 
   const imageVariants = {
     initial: {

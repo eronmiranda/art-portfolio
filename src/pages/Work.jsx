@@ -19,7 +19,7 @@ function Work() {
     }));
 
   const allTags = Array.from(
-    new Set(artworks.flatMap((artwork) => artwork.tags || [])),
+    new Set(artworks.flatMap((artwork) => artwork.tags ?? [])),
   ).sort();
 
   const filteredArtworks =
