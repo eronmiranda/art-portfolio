@@ -15,7 +15,7 @@ function TagButton({ tag, selected, onClick }) {
         />
       )}
       <span
-        className={`relative z-10 ${selected ? "text-white" : "text-zinc-700 hover:text-teal-700"}`}
+        className={`relative z-10 ${selected ? "text-white" : "text-zinc-700 hover:text-teal-700 dark:text-zinc-100"}`}
       >
         {tag}
       </span>

@@ -59,10 +59,10 @@ function AnimatedApp() {
   };
 
   return (
-    <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-zinc-100">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-zinc-100 [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#efd7e5_100%)]"></div>
+    <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden dark:bg-zinc-900">
+      <div className="absolute inset-0 -z-10 h-full w-full bg-zinc-100 [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#efd7e5_100%)] dark:hidden dark:bg-zinc-900" />
       <Header />
-      <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12">
+      <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12 dark:text-zinc-100">
         <AnimatePresence mode="popLayout" initial={false} custom={direction}>
           <motion.div
             key={location.pathname}

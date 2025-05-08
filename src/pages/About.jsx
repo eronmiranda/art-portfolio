@@ -33,10 +33,10 @@ function Avatar({ src }) {
 function Intro({ headline, subline }) {
   return (
     <div className="flex flex-col">
-      <h2 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+      <h2 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">
         {headline}
       </h2>
-      <div className="mt-6 space-y-7 text-base text-zinc-700">
+      <div className="mt-6 space-y-7 text-base text-zinc-700 dark:text-zinc-400">
         {subline.map((line, index) => (
           <p key={index}>{line}</p>
         ))}

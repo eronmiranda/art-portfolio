@@ -19,10 +19,12 @@ function Home() {
   return (
     <>
       <section className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">
           {home.headline}
         </h1>
-        <p className="mt-3 max-w-2xl text-xl text-zinc-700">{home.subline}</p>
+        <p className="mt-3 max-w-2xl text-xl text-zinc-700 dark:text-zinc-400">
+          {home.subline}
+        </p>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">

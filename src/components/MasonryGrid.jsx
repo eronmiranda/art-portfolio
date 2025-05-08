@@ -98,8 +98,10 @@ function MasonryGrid({ artworks, breakpointColumnsObj, className }) {
               />
             </AnimatePresence>
 
-            <div className="absolute right-0 bottom-0 left-0 bg-white/80 p-2 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 md:p-4">
-              <h4 className="text-xs font-light md:text-lg">{artwork.title}</h4>
+            <div className="absolute right-0 bottom-0 left-0 bg-white/70 p-2 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 md:p-4">
+              <h4 className="text-xs font-light text-zinc-900 md:text-lg">
+                {artwork.title}
+              </h4>
             </div>
           </motion.div>
         ))}
