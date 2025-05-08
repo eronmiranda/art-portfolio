@@ -1,6 +1,7 @@
 import { home } from "../resources/content";
 import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
+import { motion } from "motion/react";
 
 function Home() {
   const { docs } = useFirestore("images");
@@ -31,16 +32,16 @@ function Home() {
         />
       </section>
       {home.cta.display && (
-        <section className="mx-auto max-w-5xl px-4 py-8">
-          <div className="flex justify-center">
+        <div className="mx-auto max-w-5xl px-4 py-8">
+          <motion.div className="flex justify-center" whileTap={{ y: 4 }}>
             <a
               href={home.cta.link}
-              className="inline-block rounded-full bg-teal-500 px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-teal-600 focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:outline-none"
+              className="inline-block rounded-full bg-teal-500 px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               {home.cta.text}
             </a>
-          </div>
-        </section>
+          </motion.div>
+        </div>
       )}
     </>
   );
