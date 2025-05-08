@@ -5,11 +5,8 @@ import useFirestore from "../hooks/useFirestore";
 function Home() {
   const { docs } = useFirestore("images");
   const artworks = docs
-    .filter(
-      (doc) =>
-        doc.url !== undefined &&
-        (doc.display === undefined || doc.display === true),
-    )
+    .filter((doc) => doc.url !== undefined)
+    .filter((doc) => doc.display === undefined || doc.display === true)
     .map((doc) => ({
       src: doc.url,
       alt: doc.title,
