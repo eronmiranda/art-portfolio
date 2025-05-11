@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { lazy, Suspense, useRef, useLayoutEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,14 +7,15 @@ import {
   useLocation,
 } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Work from "./pages/Work";
-import Contact from "./pages/Contact";
-import Admin from "./pages/Admin";
-import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Work = lazy(() => import("./pages/Work"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Admin = lazy(() => import("./pages/Admin"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const routeOrder = ["/", "/work", "/about", "/contact", "/404"];
 
@@ -72,15 +73,17 @@ function AnimatedApp() {
             animate="animate"
             exit="exit"
           >
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<Home />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate to="/404" />} />
-            </Routes>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/work" element={<Work />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" />} />
+              </Routes>
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>
