@@ -60,6 +60,6 @@ const contact = {
     "Get in touch with Marave for collaborations, commissions, or inquiries about stickers and digital art.",
   headline: "Let's connect",
   subline: "Get in touch for buying sticker or just to say hi! 👋🏼",
-  submitButtonText: "Let's talk",
+  submitLabel: "Let's talk",
 };
 export { person, about, home, contact };

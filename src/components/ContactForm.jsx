@@ -6,7 +6,7 @@ function handleForm(event) {
   console.log("Form submitted:", data);
 }
 
-function ContactForm({ submitButtonText }) {
+function ContactForm({ submitLabel }) {
   return (
     <form
       onSubmit={handleForm}
@@ -92,7 +92,7 @@ function ContactForm({ submitButtonText }) {
           type="submit"
           className="block w-full rounded-md bg-teal-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2"
         >
-          {submitButtonText ?? "Let's talk!"}
+          {submitLabel ?? "Let's talk!"}
         </button>
       </MotionDiv>
     </form>
