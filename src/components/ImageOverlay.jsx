@@ -5,7 +5,7 @@ function ImageOverlay({ className, text, children }) {
       {children}
       <div
         className={cx(
-          "absolute right-0 bottom-0 left-0 bg-white/70 p-2 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 md:p-4",
+          "absolute right-0 bottom-0 left-0 bg-gradient-to-t from-white/80 to-transparent p-2 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100",
           className,
         )}
       >
