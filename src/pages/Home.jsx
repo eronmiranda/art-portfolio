@@ -1,5 +1,5 @@
 import useFirestore from "../hooks/useFirestore";
-import { motion } from "motion/react";
+import { MotionDiv } from "../components/Motion";
 import { home } from "../resources/content";
 import Gallery from "../components/Gallery";
 
@@ -30,14 +30,14 @@ function Home() {
       </section>
       {home.cta.display && (
         <div className="mx-auto max-w-5xl px-4 py-8">
-          <motion.div className="flex justify-center" whileTap={{ y: 4 }}>
+          <MotionDiv className="flex justify-center" whileTap={{ y: 4 }}>
             <a
               href={home.cta.link}
               className="inline-block rounded-full bg-teal-500 px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               {home.cta.text}
             </a>
-          </motion.div>
+          </MotionDiv>
         </div>
       )}
     </>

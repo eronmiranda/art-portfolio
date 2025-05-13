@@ -1,5 +1,6 @@
 import { useState, lazy, Suspense } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import { MotionDiv } from "../components/Motion";
 import useFirestore from "../hooks/useFirestore";
 import Tags from "../components/Tags";
 import SkeletonGallery from "../components/SkeletonGallery";
@@ -38,7 +39,7 @@ function Work() {
         display={!artworks.length == 0}
       />
       <AnimatePresence mode="wait">
-        <motion.div
+        <MotionDiv
           key={selectedTag}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -48,7 +49,7 @@ function Work() {
           <Suspense fallback={<SkeletonGallery />}>
             <Gallery images={filteredArtworks}></Gallery>
           </Suspense>
-        </motion.div>
+        </MotionDiv>
       </AnimatePresence>
     </>
   );

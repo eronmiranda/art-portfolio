@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { MotionSpan } from "./Motion";
 
 function TagButton({ tag, selected, onClick }) {
   return (
@@ -8,7 +8,7 @@ function TagButton({ tag, selected, onClick }) {
       onClick={onClick}
     >
       {selected && (
-        <motion.span
+        <MotionSpan
           layoutId="tag-active-bg"
           className="absolute inset-0 z-0 rounded-full bg-teal-700"
           transition={{ type: "spring", stiffness: 200, damping: 25 }}

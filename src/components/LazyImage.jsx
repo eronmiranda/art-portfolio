@@ -1,8 +1,8 @@
-import { motion } from "motion/react";
+import { MotionImg } from "./Motion";
 
 function LazyImage({ ...props }) {
   return (
-    <motion.img
+    <MotionImg
       {...props}
       loading="lazy"
       decoding="async"

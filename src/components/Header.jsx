@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "../resources/config";
-import { motion } from "motion/react";
+import { MotionDiv, MotionSpan } from "./Motion";
 import useTheme from "../hooks/useTheme";
 import LazyImage from "./LazyImage";
 
@@ -15,19 +15,19 @@ function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex flex-1">
-              <motion.div
+              <MotionDiv
                 className="bg-white-90 flex size-10 items-center justify-center rounded-full p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:ring-white/10"
                 whileHover={{ scale: 1.3 }}
               >
                 <Link to="/" className="pointer-events-auto" aria-label="Home">
                   <LazyImage
-                    src="/assets/dogs/logo.png"
+                    src="/assets/dogs/morty.png"
                     alt="logo"
                     fetchPriority="high"
                     className="h-full w-full rounded-full bg-zinc-100 object-cover"
                   />
                 </Link>
-              </motion.div>
+              </MotionDiv>
             </div>
             {/* Navigation */}
             <div className="flex flex-1 justify-end md:justify-center">
@@ -54,7 +54,7 @@ function Header() {
                           >
                             {label}
                             {location.pathname === to && (
-                              <motion.span
+                              <MotionSpan
                                 className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0"
                                 layoutId="tab-active-underline"
                                 transition={{
@@ -73,7 +73,7 @@ function Header() {
             </div>
             {/* light/dark mode toggle */}
             <div className="flex flex-1 justify-end">
-              <motion.div className="pointer-events-auto" whileTap={{ y: 4 }}>
+              <MotionDiv className="pointer-events-auto" whileTap={{ y: 4 }}>
                 <button
                   onClick={toggleTheme}
                   className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
@@ -113,7 +113,7 @@ function Header() {
                     </svg>
                   )}
                 </button>
-              </motion.div>
+              </MotionDiv>
             </div>
           </div>
         </div>

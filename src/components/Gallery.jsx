@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import { MotionDiv } from "./Motion";
 import Modal from "./Modal";
 import SkeletonGallery from "./SkeletonGallery";
 import ImageOverlay from "./ImageOverlay";
@@ -33,7 +34,7 @@ function Gallery({ images = [] }) {
       <>
         <div className="mt-6 grid grid-cols-2 gap-4 bg-clip-padding sm:grid-cols-3 md:mt-9 md:grid-cols-4 lg:grid-cols-5">
           {images.map((image, index) => (
-            <motion.div
+            <MotionDiv
               key={index}
               layoutId={`div-${index}`}
               onClick={() => handleImageClick(image.src, index)}
@@ -51,7 +52,7 @@ function Gallery({ images = [] }) {
                   onLoad={() => handleImageLoad(index)}
                 />
               </ImageOverlay>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
         <AnimatePresence>
