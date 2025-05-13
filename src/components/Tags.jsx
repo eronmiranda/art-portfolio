@@ -23,7 +23,7 @@ function TagButton({ tag, selected, onClick }) {
   );
 }
 
-function Tags({ allTags, selectedTag, onSelectTag, display}) {
+function Tags({ allTags, selectedTag, onSelectTag, display }) {
   if (!display) {
     return null;
   }

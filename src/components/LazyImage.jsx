@@ -1,34 +1,34 @@
-import {motion, AnimatePresence} from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 const imageVariants = {
-    initial: {
+  initial: {
+    opacity: 0,
+    scale: 1.1,
+    filter: "blur(12px)",
+  },
+  loaded: (index) => {
+    return {
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.4,
+        delay: index * 0.1,
+      },
+    };
+  },
+  loading: (index) => {
+    return {
       opacity: 0,
       scale: 1.1,
       filter: "blur(12px)",
-    },
-    loaded: (index) => {
-      return {
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px)",
-        transition: {
-          duration: 0.4,
-          delay: index * 0.1,
-        },
-      };
-    },
-    loading: (index) => {
-      return {
-        opacity: 0,
-        scale: 1.1,
-        filter: "blur(12px)",
-        transition: {
-          duration: 0.4,
-          delay: index * 0.1,
-        },
-      };
-    },
-  };
+      transition: {
+        duration: 0.4,
+        delay: index * 0.1,
+      },
+    };
+  },
+};
 
 function LazyImage({ index, loaded, ...props }) {
   return (
@@ -45,7 +45,7 @@ function LazyImage({ index, loaded, ...props }) {
         onContextMenu={(event) => event.preventDefault()}
       />
     </AnimatePresence>
-  )
+  );
 }
 
-export default LazyImage
+export default LazyImage;

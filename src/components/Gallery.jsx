@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react';
-import Modal from './Modal';
-import SkeletonGallery from './SkeletonGallery';
-import ImageOverlay from './ImageOverlay';
-import LazyImage from './LazyImage';
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import Modal from "./Modal";
+import SkeletonGallery from "./SkeletonGallery";
+import ImageOverlay from "./ImageOverlay";
+import LazyImage from "./LazyImage";
 
 function Gallery({ images = [] }) {
   const [loaded, setLoaded] = useState(Array(images.length).fill(false));
@@ -26,12 +26,11 @@ function Gallery({ images = [] }) {
       <div className="mt-6 md:mt-9">
         <SkeletonGallery />
       </div>
-    )
-  }
-  else {
+    );
+  } else {
     return (
       <>
-        <div className="mt-6 bg-clip-padding md:mt-9 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:gris-cols-5 gap-4">
+        <div className="lg:gris-cols-5 mt-6 grid grid-cols-2 gap-4 bg-clip-padding sm:grid-cols-3 md:mt-9 md:grid-cols-4">
           {images.map((image, index) => (
             <motion.div
               key={index}
@@ -69,8 +68,8 @@ function Gallery({ images = [] }) {
           )}
         </AnimatePresence>
       </>
-    )
+    );
   }
 }
 
-export default Gallery
+export default Gallery;
