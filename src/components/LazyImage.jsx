@@ -32,9 +32,10 @@ const imageVariants = {
 
 function LazyImage({ index, loaded, ...props }) {
   return (
-    <AnimatePresence initial={false} custom={index}>
+    <AnimatePresence custom={index}>
       <motion.img
         {...props}
+        custom={index}
         variants={imageVariants}
         initial="initial"
         animate={loaded ? "loaded" : "loading"}
