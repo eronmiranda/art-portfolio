@@ -41,7 +41,6 @@ function LazyImage({ index, loaded, ...props }) {
         animate={loaded ? "loaded" : "loading"}
         loading="lazy"
         decoding="async"
-        sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
         draggable={false}
         onContextMenu={(event) => event.preventDefault()}
       />
