@@ -9,7 +9,6 @@ import {
 import { MotionDiv, MotionPresence } from "./components/Motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SkeletonContent from "./components/SkeletonContent";
 import CircleLoader from "./components/CircleLoader";
 
 const Home = lazy(() => import("./pages/Home"));
