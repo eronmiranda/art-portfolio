@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "../resources/config";
-import { MotionDiv, MotionSpan } from "./Motion";
 import useTheme from "../hooks/useTheme";
+import { MotionDiv, MotionSpan } from "./Motion";
+import { cx } from "../lib/utils";
 import LazyImage from "./LazyImage";
 
 function Header() {
@@ -42,11 +43,12 @@ function Header() {
                         <li key={to} className="relative">
                           <Link
                             to={to}
-                            className={`relative z-10 block px-3.5 py-2 transition ${
+                            className={cx(
+                              "relative z-10 block px-3.5 py-2 transition",
                               location.pathname === to
                                 ? "font-semibold text-teal-500"
-                                : "text-zinc-800 dark:text-zinc-100"
-                            } hover:text-teal-500`}
+                                : "text-zinc-800 dark:text-zinc-100",
+                            )}
                             aria-label={label}
                             aria-current={
                               location.pathname === to ? "page" : undefined
