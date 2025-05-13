@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import SkeletonGallery from "./SkeletonGallery";
 import ImageOverlay from "./ImageOverlay";
 import LazyImage from "./LazyImage";
+import GalleryImage from "./GalleryImage";
 
 function Gallery({ images = [] }) {
   const [loaded, setLoaded] = useState(Array(images.length).fill(false));
@@ -40,7 +41,7 @@ function Gallery({ images = [] }) {
               className="group relative aspect-square overflow-hidden rounded-md"
             >
               <ImageOverlay text={image.title}>
-                <LazyImage
+                <GalleryImage
                   index={index}
                   loaded={loaded[index]}
                   src={image.src}
@@ -56,13 +57,11 @@ function Gallery({ images = [] }) {
         <AnimatePresence>
           {selectedImg && (
             <Modal onBackdropClick={() => setSelectedImg(null)}>
-              <motion.img
+              <LazyImage
                 src={selectedImg}
                 alt=""
                 layoutId={`img-${selectedIndex}`}
-                className="max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
-                draggable={false}
-                onContextMenu={(event) => event.preventDefault()}
+                className="fixed inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
               />
             </Modal>
           )}

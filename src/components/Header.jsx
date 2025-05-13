@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { routes } from "../resources/config";
 import { motion } from "motion/react";
 import useTheme from "../hooks/useTheme";
+import LazyImage from "./LazyImage";
 
 function Header() {
   const location = useLocation();
@@ -19,12 +20,11 @@ function Header() {
                 whileHover={{ scale: 1.3 }}
               >
                 <Link to="/" className="pointer-events-auto" aria-label="Home">
-                  <img
-                    className="h-full w-full rounded-full bg-zinc-100 object-cover"
+                  <LazyImage
+                    src="/assets/dogs/logo.png"
                     alt="logo"
                     fetchPriority="high"
-                    src="/assets/dogs/morty.png"
-                    loading="lazy"
+                    className="h-full w-full rounded-full bg-zinc-100 object-cover"
                   />
                 </Link>
               </motion.div>

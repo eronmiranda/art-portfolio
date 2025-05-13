@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { about } from "../resources/content";
-import { motion } from "motion/react";
+import LazyImage from "../components/LazyImage";
 
 function Avatar({ src }) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -10,7 +10,7 @@ function Avatar({ src }) {
         {!imageLoaded && (
           <div className="aspect-square rotate-3 animate-pulse rounded-2xl bg-gray-300 shadow-xl" />
         )}
-        <motion.img
+        <LazyImage
           src={src}
           alt=""
           initial={{ opacity: 0, scale: 1.1, filter: "blur(12px)" }}
@@ -20,8 +20,6 @@ function Avatar({ src }) {
               : { opacity: 0, scale: 1.1, filter: "blur(12px)" }
           }
           className="aspect-square h-auto w-full rotate-3 rounded-2xl object-cover shadow-xl"
-          loading="lazy"
-          decoding="async"
           onLoad={() => setImageLoaded(true)}
           fetchPriority="high"
         />
