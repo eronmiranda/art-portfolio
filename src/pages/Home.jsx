@@ -1,7 +1,7 @@
 import useFirestore from "../hooks/useFirestore";
-import { MotionDiv } from "../components/Motion";
 import { home } from "../resources/content";
 import Gallery from "../components/Gallery";
+import CTAButton from "../components/CTAButton";
 
 function Home() {
   const { docs } = useFirestore("images");
@@ -36,14 +36,14 @@ function Home() {
       </section>
       {home.cta.display && (
         <div className="mx-auto max-w-5xl px-4 py-8">
-          <MotionDiv className="flex justify-center" whileTap={{ y: 4 }}>
-            <a
-              href={home.cta.link}
-              className="inline-block rounded-full bg-teal-500 px-8 py-3 font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              {home.cta.text}
-            </a>
-          </MotionDiv>
+          <p className="mb-4 text-center text-lg text-zinc-700 dark:text-zinc-300">
+            {home.cta.description ?? "Ready to see more?"}
+          </p>
+          <div className="flex justify-center">
+            <CTAButton href={home.cta.link}>
+              {home.cta.label ?? "Explore my Portfolio"}
+            </CTAButton>
+          </div>
         </div>
       )}
     </>

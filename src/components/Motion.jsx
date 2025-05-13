@@ -15,5 +15,8 @@ function MotionSpan({ children, ...props }) {
 function MotionPresence({ children, ...props }) {
   return <AnimatePresence {...props}>{children}</AnimatePresence>;
 }
+function MotionLink({ children, ...props }) {
+  return <motion.a {...props}>{children}</motion.a>;
+}
 
-export { MotionDiv, MotionImg, MotionSpan, MotionPresence };
+export { MotionDiv, MotionImg, MotionSpan, MotionPresence, MotionLink };

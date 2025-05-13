@@ -44,14 +44,10 @@ const home = {
     "Discover vibrant digital art and stickers that capture stories, emotions, and imagination.",
   cta: {
     display: true,
-    text: "See my work",
+    description: "Ready to see more?",
+    label: "Explore Portfolio",
     link: "/work",
   },
-  // cta: {
-  //   display: false,
-  //   text: "Contact me",
-  //   link: "/contact",
-  // },
 };
 
 const contact = {
