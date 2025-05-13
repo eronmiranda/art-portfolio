@@ -1,5 +1,5 @@
 import { cx } from "../lib/utils";
-function ImageOverlay({ className, text, children }) {
+function ImageOverlay({ className, label, children }) {
   return (
     <div>
       {children}
@@ -9,7 +9,7 @@ function ImageOverlay({ className, text, children }) {
           className,
         )}
       >
-        <h4 className="text-xs font-light text-zinc-900 md:text-lg">{text}</h4>
+        <h4 className="text-xs font-light text-zinc-900 md:text-lg">{label}</h4>
       </div>
     </div>
   );

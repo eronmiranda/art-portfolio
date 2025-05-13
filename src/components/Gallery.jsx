@@ -39,7 +39,7 @@ function Gallery({ images = [], className }) {
         >
           {images.map((image, index) => (
             <GalleryCard key={index} onClick={handleImageClick(image.src)}>
-              <ImageOverlay text={image.title}>
+              <ImageOverlay label={image.title}>
                 <GalleryImage
                   index={index}
                   loaded={loaded[index]}
