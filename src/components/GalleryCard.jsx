@@ -8,8 +8,10 @@ function GalleryCard({ children, className, ...props }) {
       className={cx(
         "group relative aspect-square overflow-hidden rounded-md",
         // shadow for depth
-        "shadow-md hover:shadow-xl transition-shadow",
-        className
+        "shadow-md transition-shadow hover:shadow-xl",
+        // hover for interactivity
+        "transition-transform duration-200 hover:scale-105 hover:brightness-90",
+        className,
       )}
     >
       {children}
