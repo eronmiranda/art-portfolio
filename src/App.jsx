@@ -6,8 +6,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import { AnimatePresence } from "motion/react";
-import { MotionDiv } from "./components/Motion";
+import { MotionDiv, MotionPresence } from "./components/Motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SkeletonContent from "./components/SkeletonContent";
@@ -66,7 +65,7 @@ function AnimatedApp() {
       <div className="absolute inset-0 -z-10 h-full w-full bg-zinc-100 [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#efd7e5_100%)] dark:hidden dark:bg-zinc-900" />
       <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12 dark:text-zinc-100">
-        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+        <MotionPresence mode="popLayout" initial={false} custom={direction}>
           <MotionDiv
             key={location.pathname}
             variants={motionVariants}
@@ -87,7 +86,7 @@ function AnimatedApp() {
               </Routes>
             </Suspense>
           </MotionDiv>
-        </AnimatePresence>
+        </MotionPresence>
       </main>
       <Footer />
     </div>

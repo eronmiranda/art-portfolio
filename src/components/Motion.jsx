@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 function MotionDiv({ children, ...props }) {
   return (
@@ -20,4 +20,12 @@ function MotionSpan({ children, ...props }) {
   );
 }
 
-export { MotionDiv, MotionImg, MotionSpan };
+function MotionPresence({ children, ...props }) {
+  return (
+    <AnimatePresence {...props}>
+      {children}
+    </AnimatePresence>
+  );
+}
+
+export { MotionDiv, MotionImg, MotionSpan, MotionPresence };

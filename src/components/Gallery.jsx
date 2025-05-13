@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { AnimatePresence } from "motion/react";
-import { MotionDiv } from "./Motion";
+import { MotionDiv, MotionPresence } from "./Motion";
 import Modal from "./Modal";
 import SkeletonGallery from "./SkeletonGallery";
 import ImageOverlay from "./ImageOverlay";
@@ -55,7 +54,7 @@ function Gallery({ images = [] }) {
             </MotionDiv>
           ))}
         </div>
-        <AnimatePresence>
+        <MotionPresence>
           {selectedImg && (
             <Modal onBackdropClick={() => setSelectedImg(null)}>
               <LazyImage
@@ -66,7 +65,7 @@ function Gallery({ images = [] }) {
               />
             </Modal>
           )}
-        </AnimatePresence>
+        </MotionPresence>
       </>
     );
   }

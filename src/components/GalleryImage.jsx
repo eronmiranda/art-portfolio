@@ -1,4 +1,4 @@
-import { AnimatePresence } from "motion/react";
+import { MotionPresence } from "./Motion";
 import LazyImage from "./LazyImage";
 
 const imageVariants = {
@@ -33,7 +33,7 @@ const imageVariants = {
 
 function GalleryImage({ index, loaded, ...props }) {
   return (
-    <AnimatePresence custom={index}>
+    <MotionPresence custom={index}>
       <LazyImage
         {...props}
         custom={index}
@@ -41,7 +41,7 @@ function GalleryImage({ index, loaded, ...props }) {
         initial="initial"
         animate={loaded ? "loaded" : "loading"}
       />
-    </AnimatePresence>
+    </MotionPresence>
   );
 }
 
