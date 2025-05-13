@@ -10,18 +10,16 @@ import GalleryImage from "./GalleryImage";
 function Gallery({ images = [], className }) {
   const [loaded, setLoaded] = useState(Array(images.length).fill(false));
   const [selectedImg, setSelectedImg] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleImageLoad = (index) => {
+  const handleImageLoad = (index) => () => {
     setLoaded((previousStates) => {
       const updatedStates = [...previousStates];
       updatedStates[index] = true;
       return updatedStates;
     });
   };
-  const handleImageClick = (src, index) => {
+  const handleImageClick = (src) => () => {
     setSelectedImg(src);
-    setSelectedIndex(index);
   };
   if (images.length === 0) {
     return (
@@ -41,8 +39,7 @@ function Gallery({ images = [], className }) {
           {images.map((image, index) => (
             <MotionDiv
               key={index}
-              layoutId={`div-${index}`}
-              onClick={() => handleImageClick(image.src, index)}
+              onClick={handleImageClick(image.src)}
               whileTap={{ y: 4 }}
               className="group relative aspect-square overflow-hidden rounded-md"
             >
@@ -52,8 +49,8 @@ function Gallery({ images = [], className }) {
                   loaded={loaded[index]}
                   src={image.src}
                   alt={image.alt}
-                  layoutId={`img-${index}`}
-                  onLoad={() => handleImageLoad(index)}
+                  layoutId={image.src}
+                  onLoad={handleImageLoad(index)}
                 />
               </ImageOverlay>
             </MotionDiv>
@@ -65,7 +62,7 @@ function Gallery({ images = [], className }) {
               <LazyImage
                 src={selectedImg}
                 alt=""
-                layoutId={`img-${selectedIndex}`}
+                layoutId={selectedImg}
                 className="fixed inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
               />
             </Modal>

@@ -37,7 +37,7 @@ function Work() {
         onSelectTag={setSelectedTag}
         display={!artworks.length == 0}
       />
-      <MotionPresence mode="wait">
+      <MotionPresence mode="popLayout">
         <MotionDiv
           key={selectedTag}
           initial={{ opacity: 0 }}
