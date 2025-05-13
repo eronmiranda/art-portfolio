@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { MotionDiv, MotionPresence } from "./Motion";
+import { cx } from "../lib/utils";
 import Modal from "./Modal";
 import SkeletonGallery from "./SkeletonGallery";
 import ImageOverlay from "./ImageOverlay";
 import LazyImage from "./LazyImage";
 import GalleryImage from "./GalleryImage";
 
-function Gallery({ images = [] }) {
+function Gallery({
+  images = [],
+  className
+}) {
   const [loaded, setLoaded] = useState(Array(images.length).fill(false));
   const [selectedImg, setSelectedImg] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -31,7 +35,12 @@ function Gallery({ images = [] }) {
   } else {
     return (
       <>
-        <div className="mt-6 grid grid-cols-2 gap-4 bg-clip-padding sm:grid-cols-3 md:mt-9 md:grid-cols-4 lg:grid-cols-5">
+        <div
+          className={cx(
+            "mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 bg-clip-padding md:mt-9",
+            className
+          )}
+        >
           {images.map((image, index) => (
             <MotionDiv
               key={index}

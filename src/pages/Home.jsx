@@ -26,7 +26,10 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
-        <Gallery images={artworks} />
+        <Gallery
+          images={artworks}
+          className="grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
+        />
       </section>
       {home.cta.display && (
         <div className="mx-auto max-w-5xl px-4 py-8">
