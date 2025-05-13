@@ -9,6 +9,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SkeletonContent from "./components/SkeletonContent";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -73,7 +74,7 @@ function AnimatedApp() {
             animate="animate"
             exit="exit"
           >
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<SkeletonContent />}>
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/work" element={<Work />} />
