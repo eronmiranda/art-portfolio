@@ -1,7 +1,7 @@
-import { home } from "../resources/content";
-import MasonryGrid from "../components/MasonryGrid";
 import useFirestore from "../hooks/useFirestore";
 import { motion } from "motion/react";
+import { home } from "../resources/content";
+import Gallery from "../components/Gallery";
 
 function Home() {
   const { docs } = useFirestore("images");
@@ -26,10 +26,7 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
-        <MasonryGrid
-          artworks={artworks}
-          breakpointColumnsObj={{ default: 3, 560: 2 }}
-        />
+        <Gallery images={artworks}/>
       </section>
       {home.cta.display && (
         <div className="mx-auto max-w-5xl px-4 py-8">
