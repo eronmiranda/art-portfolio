@@ -37,7 +37,7 @@ function Gallery({
       <>
         <div
           className={cx(
-            "mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 bg-clip-padding md:mt-9",
+            "mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 bg-clip-padding md:mt-9",
             className
           )}
         >
