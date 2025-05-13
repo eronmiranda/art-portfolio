@@ -23,7 +23,10 @@ function TagButton({ tag, selected, onClick }) {
   );
 }
 
-function Tags({ allTags, selectedTag, onSelectTag }) {
+function Tags({ allTags, selectedTag, onSelectTag, display}) {
+  if (!display) {
+    return null;
+  }
   return (
     <div className="my-4 flex flex-wrap gap-2">
       <TagButton

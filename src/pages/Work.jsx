@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import useFirestore from "../hooks/useFirestore";
-import MasonryGrid from "../components/MasonryGrid";
 import Tags from "../components/Tags";
+import SkeletonGallery from "../components/SkeletonGallery";
+
+const Gallery = lazy(() => import("../components/Gallery"));
 
 function Work() {
   const [selectedTag, setSelectedTag] = useState("All");
@@ -33,6 +35,7 @@ function Work() {
         allTags={allTags}
         selectedTag={selectedTag}
         onSelectTag={setSelectedTag}
+        display={!artworks.length == 0}
       />
       <AnimatePresence mode="wait">
         <motion.div
@@ -42,7 +45,9 @@ function Work() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <MasonryGrid artworks={filteredArtworks} className="mt-6 md:mt-9" />
+          <Suspense fallback={<SkeletonGallery />}>
+            <Gallery images={filteredArtworks}></Gallery>
+          </Suspense>
         </motion.div>
       </AnimatePresence>
     </>
