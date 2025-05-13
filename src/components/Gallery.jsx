@@ -6,6 +6,7 @@ import SkeletonGallery from "./SkeletonGallery";
 import ImageOverlay from "./ImageOverlay";
 import LazyImage from "./LazyImage";
 import GalleryImage from "./GalleryImage";
+import GalleryCard from "./GalleryCard";
 
 function Gallery({ images = [], className }) {
   const [loaded, setLoaded] = useState(Array(images.length).fill(false));
@@ -37,12 +38,7 @@ function Gallery({ images = [], className }) {
           )}
         >
           {images.map((image, index) => (
-            <MotionDiv
-              key={index}
-              onClick={handleImageClick(image.src)}
-              whileTap={{ y: 4 }}
-              className="group relative aspect-square overflow-hidden rounded-md"
-            >
+            <GalleryCard key={index} onClick={handleImageClick(image.src)}>
               <ImageOverlay text={image.title}>
                 <GalleryImage
                   index={index}
@@ -53,7 +49,7 @@ function Gallery({ images = [], className }) {
                   onLoad={handleImageLoad(index)}
                 />
               </ImageOverlay>
-            </MotionDiv>
+            </GalleryCard>
           ))}
         </div>
         <MotionPresence>
