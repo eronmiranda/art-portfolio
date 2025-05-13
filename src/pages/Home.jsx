@@ -26,6 +26,9 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
+        <h2 className="mb-6 text-2xl font-semibold text-zinc-800 dark:text-zinc-100">
+          Featured Artworks
+        </h2>
         <Gallery
           images={artworks}
           className="grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
