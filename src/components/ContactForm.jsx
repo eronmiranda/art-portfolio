@@ -1,4 +1,6 @@
 import { MotionDiv } from "./Motion";
+import { cx, inputBaseStyles, focusInput } from "../lib/utils";
+
 function handleForm(event) {
   event.preventDefault();
   const formData = new FormData(event.target);
@@ -29,7 +31,7 @@ function ContactForm({ submitLabel }) {
               type="text"
               autoComplete="given-name"
               required
-              className="w-full appearance-none rounded-[calc(var(--radius-md)-1px)] bg-white px-3 py-[calc(--spacing(2)-1px)] text-zinc-900 shadow-md shadow-zinc-800/5 outline outline-zinc-900/10 placeholder:text-zinc-400 focus:ring-4 focus:ring-teal-500/10 focus:outline-teal-500 sm:text-sm dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:outline-zinc-700 dark:placeholder:text-zinc-500 dark:focus:ring-teal-400/10 dark:focus:outline-teal-400"
+              className={cx(inputBaseStyles, focusInput)}
             />
           </div>
         </div>
@@ -47,7 +49,7 @@ function ContactForm({ submitLabel }) {
               type="text"
               autoComplete="family-name"
               required
-              className="w-full appearance-none rounded-[calc(var(--radius-md)-1px)] bg-white px-3 py-[calc(--spacing(2)-1px)] text-zinc-900 shadow-md shadow-zinc-800/5 outline outline-zinc-900/10 placeholder:text-zinc-400 focus:ring-4 focus:ring-teal-500/10 focus:outline-teal-500 sm:text-sm dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:outline-zinc-700 dark:placeholder:text-zinc-500 dark:focus:ring-teal-400/10 dark:focus:outline-teal-400"
+              className={cx(inputBaseStyles, focusInput)}
             />
           </div>
         </div>
@@ -65,7 +67,7 @@ function ContactForm({ submitLabel }) {
               type="email"
               autoComplete="email"
               required
-              className="w-full appearance-none rounded-[calc(var(--radius-md)-1px)] bg-white px-3 py-[calc(--spacing(2)-1px)] text-zinc-900 shadow-md shadow-zinc-800/5 outline outline-zinc-900/10 placeholder:text-zinc-400 focus:ring-4 focus:ring-teal-500/10 focus:outline-teal-500 sm:text-sm dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:outline-zinc-700 dark:placeholder:text-zinc-500 dark:focus:ring-teal-400/10 dark:focus:outline-teal-400"
+              className={cx(inputBaseStyles, focusInput)}
             />
           </div>
         </div>
@@ -81,8 +83,8 @@ function ContactForm({ submitLabel }) {
               id="message"
               name="message"
               rows={4}
-              className="w-full appearance-none rounded-[calc(var(--radius-md)-1px)] bg-white px-3 py-[calc(--spacing(2)-1px)] text-zinc-900 shadow-md shadow-zinc-800/5 outline outline-zinc-900/10 placeholder:text-zinc-400 focus:ring-4 focus:ring-teal-500/10 focus:outline-teal-500 sm:text-sm dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:outline-zinc-700 dark:placeholder:text-zinc-500 dark:focus:ring-teal-400/10 dark:focus:outline-teal-400"
-              defaultValue={""}
+              className={cx(inputBaseStyles, focusInput)}
+              placeholder="Write your message here..."
             />
           </div>
         </div>

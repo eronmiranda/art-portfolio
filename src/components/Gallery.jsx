@@ -7,10 +7,7 @@ import ImageOverlay from "./ImageOverlay";
 import LazyImage from "./LazyImage";
 import GalleryImage from "./GalleryImage";
 
-function Gallery({
-  images = [],
-  className
-}) {
+function Gallery({ images = [], className }) {
   const [loaded, setLoaded] = useState(Array(images.length).fill(false));
   const [selectedImg, setSelectedImg] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -37,8 +34,8 @@ function Gallery({
       <>
         <div
           className={cx(
-            "mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 bg-clip-padding md:mt-9",
-            className
+            "mt-6 grid grid-cols-2 gap-4 bg-clip-padding sm:grid-cols-3 md:mt-9 lg:grid-cols-4",
+            className,
           )}
         >
           {images.map((image, index) => (

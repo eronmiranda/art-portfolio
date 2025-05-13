@@ -32,7 +32,7 @@ const imageVariants = {
   },
 };
 
-function GalleryImage({ index, loaded, className, ...props}) {
+function GalleryImage({ index, loaded, className, ...props }) {
   return (
     <MotionPresence custom={index}>
       <LazyImage
@@ -41,10 +41,7 @@ function GalleryImage({ index, loaded, className, ...props}) {
         variants={imageVariants}
         initial="initial"
         animate={loaded ? "loaded" : "loading"}
-        className={cx(
-          "h-full w-full object-cover hover:opacity-90",
-          className
-        )}
+        className={cx("h-full w-full object-cover hover:opacity-90", className)}
       />
     </MotionPresence>
   );
