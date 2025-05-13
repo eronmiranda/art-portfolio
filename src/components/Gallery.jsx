@@ -56,7 +56,6 @@ function Gallery({
                   src={image.src}
                   alt={image.alt}
                   layoutId={`img-${index}`}
-                  className="h-full w-full object-cover hover:opacity-90"
                   onLoad={() => handleImageLoad(index)}
                 />
               </ImageOverlay>
