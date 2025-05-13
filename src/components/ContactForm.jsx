@@ -14,7 +14,7 @@ function ContactForm({ submitLabel }) {
       onSubmit={handleForm}
       action="#"
       method="POST"
-      className="mx-auto max-w-xl sm:mt-16"
+      className="mx-auto max-w-xl"
     >
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
@@ -30,6 +30,7 @@ function ContactForm({ submitLabel }) {
               name="firstName"
               type="text"
               autoComplete="given-name"
+              placeholder="Jane"
               required
               className={cx(inputBaseStyles, focusInput)}
             />
@@ -48,6 +49,7 @@ function ContactForm({ submitLabel }) {
               name="lastName"
               type="text"
               autoComplete="family-name"
+              placeholder="Doe"
               required
               className={cx(inputBaseStyles, focusInput)}
             />
@@ -66,6 +68,7 @@ function ContactForm({ submitLabel }) {
               name="email"
               type="email"
               autoComplete="email"
+              placeholder="jane.doe@mail.com"
               required
               className={cx(inputBaseStyles, focusInput)}
             />

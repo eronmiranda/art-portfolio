@@ -19,7 +19,7 @@ export const inputBaseStyles = [
   "w-full",
   "px-3",
   "py-[calc(--spacing(2)-1px)]",
-  "sm:text-sm",
+  "text-md md:text-lg",
 
   // Appearance
   "appearance-none",
