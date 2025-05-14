@@ -18,10 +18,10 @@ const about = {
   altText: "A digital artwork of a character with a colorful background",
   intro: {
     display: true,
-    headline: `Hey, I'm ${person.firstName}. I create digital art and stickers that tell stories.`,
+    headline: `Hey, I'm ${person.firstName}. I create digital art and stickers.`,
     subline: [
       "My journey began in 2020 with a simple drawing app on my phone. What started as casual experimentation quickly became a passion. I was captivated by the endless possibilities of digital art and spent countless hours honing my craft.",
-      "Today, I explore both digital and traditional mediums, always pushing creative boundaries. My work is a blend of styles and techniques, each piece a story waiting to be told.",
+      "Today, I explore different digital design techniques and always pushing creative boundaries. My work is a blend of styles and techniques, each piece a story waiting to be told.",
     ],
   },
   cta: {
