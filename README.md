@@ -4,6 +4,8 @@ Welcome! This is a digital art portfolio I built for my friend—an artist who w
 
 View the [Live Site Here](https://www.marave.ca) 🔗
 
+**Disclaimer:** Since this project is still in development, all artwork and images featured in this project are drafts or old sample pieces only. They do not represent the actual digital stickers currently being sold by the artist.
+
 ## Project Motivation 🎯
 
 My friend is passionate about digital arts and needed a portfolio that was more than just a static gallery. The goal was to create an interactive, visually engaging site that would make their work stand out and be easy to update as their collection grows.
