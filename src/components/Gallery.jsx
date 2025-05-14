@@ -3,25 +3,16 @@ import { MotionDiv, MotionPresence } from "./Motion";
 import { cx } from "../lib/utils";
 import Modal from "./Modal";
 import SkeletonGallery from "./SkeletonGallery";
-import ImageOverlay from "./ImageOverlay";
 import LazyImage from "./LazyImage";
-import GalleryImage from "./GalleryImage";
-import GalleryCard from "./GalleryCard";
+import GalleryItem from "./GalleryItem";
 
 function Gallery({ images = [], className }) {
-  const [loaded, setLoaded] = useState(Array(images.length).fill(false));
   const [selectedImg, setSelectedImg] = useState(null);
 
-  const handleImageLoad = (index) => () => {
-    setLoaded((previousStates) => {
-      const updatedStates = [...previousStates];
-      updatedStates[index] = true;
-      return updatedStates;
-    });
-  };
   const handleImageClick = (src) => () => {
     setSelectedImg(src);
   };
+
   if (images.length === 0) {
     return (
       <div className="mt-6 md:mt-9">
@@ -38,29 +29,34 @@ function Gallery({ images = [], className }) {
           )}
         >
           {images.map((image, index) => (
-            <GalleryCard key={index} onClick={handleImageClick(image.src)}>
-              <ImageOverlay label={image.title}>
-                <GalleryImage
-                  index={index}
-                  loaded={loaded[index]}
-                  src={image.src}
-                  alt={image.alt}
-                  layoutId={image.src}
-                  onLoad={handleImageLoad(index)}
-                />
-              </ImageOverlay>
-            </GalleryCard>
+            <GalleryItem
+              key={image.src}
+              index={index}
+              src={image.src}
+              label={image.title}
+              onClick={handleImageClick(image.src)}
+              layoutId={image.src}
+            />
           ))}
         </div>
         <MotionPresence>
           {selectedImg && (
-            <Modal onBackdropClick={() => setSelectedImg(null)}>
-              <LazyImage
-                src={selectedImg}
-                alt=""
-                layoutId={selectedImg}
-                className="fixed inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw] rounded-lg shadow-xl"
-              />
+            <Modal
+              key={selectedImg}
+              onClose={() => setSelectedImg(null)}
+            >
+              <MotionDiv
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                className="fixed aspect-square inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw]"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <LazyImage
+                  src={selectedImg}
+                  alt=""
+                />
+              </MotionDiv>
             </Modal>
           )}
         </MotionPresence>

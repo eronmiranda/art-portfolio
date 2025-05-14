@@ -1,21 +1,41 @@
 import { cx } from "../lib/utils";
-import { MotionDiv } from "./Motion";
-function GalleryCard({ children, className, ...props }) {
+import { MotionDiv, MotionPresence } from "./Motion";
+const imageVariants = {
+  initial: {
+    opacity: 0,
+    // filter: "blur(8px)",
+  },
+  animate: (index) => {
+    return {
+      opacity: 1,
+      // filter: "blur(0px)",
+      transition: {
+        duration: 0.3,
+        delay: index * 0.08,
+      },
+    };
+  },
+};
+
+function GalleryCard({ children, className, onClick, index, ...props }) {
   return (
-    <MotionDiv
-      {...props}
-      whileTap={{ y: 4 }}
-      className={cx(
-        "group relative aspect-square overflow-hidden rounded-md",
-        // shadow for depth
-        "shadow-md transition-shadow hover:shadow-xl",
-        // hover for interactivity
-        "transition-transform duration-200 hover:scale-105 hover:brightness-90",
-        className,
-      )}
-    >
-      {children}
-    </MotionDiv>
+    <MotionPresence custom={index} mode="popLayout">
+      <MotionDiv
+        className={cx(
+          "group relative aspect-square overflow-hidden rounded-md",
+          className,
+        )}
+        onClick={onClick}
+        custom={index}
+        variants={imageVariants}
+        initial="initial"
+        animate="animate"
+        {...props}
+      >
+        {children}
+      </MotionDiv>
+    </MotionPresence>
+    
   );
 }
 

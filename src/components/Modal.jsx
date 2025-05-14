@@ -1,20 +1,22 @@
 import { useEffect } from "react";
-function Modal({ onBackdropClick, children }) {
+import { MotionDiv } from "./Motion";
+
+function Modal({ onClose, children }) {
   // Close on Escape key
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === "Escape") {
-        onBackdropClick();
+        onClose();
       }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [onBackdropClick]);
+  }, [onClose]);
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-      onClick={onBackdropClick}
+      onClick={onClose}
     >
       {children}
     </div>

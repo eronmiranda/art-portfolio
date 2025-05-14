@@ -9,7 +9,7 @@ function ImageOverlay({ className, label, children }) {
           className,
         )}
       >
-        <h4 className="text-xs font-light text-zinc-900 md:text-lg">{label}</h4>
+        <h4 className="text-xs font-normal text-zinc-900 md:text-lg">{label}</h4>
       </div>
     </div>
   );
