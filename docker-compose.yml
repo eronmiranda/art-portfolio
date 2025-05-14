@@ -1,0 +1,8 @@
+name: art-portfolio
+services:
+  art-portfolio:
+    image: art-portfolio
+    build: .
+    ports:
+      - "5030:80"
+    restart: unless-stopped
