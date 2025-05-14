@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import { MotionDiv } from "./Motion";
 import LazyImage from "./LazyImage";
+import NavMenu from "./NavMenu";
 import NavBar from "./NavBar";
 import ThemeToggle from "./ThemeToggle";
+
 
 function Header() {
   return (
     <header className="sticky top-0 z-50 bg-zinc-100 backdrop-blur dark:bg-zinc-900">
       <div className="mb-2 h-16 pt-6">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between">
+          <div className="relative flex gap-4">
             {/* Logo */}
             <div className="flex flex-1">
               <MotionDiv
@@ -28,10 +30,13 @@ function Header() {
             </div>
             {/* Navigation */}
             <div className="flex flex-1 justify-end md:justify-center">
+              {/* Mobile */}
+              <NavMenu />
+              {/* Desktop */}
               <NavBar />
             </div>
             {/* light/dark mode toggle */}
-            <div className="flex flex-1 justify-end">
+            <div className="flex md:flex-1 justify-end">
               <ThemeToggle />
             </div>
           </div>

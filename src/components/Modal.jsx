@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { MotionDiv } from "./Motion";
+import { cx } from "../lib/utils";
 
-function Modal({ onClose, children }) {
+function Modal({ onClose, className, children }) {
   // Close on Escape key
   useEffect(() => {
     const handleEsc = (event) => {
@@ -15,7 +15,10 @@ function Modal({ onClose, children }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+      className={cx(
+        "fixed inset-0 z-50 flex items-center justify-center bg-black/60",
+        className,
+      )}
       onClick={onClose}
     >
       {children}
