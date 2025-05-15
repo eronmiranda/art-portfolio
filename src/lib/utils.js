@@ -36,3 +36,15 @@ export const inputBaseStyles = [
   "outline",
   "outline-zinc-900/10 dark:outline-zinc-700",
 ];
+
+export function filterAndMapImages(rawImages) {
+  return rawImages
+    .filter((image) => image.url !== undefined)
+    .filter((image) => image.display === undefined || image.display === true)
+    .map((image) => ({
+      src: image.url,
+      alt: image.title,
+      title: image.title,
+      tags: image.tags,
+    }));
+}

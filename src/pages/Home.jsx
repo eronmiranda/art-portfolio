@@ -1,19 +1,16 @@
+import { useMemo } from "react";
 import useFirestore from "../hooks/useFirestore";
+import { filterAndMapImages } from "../lib/utils";
 import { home } from "../resources/content";
 import Gallery from "../components/Gallery";
 import CTAButton from "../components/CTAButton";
 
 function Home() {
   const rawImages = useFirestore("images");
-  const images = rawImages
-    .filter((image) => image.url !== undefined)
-    .filter((image) => image.display === undefined || image.display === true)
-    .map((image) => ({
-      src: image.url,
-      alt: image.title,
-      title: image.title,
-    }))
-    .slice(0, 6);
+  const images = useMemo(
+    () => filterAndMapImages(rawImages).slice(0, 6),
+    [rawImages],
+  );
   return (
     <>
       <section className="mx-auto max-w-5xl px-4 pt-20 pb-10">
