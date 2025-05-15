@@ -47,7 +47,7 @@ function Intro({ headline, subline }) {
               {cta.description ?? "Ready to see more?"}
             </p>
             <div className="flex justify-center">
-              <CTAButton href={cta.link}>
+              <CTAButton to={cta.link}>
                 {cta.label ?? "Explore my Portfolio"}
               </CTAButton>
             </div>

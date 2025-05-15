@@ -38,7 +38,7 @@ function Home() {
             {home.cta.description ?? "Ready to see more?"}
           </p>
           <div className="flex justify-center">
-            <CTAButton href={home.cta.link}>
+            <CTAButton to={home.cta.link}>
               {home.cta.label ?? "Explore my Portfolio"}
             </CTAButton>
           </div>
