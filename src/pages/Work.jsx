@@ -1,7 +1,6 @@
-import { useMemo, useState, lazy, Suspense } from "react";
+import { useMemo, lazy, Suspense } from "react";
 import { MotionDiv, MotionPresence } from "../components/Motion";
 import useFirestore from "../hooks/useFirestore";
-import Tags from "../components/Tags";
 import SkeletonGallery from "../components/SkeletonGallery";
 
 const Gallery = lazy(() => import("../components/Gallery"));
