@@ -20,7 +20,7 @@ function useFirestore(collectionName) {
     return () => unsubscribe();
   }, [collectionName]);
 
-  return { docs };
+  return docs;
 }
 
 export default useFirestore;

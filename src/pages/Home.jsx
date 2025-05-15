@@ -4,14 +4,14 @@ import Gallery from "../components/Gallery";
 import CTAButton from "../components/CTAButton";
 
 function Home() {
-  const { docs } = useFirestore("images");
-  const artworks = docs
-    .filter((doc) => doc.url !== undefined)
-    .filter((doc) => doc.display === undefined || doc.display === true)
-    .map((doc) => ({
-      src: doc.url,
-      alt: doc.title,
-      title: doc.title,
+  const rawImages = useFirestore("images");
+  const images = rawImages
+    .filter((image) => image.url !== undefined)
+    .filter((image) => image.display === undefined || image.display === true)
+    .map((image) => ({
+      src: image.url,
+      alt: image.title,
+      title: image.title,
     }))
     .slice(0, 6);
   return (
@@ -30,7 +30,8 @@ function Home() {
           Featured Artworks
         </h2>
         <Gallery
-          images={artworks}
+          images={images}
+          showTags={false}
           className="grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
         />
       </section>

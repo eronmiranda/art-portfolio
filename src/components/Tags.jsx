@@ -32,17 +32,13 @@ function TagButton({ tag, selected, onClick }) {
   );
 }
 
-function Tags({ allTags, selectedTag, onSelectTag }) {
-  if (!allTags || allTags.length === 0) {
+function Tags({ tags, selectedTag, onSelectTag }) {
+  if (!tags || tags.length === 0) {
     return null;
   }
+  const allTags = ["All", ...tags.sort()];
   return (
     <div className="my-4 flex flex-wrap gap-2">
-      <TagButton
-        tag="All"
-        selected={selectedTag === "All"}
-        onClick={() => onSelectTag("All")}
-      />
       {allTags.map((tag) => (
         <TagButton
           key={tag}

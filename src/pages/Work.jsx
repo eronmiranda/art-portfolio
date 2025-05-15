@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useMemo, useState, lazy, Suspense } from "react";
 import { MotionDiv, MotionPresence } from "../components/Motion";
 import useFirestore from "../hooks/useFirestore";
 import Tags from "../components/Tags";
@@ -7,47 +7,36 @@ import SkeletonGallery from "../components/SkeletonGallery";
 const Gallery = lazy(() => import("../components/Gallery"));
 
 function Work() {
-  const [selectedTag, setSelectedTag] = useState("All");
-  const { docs } = useFirestore("images");
+  const rawImages = useFirestore("images");
 
-  const artworks = docs
-    .filter((doc) => doc.url !== undefined)
-    .filter((doc) => doc.display === undefined || doc.display === true)
-    .map((doc) => ({
-      src: doc.url,
-      alt: doc.title,
-      title: doc.title,
-      tags: doc.tags,
-    }));
-
-  const allTags = Array.from(
-    new Set(artworks.flatMap((artwork) => artwork.tags ?? [])),
-  ).sort();
-
-  const filteredArtworks =
-    selectedTag !== "All"
-      ? artworks.filter((artwork) => artwork.tags?.includes(selectedTag))
-      : artworks;
+  const images = useMemo(
+    () =>
+      rawImages
+        .filter((image) => image.url !== undefined)
+        .filter(
+          (image) => image.display === undefined || image.display === true,
+        )
+        .map((image) => ({
+          src: image.url,
+          alt: image.title,
+          title: image.title,
+          tags: image.tags,
+        })),
+    [rawImages],
+  );
 
   return (
     <>
-      {artworks.length == 0 && (
-        <Tags
-          allTags={allTags}
-          selectedTag={selectedTag}
-          onSelectTag={setSelectedTag}
-        />
-      )}
       <MotionPresence mode="popLayout">
         <MotionDiv
-          key={selectedTag}
+          key="gallery-container"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
           <Suspense fallback={<SkeletonGallery />}>
-            <Gallery images={filteredArtworks}></Gallery>
+            <Gallery images={images}></Gallery>
           </Suspense>
         </MotionDiv>
       </MotionPresence>
