@@ -35,7 +35,6 @@ function GalleryCard({ children, className, onClick, index, ...props }) {
         {children}
       </MotionDiv>
     </MotionPresence>
-    
   );
 }
 

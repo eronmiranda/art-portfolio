@@ -70,56 +70,56 @@ src/
 
 1. **Clone the repository**
 
-    ```sh
-    git clone https://github.com/eronmiranda/art-portfolio.git
-    cd art-portfolio
-    ```
+   ```sh
+   git clone https://github.com/eronmiranda/art-portfolio.git
+   cd art-portfolio
+   ```
 
 2. **Install dependencies**
 
-    ```sh
-    npm install
-    # or
-    bun install
-    ```
+   ```sh
+   npm install
+   # or
+   bun install
+   ```
 
 3. **Run locally**
 
-    ```sh
-    npm run dev
-    # or
-    bun run dev
-    ```
+   ```sh
+   npm run dev
+   # or
+   bun run dev
+   ```
 
 4. **Edit config**
 
-    ```sh
-    src/app/resources/config
-    ```
+   ```sh
+   src/app/resources/config
+   ```
 
 5. **Edit content**
 
-    ```sh
-    src/app/resources/content
-    ```
+   ```sh
+   src/app/resources/content
+   ```
 
 6. **Visit:** [http://localhost:5173](http://localhost:5173)
 
 7. **(OPTIONAL) Run prettier to format code**
 
-    ```sh
-    npm run format
-    # or
-    bun run dev
-    ```
+   ```sh
+   npm run format
+   # or
+   bun run dev
+   ```
 
 8. **(OPTIONAL) Build for production**
 
-    ```sh
-    npm run build
-    # or
-    bun run build
-    ```
+   ```sh
+   npm run build
+   # or
+   bun run build
+   ```
 
 ## Docker Setup 🐳
 

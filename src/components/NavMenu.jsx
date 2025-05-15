@@ -5,56 +5,74 @@ import { Link, useLocation } from "react-router-dom";
 
 function DownArrowIcon() {
   return (
-    <svg viewBox="0 0 8 6" aria-hidden="true" className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
-      <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <svg
+      viewBox="0 0 8 6"
+      aria-hidden="true"
+      className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400"
+    >
+      <path
+        d="M1.75 1.75 4 4.25l2.25-2.5"
+        fill="none"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
-  )
+  );
 }
 
 function CrossIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6 text-zinc-500 dark:text-zinc-400">
-      <path d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="h-6 w-6 text-zinc-500 dark:text-zinc-400"
+    >
+      <path
+        d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
-  )
+  );
 }
 
-function ModalMenu({onClose}){
+function ModalMenu({ onClose }) {
   const location = useLocation();
   const handleCloseButtonClick = (event) => {
     event.preventDefault();
     onClose();
-  }
-  return(
+  };
+
+  return (
     <Modal onClose={onClose} className="min-h-screen">
       <div
         className="fixed inset-x-4 top-8 rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 duration-150 dark:bg-zinc-900 dark:ring-zinc-800"
-        onClick={(event)=> event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
       >
         <div className="flex flex-row-reverse items-center justify-between">
-          <button 
-            aria-label="Close menu" 
-            className="-m-1 p-1" 
+          <button
+            aria-label="Close menu"
+            className="-m-1 p-1"
             onClick={handleCloseButtonClick}
           >
             <CrossIcon />
           </button>
-          <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Navigation</h2>
+          <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            Navigation
+          </h2>
         </div>
         <nav className="mt-6">
           <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            <li 
-              key="home" 
-              className="relative" 
-              onClick={onClose}
-            >
+            <li key="home" className="relative" onClick={onClose}>
               <Link
                 to="/"
                 className="block py-2"
                 aria-label="Home"
-                aria-current={
-                  location.pathname === "/" ? "page" : undefined
-                }
+                aria-current={location.pathname === "/" ? "page" : undefined}
               >
                 Home
               </Link>
@@ -62,11 +80,7 @@ function ModalMenu({onClose}){
             {routes.map(
               ({ isEnabled, to, label }) =>
                 isEnabled && (
-                  <li 
-                    key={to} 
-                    className="relative" 
-                    onClick={onClose}
-                  >
+                  <li key={to} className="relative" onClick={onClose}>
                     <Link
                       to={to}
                       className="block py-2"
@@ -83,8 +97,8 @@ function ModalMenu({onClose}){
           </ul>
         </nav>
       </div>
-    </Modal> 
-  )
+    </Modal>
+  );
 }
 
 function NavMenu() {
@@ -92,7 +106,7 @@ function NavMenu() {
   const handleMenuClick = (event) => {
     event.preventDefault();
     setIsOpen(true);
-  }
+  };
   return (
     <div className="pointer-events-auto md:hidden">
       <button
@@ -102,11 +116,9 @@ function NavMenu() {
         <span className="flex-1 text-left">Menu</span>
         <DownArrowIcon />
       </button>
-      {isOpen && (
-        <ModalMenu key="ModalMenu" onClose={()=> setIsOpen(false)}/> 
-      )}
+      {isOpen && <ModalMenu key="ModalMenu" onClose={() => setIsOpen(false)} />}
     </div>
-  )
+  );
 }
 
-export default NavMenu
+export default NavMenu;

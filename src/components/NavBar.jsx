@@ -24,9 +24,7 @@ function NavBar() {
                       : "text-zinc-800 dark:text-zinc-100",
                   )}
                   aria-label={label}
-                  aria-current={
-                    location.pathname === to ? "page" : undefined
-                  }
+                  aria-current={location.pathname === to ? "page" : undefined}
                 >
                   {label}
                   {location.pathname === to && (
@@ -46,7 +44,7 @@ function NavBar() {
         )}
       </ul>
     </nav>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

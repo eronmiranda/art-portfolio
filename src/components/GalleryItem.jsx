@@ -4,8 +4,8 @@ import ImageOverlay from "./ImageOverlay";
 
 function GalleryItem({ index, src, label, onClick, layoutId, ...props }) {
   return (
-    <GalleryCard 
-      index={index} 
+    <GalleryCard
+      index={index}
       onClick={onClick}
       layoutId={layoutId}
       className="shadow-md hover:shadow-2xl"
@@ -14,10 +14,7 @@ function GalleryItem({ index, src, label, onClick, layoutId, ...props }) {
       {...props}
     >
       <ImageOverlay label={label}>
-        <LazyImage
-          src={src}
-          alt={label}
-        />
+        <LazyImage src={src} alt={label} />
       </ImageOverlay>
     </GalleryCard>
   );

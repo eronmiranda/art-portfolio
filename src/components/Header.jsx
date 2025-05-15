@@ -5,7 +5,6 @@ import NavMenu from "./NavMenu";
 import NavBar from "./NavBar";
 import ThemeToggle from "./ThemeToggle";
 
-
 function Header() {
   return (
     <header className="sticky top-0 z-50 bg-zinc-100 backdrop-blur dark:bg-zinc-900">
@@ -36,7 +35,7 @@ function Header() {
               <NavBar />
             </div>
             {/* light/dark mode toggle */}
-            <div className="flex md:flex-1 justify-end">
+            <div className="flex justify-end md:flex-1">
               <ThemeToggle />
             </div>
           </div>

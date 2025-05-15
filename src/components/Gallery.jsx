@@ -41,21 +41,15 @@ function Gallery({ images = [], className }) {
         </div>
         <MotionPresence>
           {selectedImg && (
-            <Modal
-              key={selectedImg}
-              onClose={() => setSelectedImg(null)}
-            >
+            <Modal key={selectedImg} onClose={() => setSelectedImg(null)}>
               <MotionDiv
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0 }}
-                className="fixed aspect-square inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw]"
+                className="fixed inset-0 z-50 m-auto aspect-square max-h-[80vh] max-w-[80vw]"
                 onClick={(event) => event.stopPropagation()}
               >
-                <LazyImage
-                  src={selectedImg}
-                  alt=""
-                />
+                <LazyImage src={selectedImg} alt="" />
               </MotionDiv>
             </Modal>
           )}
