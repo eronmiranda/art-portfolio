@@ -2,7 +2,7 @@ import { useState, lazy } from "react";
 import { about } from "../resources/content";
 import LazyImage from "../components/LazyImage";
 
-const CTAButton = lazy(() => import("../components/CTAButton"));
+const CTASection = lazy(() => import("../components/CTASection"));
 
 function Avatar({ src }) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -42,16 +42,11 @@ function Intro({ headline, subline }) {
           <p key={index}>{line}</p>
         ))}
         {cta.display && (
-          <div className="mx-auto max-w-5xl px-4 py-8">
-            <p className="mb-4 text-center text-lg text-zinc-700 dark:text-zinc-300">
-              {cta.description ?? "Ready to see more?"}
-            </p>
-            <div className="flex justify-center">
-              <CTAButton to={cta.link}>
-                {cta.label ?? "Explore my Portfolio"}
-              </CTAButton>
-            </div>
-          </div>
+          <CTASection
+            description={cta.description}
+            label={cta.label}
+            link={cta.link}
+          />
         )}
       </div>
     </div>
