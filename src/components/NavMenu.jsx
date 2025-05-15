@@ -48,7 +48,7 @@ function ModalMenu({ onClose }) {
   };
 
   return (
-    <Modal onClose={onClose} className="min-h-screen">
+    <Modal onClose={onClose}>
       <div
         className="fixed inset-x-4 top-8 rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 duration-150 dark:bg-zinc-900 dark:ring-zinc-800"
         onClick={(event) => event.stopPropagation()}

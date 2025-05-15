@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { MotionDiv, MotionPresence } from "./Motion";
 import { cx } from "../lib/utils";
 import SkeletonGallery from "./SkeletonGallery";
 import GalleryItem from "./GalleryItem";
@@ -63,21 +62,16 @@ function Gallery({ images = [], className, showTags = true }) {
           />
         ))}
       </div>
-      <MotionPresence>
-        {selectedImg && (
-          <Modal key={selectedImg} onClose={() => setSelectedImg(null)}>
-            <MotionDiv
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              className="fixed inset-0 z-50 m-auto aspect-square max-h-[80vh] max-w-[80vw]"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <LazyImage src={selectedImg} alt="" />
-            </MotionDiv>
-          </Modal>
-        )}
-      </MotionPresence>
+      {selectedImg && (
+        <Modal key={selectedImg} onClose={() => setSelectedImg(null)}>
+          <div
+            className="fixed inset-0 z-50 m-auto aspect-square max-h-[80vh] max-w-[80vw]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <LazyImage src={selectedImg} alt="" />
+          </div>
+        </Modal>
+      )}
     </>
   );
 }
