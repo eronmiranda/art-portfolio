@@ -25,9 +25,10 @@ const about = {
     ],
   },
   cta: {
-    display: false,
-    text: "See my work",
-    link: "/gallery",
+    display: true,
+    description: "Wanna check out my work?",
+    label: "Visit Portfolio",
+    link: "/work",
   },
   // calendar: {
   //   display: false,

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { about } from "../resources/content";
 import LazyImage from "../components/LazyImage";
+
+const CTAButton = lazy(() => import("../components/CTAButton"));
 
 function Avatar({ src }) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -29,15 +31,28 @@ function Avatar({ src }) {
 }
 
 function Intro({ headline, subline }) {
+  const { cta } = about;
   return (
     <div className="flex flex-col">
       <h2 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl dark:text-zinc-100">
         {headline}
       </h2>
-      <div className="mt-6 space-y-7 text-base text-zinc-700 dark:text-zinc-400">
+      <div className="mt-6 space-y-7 text-lg text-zinc-700 dark:text-zinc-400">
         {subline.map((line, index) => (
           <p key={index}>{line}</p>
         ))}
+        {cta.display && (
+          <div className="mx-auto max-w-5xl px-4 py-8">
+            <p className="mb-4 text-center text-lg text-zinc-700 dark:text-zinc-300">
+              {cta.description ?? "Ready to see more?"}
+            </p>
+            <div className="flex justify-center">
+              <CTAButton href={cta.link}>
+                {cta.label ?? "Explore my Portfolio"}
+              </CTAButton>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
