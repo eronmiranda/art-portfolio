@@ -31,12 +31,13 @@ function Work() {
 
   return (
     <>
-      <Tags
-        allTags={allTags}
-        selectedTag={selectedTag}
-        onSelectTag={setSelectedTag}
-        display={!artworks.length == 0}
-      />
+      {artworks.length == 0 && (
+        <Tags
+          allTags={allTags}
+          selectedTag={selectedTag}
+          onSelectTag={setSelectedTag}
+        />
+      )}
       <MotionPresence mode="popLayout">
         <MotionDiv
           key={selectedTag}

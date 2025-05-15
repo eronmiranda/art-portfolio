@@ -32,8 +32,8 @@ function TagButton({ tag, selected, onClick }) {
   );
 }
 
-function Tags({ allTags, selectedTag, onSelectTag, display }) {
-  if (!display) {
+function Tags({ allTags, selectedTag, onSelectTag }) {
+  if (!allTags || allTags.length === 0) {
     return null;
   }
   return (
