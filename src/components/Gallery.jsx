@@ -41,7 +41,7 @@ function Gallery({ images = [], className, showTags = true }) {
         <Tags
           tags={tags}
           selectedTag={selectedTag}
-          onSelectTag={setSelectedTag}
+          setSelectedTag={setSelectedTag}
         />
       )}
 

@@ -32,7 +32,7 @@ function TagButton({ tag, selected, onClick }) {
   );
 }
 
-function Tags({ tags, selectedTag, onSelectTag }) {
+function Tags({ tags, selectedTag, setSelectedTag }) {
   if (!tags || tags.length === 0) {
     return null;
   }
@@ -44,7 +44,7 @@ function Tags({ tags, selectedTag, onSelectTag }) {
           key={tag}
           tag={tag}
           selected={selectedTag === tag}
-          onClick={() => onSelectTag(tag)}
+          onClick={() => setSelectedTag(tag)}
         />
       ))}
     </div>
