@@ -40,7 +40,7 @@ function CrossIcon() {
   );
 }
 
-function ModalMenu({ onClose }) {
+function ModalMenu({ open, onClose }) {
   const location = useLocation();
   const handleCloseButtonClick = (event) => {
     event.preventDefault();
@@ -48,11 +48,8 @@ function ModalMenu({ onClose }) {
   };
 
   return (
-    <Modal onClose={onClose}>
-      <div
-        className="fixed inset-x-4 top-8 rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 duration-150 dark:bg-zinc-900 dark:ring-zinc-800"
-        onClick={(event) => event.stopPropagation()}
-      >
+    <Modal open={open} onClose={onClose} className="items-start pt-6">
+      <div className="w-[90vw] rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 duration-150 dark:bg-zinc-900 dark:ring-zinc-800">
         <div className="flex flex-row-reverse items-center justify-between">
           <button
             aria-label="Close menu"
@@ -116,7 +113,7 @@ function NavMenu() {
         <span className="flex-1 text-left">Menu</span>
         <DownArrowIcon />
       </button>
-      {isOpen && <ModalMenu key="ModalMenu" onClose={() => setIsOpen(false)} />}
+      <ModalMenu open={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 }
