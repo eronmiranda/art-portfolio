@@ -28,11 +28,7 @@ function Home() {
         <h2 className="mb-8 text-3xl font-bold text-zinc-800 dark:text-zinc-100">
           Featured Artworks
         </h2>
-        <Gallery
-          images={images}
-          showTags={false}
-          className="grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
-        />
+        <Gallery images={images} showTags={false} />
       </section>
       {cta.display && (
         <CTASection
