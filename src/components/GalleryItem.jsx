@@ -8,7 +8,7 @@ function GalleryItem({ index, src, label, onClick, layoutId, ...props }) {
       index={index}
       onClick={onClick}
       layoutId={layoutId}
-      className="bg-[#eee3df] shadow-md hover:shadow-2xl"
+      className="bg-[#eee3df] shadow-md hover:shadow-2xl dark:hover:shadow-lg dark:hover:shadow-zinc-100"
       whileHover={{ scale: 1.02, opacity: 0.9 }}
       whileTap={{ y: 5 }}
       {...props}
