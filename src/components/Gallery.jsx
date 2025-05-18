@@ -9,9 +9,11 @@ import Modal from "./Modal";
 function Gallery({ images = [], className, showTags = true }) {
   const [selectedImg, setSelectedImg] = useState(null);
   const [selectedTag, setSelectedTag] = useState("All");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleImageClick = (src) => () => {
+  const onImageClick = (src) => () => {
     setSelectedImg(src);
+    setIsModalOpen(true);
   };
 
   const tags = useMemo(
@@ -57,21 +59,22 @@ function Gallery({ images = [], className, showTags = true }) {
             index={index}
             src={image.src}
             label={image.title}
-            onClick={handleImageClick(image.src)}
+            onClick={onImageClick(image.src)}
             layoutId={image.src}
           />
         ))}
       </div>
-      {selectedImg && (
-        <Modal key={selectedImg} onClose={() => setSelectedImg(null)}>
-          <div
-            className="fixed inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw]"
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        {/* background for transparent-bg images */}
+        <div className="rounded-lg bg-[#eee3df]">
+          <LazyImage
+            src={selectedImg}
+            className="max-h-[80vh] max-w-[80vw]"
+            alt=""
             onClick={(event) => event.stopPropagation()}
-          >
-            <LazyImage src={selectedImg} alt="" />
-          </div>
-        </Modal>
-      )}
+          />
+        </div>
+      </Modal>
     </>
   );
 }

@@ -1,51 +1,37 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { cx } from "../lib/utils";
 
-function Modal({ onClose, className, children }) {
-  const [open, setOpen] = useState(false);
-
-  // Trigger open animation after mount
-  useEffect(() => {
-    const id = setTimeout(() => setOpen(true), 100);
-    return () => clearTimeout(id);
-  }, []);
-
-  //match duration-200 before unmounting
-  const handleClose = useCallback(() => {
-    setOpen(false);
-    setTimeout(() => {
-      onClose();
-    }, 200);
-  }, [onClose]);
-
+function Modal({ open, onClose, children }) {
   // Close on Escape key
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === "Escape") {
-        handleClose();
+        onClose();
       }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [handleClose]);
+  }, [onClose]);
 
   return (
     <div
-      className="relative z-50"
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
+      className={cx(
+        "fixed inset-0 flex items-center justify-center transition-opacity",
+        open
+          ? "transition-300 visible bg-black/60 opacity-100 ease-out"
+          : "invisible opacity-0 duration-200 ease-in",
+      )}
+      aria-hidden="true"
+      onClick={onClose}
     >
       <div
+        onClick={(event) => event.stopPropagation()}
         className={cx(
-          "fixed inset-0 min-h-screen bg-black/60 transition-opacity",
-          className,
+          "rounded-lg p-6 shadow transition-all",
           open
-            ? "opacity-100 duration-300 ease-out"
-            : "pointer-events-none opacity-0 duration-200 ease-in",
+            ? "tranlsate-y-0 opacity-100 duration-300 ease-out sm:scale-100"
+            : "translate-y-4 opacity-0 duration-200 ease-in sm:translate-y-0 sm:scale-95",
         )}
-        aria-hidden="true"
-        onClick={handleClose}
       >
         {children}
       </div>
