@@ -5,7 +5,7 @@ function LazyImage({ src, alt, className, ...props }) {
     <img
       src={src}
       alt={alt}
-      className={cx("aspect-square h-full w-full object-cover", className)}
+      className={cx("object-contain", className)}
       loading="lazy"
       decoding="async"
       draggable={false}

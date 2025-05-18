@@ -21,10 +21,7 @@ function GalleryCard({ children, className, onClick, index, ...props }) {
   return (
     <MotionPresence custom={index} mode="popLayout">
       <MotionDiv
-        className={cx(
-          "group relative aspect-square overflow-hidden rounded-md",
-          className,
-        )}
+        className={cx("group relative overflow-hidden rounded-md", className)}
         onClick={onClick}
         custom={index}
         variants={imageVariants}

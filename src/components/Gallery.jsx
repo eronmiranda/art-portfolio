@@ -47,7 +47,7 @@ function Gallery({ images = [], className, showTags = true }) {
 
       <div
         className={cx(
-          "mt-6 grid grid-cols-2 gap-4 bg-clip-padding sm:grid-cols-3 md:mt-9 lg:grid-cols-4 lg:gap-6",
+          "mt-6 columns-2 gap-4 space-y-4 sm:columns-3 md:mt-9 lg:gap-6 lg:space-y-6",
           className,
         )}
       >
@@ -65,7 +65,7 @@ function Gallery({ images = [], className, showTags = true }) {
       {selectedImg && (
         <Modal key={selectedImg} onClose={() => setSelectedImg(null)}>
           <div
-            className="fixed inset-0 z-50 m-auto aspect-square max-h-[80vh] max-w-[80vw]"
+            className="fixed inset-0 z-50 m-auto max-h-[80vh] max-w-[80vw]"
             onClick={(event) => event.stopPropagation()}
           >
             <LazyImage src={selectedImg} alt="" />
