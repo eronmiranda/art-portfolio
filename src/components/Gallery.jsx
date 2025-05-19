@@ -39,42 +39,48 @@ function Gallery({ images = [], className, showTags = true }) {
 
   return (
     <>
-      {images.length > 0 && showTags && (
-        <Tags
-          tags={tags}
-          selectedTag={selectedTag}
-          setSelectedTag={setSelectedTag}
-        />
-      )}
-
-      <div
-        className={cx(
-          "mt-6 columns-2 gap-4 space-y-4 sm:columns-3 md:mt-9 lg:gap-6 lg:space-y-6",
-          className,
-        )}
-      >
-        {filteredImages.map((image, index) => (
-          <GalleryItem
-            key={image.src}
-            index={index}
-            src={image.src}
-            label={image.title}
-            onClick={onImageClick(image.src)}
-            layoutId={image.src}
-          />
-        ))}
-      </div>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {/* background for transparent-bg images */}
-        <div className="rounded-lg bg-[#eee3df]">
-          <LazyImage
-            src={selectedImg}
-            className="max-h-[80vh] max-w-[80vw]"
-            alt=""
-            onClick={(event) => event.stopPropagation()}
-          />
+      {images.length === 0 ? (
+        <div className="mt-6 md:mt-9">
+          <SkeletonGallery />
         </div>
-      </Modal>
+      ) : (
+        <>
+          {images.length > 0 && showTags && (
+            <Tags
+              tags={tags}
+              selectedTag={selectedTag}
+              setSelectedTag={setSelectedTag}
+            />
+          )}
+          <div
+            className={cx(
+              "mt-6 columns-2 gap-4 space-y-4 sm:columns-3 md:mt-9 lg:gap-6 lg:space-y-6",
+              className,
+            )}
+          >
+            {filteredImages.map((image, index) => (
+              <GalleryItem
+                key={image.src}
+                index={index}
+                src={image.src}
+                label={image.title}
+                onClick={onImageClick(image.src)}
+              />
+            ))}
+          </div>
+          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            {/* background for transparent-bg images */}
+            <div className="rounded-lg bg-[#eee3df]">
+              <LazyImage
+                src={selectedImg}
+                className="max-h-[80vh] max-w-[80vw]"
+                alt=""
+                onClick={(event) => event.stopPropagation()}
+              />
+            </div>
+          </Modal>
+        </>
+      )}
     </>
   );
 }
