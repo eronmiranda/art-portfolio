@@ -12,7 +12,7 @@ function Header() {
           <div className="relative flex gap-4">
             {/* Logo */}
             <div className="flex flex-1">
-              <div className="bg-white-90 flex size-10 items-center justify-center rounded-full p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition delay-65 hover:scale-130 dark:bg-zinc-800/90 dark:ring-white/10">
+              <div className="bg-white-90 flex size-10 items-center justify-center rounded-full p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition delay-65 hover:scale-130 active:translate-y-2 dark:bg-zinc-800/90 dark:ring-white/10">
                 <Link to="/" className="pointer-events-auto" aria-label="Home">
                   <LazyImage
                     src="/assets/dogs/morty.png"
