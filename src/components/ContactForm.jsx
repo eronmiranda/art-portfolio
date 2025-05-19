@@ -68,7 +68,7 @@ function ContactForm({ submitLabel }) {
               name="email"
               type="email"
               autoComplete="email"
-              placeholder="jane.doe@mail.com"
+              placeholder="jane.doe@email.com"
               required
               className={cx(inputBaseStyles, focusInput)}
             />

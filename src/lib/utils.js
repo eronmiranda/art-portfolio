@@ -30,7 +30,7 @@ export const inputBaseStyles = [
 
   // Text
   "text-zinc-900 dark:text-zinc-200",
-  "placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
+  "placeholder:italic placeholder:text-zinc-400 dark:placeholder:text-zinc-500",
 
   // Outline
   "outline",
