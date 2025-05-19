@@ -19,19 +19,17 @@ const imageVariants = {
 
 function GalleryCard({ children, className, onClick, index, ...props }) {
   return (
-    <MotionPresence custom={index} mode="popLayout">
-      <MotionDiv
-        className={cx("group relative overflow-hidden rounded-md", className)}
-        onClick={onClick}
-        custom={index}
-        variants={imageVariants}
-        initial="initial"
-        animate="animate"
-        {...props}
-      >
-        {children}
-      </MotionDiv>
-    </MotionPresence>
+    <div
+      className={cx(
+        "group fade-in relative overflow-hidden rounded-md transition-transform duration-200 ease-in-out hover:scale-105 hover:opacity-90 active:scale-95",
+        className,
+      )}
+      onClick={onClick}
+      style={{ animationDelay: `${index * 80}ms` }}
+      {...props}
+    >
+      {children}
+    </div>
   );
 }
 
