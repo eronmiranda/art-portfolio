@@ -1,10 +1,9 @@
-import { MotionDiv } from "./Motion";
 import { cx } from "../lib/utils";
 import { Link } from "react-router-dom";
 
 function CTAButton({ children, to, className }) {
   return (
-    <MotionDiv whileTap={{ y: 4 }}>
+    <div className="transition active:translate-y-2">
       <Link
         to={to}
         className={cx(
@@ -14,7 +13,7 @@ function CTAButton({ children, to, className }) {
       >
         {children}
       </Link>
-    </MotionDiv>
+    </div>
   );
 }
 
