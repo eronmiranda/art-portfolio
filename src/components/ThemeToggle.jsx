@@ -1,4 +1,3 @@
-import { MotionDiv } from "./Motion";
 import useTheme from "../hooks/useTheme";
 
 function MoonIcon() {
@@ -40,7 +39,7 @@ function SunIcon() {
 function ThemeToggle() {
   const [theme, toggleTheme] = useTheme();
   return (
-    <MotionDiv className="pointer-events-auto" whileTap={{ y: 4 }}>
+    <div className="pointer-events-auto transition active:translate-y-1">
       <button
         onClick={toggleTheme}
         className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
@@ -50,7 +49,7 @@ function ThemeToggle() {
       >
         {theme === "dark" ? <MoonIcon /> : <SunIcon />}
       </button>
-    </MotionDiv>
+    </div>
   );
 }
 
