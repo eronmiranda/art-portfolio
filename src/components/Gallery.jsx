@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { cx } from "../lib/utils";
 import SkeletonGallery from "./SkeletonGallery";
-import GalleryItem from "./GalleryItem";
+import GalleryCard from "./GalleryCard";
 import Tags from "./Tags";
 import LazyImage from "./LazyImage";
 import Modal from "./Modal";
@@ -59,13 +59,14 @@ function Gallery({ images = [], className, showTags = true }) {
             )}
           >
             {filteredImages.map((image, index) => (
-              <GalleryItem
+              <GalleryCard
                 key={image.src}
                 index={index}
-                src={image.src}
                 label={image.title}
                 onClick={onImageClick(image.src)}
-              />
+              >
+                <LazyImage src={image.src} alt={image.title} />
+              </GalleryCard>
             ))}
           </div>
           <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>

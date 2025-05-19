@@ -3,8 +3,62 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@custom-variant hover {
+  @media (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
 @theme {
   --default-font-family: "Raleway", sans-serif;
+
+  --animate-fade-in: fade-in 0.5s linear both running;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  --animate-fade-in-from-top: fade-in-from-top 0.5s linear both running;
+  @keyframes fade-in-from-top {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  --animate-fade-in-from-bottom: fade-in-from-bottom 0.5s linear both running;
+  @keyframes fade-in-from-bottom {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@utility fade-in {
+  @apply animate-fade-in;
+}
+
+@utility fade-in-from-top {
+  @apply animate-fade-in-from-top;
+}
+
+@utility fade-in-from-bottom {
+  @apply animate-fade-in-from-bottom;
 }
 
 @keyframes fadeIn {
@@ -17,7 +71,6 @@
     transform: translateY(0);
   }
 }
-
 .fade-in {
   animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
 }

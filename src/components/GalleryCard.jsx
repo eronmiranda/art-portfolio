@@ -1,34 +1,18 @@
 import { cx } from "../lib/utils";
-import { MotionDiv, MotionPresence } from "./Motion";
-const imageVariants = {
-  initial: {
-    opacity: 0,
-    // filter: "blur(8px)",
-  },
-  animate: (index) => {
-    return {
-      opacity: 1,
-      // filter: "blur(0px)",
-      transition: {
-        duration: 0.3,
-        delay: index * 0.08,
-      },
-    };
-  },
-};
+import LazyImage from "./LazyImage";
+import ImageOverlay from "./ImageOverlay";
 
-function GalleryCard({ children, className, onClick, index, ...props }) {
+function GalleryCard({ index = 0, label, onClick, children }) {
+  console.log("GalleryCard", index);
   return (
     <div
       className={cx(
-        "group fade-in relative overflow-hidden rounded-md transition-transform duration-200 ease-in-out hover:scale-105 hover:opacity-90 active:scale-95",
-        className,
+        "fade-in-from-top group relative overflow-hidden rounded-md bg-[#eee3df] shadow-md duration-300 hover:scale-105 hover:opacity-90 hover:shadow-2xl active:scale-95 dark:hover:shadow-lg dark:hover:shadow-zinc-100",
       )}
       onClick={onClick}
       style={{ animationDelay: `${index * 80}ms` }}
-      {...props}
     >
-      {children}
+      <ImageOverlay label={label}>{children}</ImageOverlay>
     </div>
   );
 }
