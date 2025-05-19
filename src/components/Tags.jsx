@@ -33,9 +33,6 @@ function TagButton({ tag, selected, onClick }) {
 }
 
 function Tags({ tags, selectedTag, setSelectedTag }) {
-  if (!tags || tags.length === 0) {
-    return null;
-  }
   const allTags = ["All", ...tags.sort()];
   return (
     <div className="my-4 flex flex-wrap gap-2">

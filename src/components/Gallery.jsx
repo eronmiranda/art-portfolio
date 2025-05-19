@@ -39,7 +39,7 @@ function Gallery({ images = [], className, showTags = true }) {
 
   return (
     <>
-      {showTags && (
+      {images.length > 0 && showTags && (
         <Tags
           tags={tags}
           selectedTag={selectedTag}
