@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { MotionDiv } from "./Motion";
 import LazyImage from "./LazyImage";
 import NavMenu from "./NavMenu";
 import NavBar from "./NavBar";
@@ -13,10 +12,7 @@ function Header() {
           <div className="relative flex gap-4">
             {/* Logo */}
             <div className="flex flex-1">
-              <MotionDiv
-                className="bg-white-90 flex size-10 items-center justify-center rounded-full p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:ring-white/10"
-                whileHover={{ scale: 1.3 }}
-              >
+              <div className="bg-white-90 flex size-10 items-center justify-center rounded-full p-0.5 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition delay-65 hover:scale-130 dark:bg-zinc-800/90 dark:ring-white/10">
                 <Link to="/" className="pointer-events-auto" aria-label="Home">
                   <LazyImage
                     src="/assets/dogs/morty.png"
@@ -25,7 +21,7 @@ function Header() {
                     className="h-full w-full rounded-full bg-zinc-100 object-cover"
                   />
                 </Link>
-              </MotionDiv>
+              </div>
             </div>
             {/* Navigation */}
             <div className="flex flex-1 justify-end md:justify-center">
