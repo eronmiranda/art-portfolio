@@ -29,14 +29,6 @@ function Gallery({ images = [], className, showTags = true }) {
     [images, selectedTag],
   );
 
-  if (images.length === 0) {
-    return (
-      <div className="mt-6 md:mt-9">
-        <SkeletonGallery />
-      </div>
-    );
-  }
-
   return (
     <>
       {images.length === 0 ? (
