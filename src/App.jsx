@@ -74,7 +74,7 @@ function AnimatedApp() {
             animate="animate"
             exit="exit"
           >
-            <Suspense fallback={<CircleLoader className="mt-35" />}>
+            <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/work" element={<Work />} />

@@ -47,6 +47,19 @@
       transform: translateY(0);
     }
   }
+
+  --animate-rotate-pulse: rotate-pulse 0.75s linear infinite normal both running;
+  @keyframes rotate-pulse {
+    0% {
+      transform: rotate(0deg) scale(1);
+    }
+    50% {
+      transform: rotate(180deg) scale(0.8);
+    }
+    100% {
+      transform: rotate(360deg) scale(1);
+    }
+  }
 }
 
 @utility fade-in {
@@ -59,4 +72,8 @@
 
 @utility fade-in-from-bottom {
   @apply animate-fade-in-from-bottom;
+}
+
+@utility rotate-pulse {
+  @apply animate-rotate-pulse;
 }
