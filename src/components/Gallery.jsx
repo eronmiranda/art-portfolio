@@ -1,12 +1,22 @@
 import { useMemo, useState } from "react";
-import { cx } from "../lib/utils";
 import SkeletonGallery from "./SkeletonGallery";
 import GalleryCard from "./GalleryCard";
 import Tags from "./Tags";
 import LazyImage from "./LazyImage";
 import Modal from "./Modal";
+import Masonry from "react-masonry-css";
 
-function Gallery({ images = [], className, showTags = true }) {
+const defaultBreakpointCols = {
+  default: 4,
+  1024: 3,
+  560: 2,
+};
+
+function TestGallery({
+  images = [],
+  breakpointCols = defaultBreakpointCols,
+  showTags = true,
+}) {
   const [selectedImg, setSelectedImg] = useState(null);
   const [selectedTag, setSelectedTag] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,11 +54,9 @@ function Gallery({ images = [], className, showTags = true }) {
               setSelectedTag={setSelectedTag}
             />
           )}
-          <div
-            className={cx(
-              "mt-6 columns-2 gap-4 space-y-4 sm:columns-3 md:mt-9 lg:gap-6 lg:space-y-6",
-              className,
-            )}
+          <Masonry
+            breakpointCols={breakpointCols}
+            className="flex w-full gap-4"
           >
             {filteredImages.map((image, index) => (
               <GalleryCard
@@ -56,11 +64,12 @@ function Gallery({ images = [], className, showTags = true }) {
                 index={index}
                 label={image.title}
                 onClick={onImageClick(image.src)}
+                className="my-4"
               >
                 <LazyImage src={image.src} alt={image.title} />
               </GalleryCard>
             ))}
-          </div>
+          </Masonry>
           <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
             {/* background for transparent-bg images */}
             <div className="rounded-lg bg-[#eee3df]">
@@ -78,4 +87,4 @@ function Gallery({ images = [], className, showTags = true }) {
   );
 }
 
-export default Gallery;
+export default TestGallery;
