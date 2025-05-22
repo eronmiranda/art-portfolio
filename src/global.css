@@ -77,3 +77,9 @@
 @utility rotate-pulse {
   @apply animate-rotate-pulse;
 }
+
+@layer components {
+  .component-image-bg {
+    @apply rounded-lg bg-[#eee3df];
+  }
+}

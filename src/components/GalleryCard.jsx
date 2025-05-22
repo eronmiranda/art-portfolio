@@ -7,7 +7,7 @@ function GalleryCard({ index = 0, label, onClick, children, className }) {
   return (
     <div
       className={cx(
-        "fade-in-from-top group relative overflow-hidden rounded-md bg-[#eee3df] shadow-md duration-300 hover:scale-105 hover:opacity-90 hover:shadow-2xl active:scale-95 dark:hover:shadow-lg dark:hover:shadow-zinc-100",
+        "fade-in-from-top group component-image-bg relative overflow-hidden shadow-md duration-300 hover:scale-105 hover:opacity-90 hover:shadow-2xl active:scale-95 dark:hover:shadow-lg dark:hover:shadow-zinc-100",
         className,
       )}
       onClick={onClick}

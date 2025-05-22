@@ -72,7 +72,7 @@ function TestGallery({
           </Masonry>
           <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
             {/* background for transparent-bg images */}
-            <div className="rounded-lg bg-[#eee3df]">
+            <div className="component-image-bg">
               <LazyImage
                 src={selectedImg}
                 className="max-h-[80vh] max-w-[80vw]"
