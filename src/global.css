@@ -12,7 +12,7 @@
 }
 
 @theme {
-  --default-font-family: "Raleway", sans-serif;
+  --font-default: "Raleway", sans-serif;
 
   --animate-fade-in: fade-in 0.5s linear both running;
   @keyframes fade-in {
@@ -62,6 +62,10 @@
   }
 }
 
+@utility bg-main {
+  @apply bg-gradient-to-b from-[#f4f4f5] via-[#f4f4f5] to-[#efd7e5]/70 dark:bg-zinc-900 dark:from-transparent dark:via-transparent dark:to-transparent;
+}
+
 @utility fade-in {
   @apply animate-fade-in;
 }
@@ -76,6 +80,12 @@
 
 @utility rotate-pulse {
   @apply animate-rotate-pulse;
+}
+
+@layer base {
+  body {
+    @apply font-default bg-main;
+  }
 }
 
 @layer components {

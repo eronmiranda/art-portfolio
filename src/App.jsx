@@ -61,7 +61,7 @@ function AnimatedApp() {
   };
 
   return (
-    <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-zinc-100 [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#efd7e5_100%)] dark:bg-zinc-900">
+    <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden">
       <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12 dark:text-zinc-100">
         <MotionPresence mode="popLayout" initial={false} custom={direction}>

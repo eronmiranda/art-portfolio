@@ -6,7 +6,7 @@ import ThemeToggle from "./ThemeToggle";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-zinc-100 backdrop-blur dark:bg-zinc-900">
+    <header className="sticky top-0 z-50 backdrop-blur">
       <div className="mb-2 h-16 pt-6">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">
           <div className="relative flex gap-4">
