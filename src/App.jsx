@@ -63,7 +63,7 @@ function AnimatedApp() {
   return (
     <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden">
       <Header />
-      <main className="mx-auto w-full max-w-7xl flex-grow px-4 text-zinc-800 sm:px-8 lg:px-12 dark:text-zinc-100">
+      <main className="mx-auto w-full max-w-7xl flex-grow px-4 sm:px-8 lg:px-12">
         <MotionPresence mode="popLayout" initial={false} custom={direction}>
           <MotionDiv
             key={location.pathname}
