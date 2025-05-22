@@ -75,7 +75,7 @@ function TestGallery({
             <div className="component-image-bg">
               <LazyImage
                 src={selectedImg}
-                className="max-h-[80vh] max-w-[80vw]"
+                className="max-h-[80vh] max-w-[80vw] rounded-lg"
                 alt=""
                 onClick={(event) => event.stopPropagation()}
               />
