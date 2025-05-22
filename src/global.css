@@ -86,6 +86,30 @@
   @apply animate-rotate-pulse;
 }
 
+@utility input-layout {
+  @apply w-full px-3 py-[calc(--spacing(2)-1px)] md:text-lg;
+}
+
+@utility input-appearance {
+  @apply appearance-none rounded-[calc(var(--radius-md)-1px)] bg-white shadow-md shadow-zinc-800/5 dark:bg-zinc-700/[0.15];
+}
+
+@utility input-text {
+  @apply text-zinc-900 placeholder:text-zinc-400 placeholder:italic dark:text-zinc-200 dark:placeholder:text-zinc-500;
+}
+
+@utility input-outline {
+  @apply outline outline-zinc-900/10 dark:outline-zinc-700;
+}
+
+@utility input-focus {
+  @apply focus:ring-4 focus:ring-teal-500/10 focus:outline-teal-500 dark:focus:ring-teal-400/10 dark:focus:outline-teal-400;
+}
+
+@utility input-base {
+  @apply input-appearance input-layout input-text input-outline input-focus;
+}
+
 @layer base {
   body {
     @apply font-default text-main bg-main;

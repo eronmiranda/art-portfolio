@@ -1,5 +1,3 @@
-import { cx, inputBaseStyles, focusInput } from "../lib/utils";
-
 function handleForm(event) {
   event.preventDefault();
   const formData = new FormData(event.target);
@@ -30,8 +28,8 @@ function ContactForm({ submitLabel }) {
               type="text"
               autoComplete="given-name"
               placeholder="Jane"
+              className="input-base"
               required
-              className={cx(inputBaseStyles, focusInput)}
             />
           </div>
         </div>
@@ -49,8 +47,8 @@ function ContactForm({ submitLabel }) {
               type="text"
               autoComplete="family-name"
               placeholder="Doe"
+              className="input-base"
               required
-              className={cx(inputBaseStyles, focusInput)}
             />
           </div>
         </div>
@@ -68,8 +66,8 @@ function ContactForm({ submitLabel }) {
               type="email"
               autoComplete="email"
               placeholder="jane.doe@email.com"
+              className="input-base"
               required
-              className={cx(inputBaseStyles, focusInput)}
             />
           </div>
         </div>
@@ -85,8 +83,8 @@ function ContactForm({ submitLabel }) {
               id="message"
               name="message"
               rows={4}
-              className={cx(inputBaseStyles, focusInput)}
               placeholder="Write your message here..."
+              className="input-base"
             />
           </div>
         </div>
