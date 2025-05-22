@@ -1,9 +1,7 @@
 import { cx } from "../lib/utils";
-import LazyImage from "./LazyImage";
 import ImageOverlay from "./ImageOverlay";
 
 function GalleryCard({ index = 0, label, onClick, children, className }) {
-  console.log("GalleryCard", index);
   return (
     <div
       className={cx(
