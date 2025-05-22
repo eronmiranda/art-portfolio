@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, Timestamp } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,9 +13,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const projectStorage = getStorage();
+const projectStorage = getStorage(app);
 const projectFirestore = getFirestore(app);
 
 const timeStamp = Timestamp;
 
-export { projectStorage, projectFirestore, timeStamp };
+const auth = getAuth(app);
+
+export { auth, projectStorage, projectFirestore, timeStamp };

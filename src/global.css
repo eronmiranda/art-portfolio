@@ -95,7 +95,7 @@
 }
 
 @utility input-text {
-  @apply text-zinc-900 placeholder:text-zinc-400 placeholder:italic dark:text-zinc-200 dark:placeholder:text-zinc-500;
+  @apply text-sm text-zinc-900 placeholder:text-zinc-400 dark:text-zinc-200 dark:placeholder:text-zinc-500;
 }
 
 @utility input-outline {

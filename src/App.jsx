@@ -6,6 +6,8 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
 import { MotionDiv, MotionPresence } from "./components/Motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -16,9 +18,20 @@ const About = lazy(() => import("./pages/About"));
 const Work = lazy(() => import("./pages/Work"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Admin = lazy(() => import("./pages/Admin"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-const routeOrder = ["/", "/work", "/about", "/contact", "/404"];
+const routeOrder = [
+  "/",
+  "/work",
+  "/about",
+  "/contact",
+  "/admin",
+  "/signin",
+  "/forgot-password",
+  "/404",
+];
 
 function AnimatedApp() {
   const location = useLocation();
@@ -79,7 +92,11 @@ function AnimatedApp() {
                 <Route path="/work" element={<Work />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/admin" element={<Admin />} />
+                <Route element={<PrivateRoute />}>
+                  <Route path="/admin" element={<Admin />} />
+                </Route>
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/404" element={<NotFound />} />
                 <Route path="*" element={<Navigate to="/404" />} />
               </Routes>
@@ -95,7 +112,9 @@ function AnimatedApp() {
 function App() {
   return (
     <Router>
-      <AnimatedApp />
+      <AuthProvider>
+        <AnimatedApp />
+      </AuthProvider>
     </Router>
   );
 }
