@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { cx } from "../lib/utils";
-import { ProgressBar } from "./ProgressBar";
 import useStorage from "../hooks/useStorage";
+import { ProgressBar } from "./ProgressBar";
+import { useDropzone } from "react-dropzone";
 import LazyImage from "./LazyImage";
 
 function FileLineIcon({ className }) {
@@ -108,7 +109,17 @@ export default function FileUpload() {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
   const [uploaded, setUploaded] = useState([]);
-  console.log("uploaded", uploaded);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      setFiles((prevFiles) => {
+        let newFiles = acceptedFiles.filter(
+          (file) => !prevFiles.some((f) => f.name === file.name),
+        );
+        return [...prevFiles, ...newFiles];
+      });
+    },
+  });
+
   const handleFileChange = (event) => {
     let selectedFiles = Array.from(event.target.files);
     let types = ["image/jpg", "image/jpeg", "image/png"];
@@ -138,12 +149,6 @@ export default function FileUpload() {
     setUploaded(uploaded.filter(({ file }) => file.name !== fileName));
   };
 
-  useEffect(() => {
-    if (uploaded.length === files.length && files.length > 0) {
-      setFiles([]);
-    }
-  }, [uploaded, files]);
-
   return (
     <>
       <div className="sm:mx-auto sm:max-w-lg">
@@ -151,7 +156,14 @@ export default function FileUpload() {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
             File Upload
           </h3>
-          <div className="mt-4 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-20 dark:border-gray-800">
+          <div
+            {...getRootProps()}
+            className={cx(
+              "mt-4 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-20 dark:border-gray-800",
+              isDragActive &&
+                "border-teal-500 bg-teal-50 dark:border-teal-500 dark:bg-teal-950",
+            )}
+          >
             <div>
               <FileLineIcon
                 className="mx-auto size-12 text-gray-400 dark:text-gray-500"
@@ -165,6 +177,7 @@ export default function FileUpload() {
                 >
                   <span>choose file</span>
                   <input
+                    {...getInputProps()}
                     id="file-upload"
                     name="file-upload"
                     type="file"
@@ -197,13 +210,16 @@ export default function FileUpload() {
                   <FileProgress
                     key={file.name}
                     file={file}
-                    onUpload={(url) =>
+                    onUpload={(url) => {
                       setUploaded((prev) =>
                         prev.some((item) => item.file.name === file.name)
                           ? prev
                           : [...prev, { file, url }],
-                      )
-                    }
+                      );
+                      setFiles((prevFiles) =>
+                        prevFiles.filter((f) => f.name !== file.name),
+                      );
+                    }}
                     onClose={handleRemoveFile}
                   />
                 ))}
@@ -265,10 +281,6 @@ export default function FileUpload() {
               </ul>
             </>
           )}
-          {/* <div className="mt-8 flex items-center justify-end space-x-3">
-            <button>Cancel</button>
-            <button type="submit">Upload</button>
-          </div> */}
         </form>
       </div>
     </>
