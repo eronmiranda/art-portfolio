@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { cx } from "../lib/utils";
 import { ProgressBar } from "./ProgressBar";
 import useStorage from "../hooks/useStorage";
+import LazyImage from "./LazyImage";
 
 function FileLineIcon({ className }) {
   return (
@@ -56,9 +57,9 @@ function DeleteBinIcon({ className }) {
 
 function FileProgress({ file, onUpload, onClose }) {
   const { progress, url, error } = useStorage(file);
-  console.log("File", file.name);
+
   useEffect(() => {
-    if (url) {
+    if (url && onUpload) {
       onUpload(url);
     }
   }, [url, onUpload]);
@@ -79,7 +80,7 @@ function FileProgress({ file, onUpload, onClose }) {
         <div className="flex items-center space-x-2.5">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-white shadow-sm ring-1 ring-gray-200 ring-inset dark:bg-gray-950 dark:ring-gray-800">
             <FileLineIcon
-              className="size-5 text-gray-700 dark:text-gray-300"
+              className="dark:xx`x size-5 text-gray-300 text-gray-700"
               aria-hidden={true}
             />
           </span>
@@ -107,7 +108,7 @@ export default function FileUpload() {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
   const [uploaded, setUploaded] = useState([]);
-
+  console.log("uploaded", uploaded);
   const handleFileChange = (event) => {
     let selectedFiles = Array.from(event.target.files);
     let types = ["image/jpg", "image/jpeg", "image/png"];
@@ -197,7 +198,11 @@ export default function FileUpload() {
                     key={file.name}
                     file={file}
                     onUpload={(url) =>
-                      setUploaded((prev) => [...prev, { file, url }])
+                      setUploaded((prev) =>
+                        prev.some((item) => item.file.name === file.name)
+                          ? prev
+                          : [...prev, { file, url }],
+                      )
                     }
                     onClose={handleRemoveFile}
                   />
@@ -220,9 +225,12 @@ export default function FileUpload() {
                     className="flex items-center justify-between py-4"
                   >
                     <div className="flex items-center space-x-2.5">
-                      <FileLineIcon
-                        className="size-5 text-gray-700 dark:text-gray-300"
-                        aria-hidden={true}
+                      <LazyImage
+                        src={url}
+                        alt={file.name}
+                        className="size-10 shrink-0 rounded-md bg-gray-50 dark:bg-gray-900"
+                        placeholder="blur"
+                        blurDataURL={url}
                       />
                       <div>
                         <p className="text-xs font-medium text-gray-900 dark:text-gray-50">
