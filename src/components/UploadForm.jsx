@@ -4,6 +4,8 @@ import { useDropzone } from "react-dropzone";
 import LazyImage from "./LazyImage";
 import { deleteFile } from "../hooks/useDeleteFile";
 import FileUpload from "./FileUpload";
+import FileLineIcon from "./FileLineIcon";
+import DeleteBinIcon from "./DeleteBinIcon";
 
 export default function UploadForm() {
   const [files, setFiles] = useState([]);
@@ -112,7 +114,7 @@ export default function UploadForm() {
               </h4>
               <ul role="list" className="mt-4 space-y-4">
                 {files.map((file) => (
-                  <FileProgress
+                  <FileUpload
                     key={file.name}
                     file={file}
                     collectionName="featured"

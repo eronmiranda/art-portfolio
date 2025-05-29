@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import FileUpload from "../components/FileUpload";
+import UploadForm from "../components/UploadForm";
 
 function Admin() {
   const { signOut } = useAuth();
@@ -20,7 +20,7 @@ function Admin() {
     <div className="flex min-h-screen flex-col items-center justify-start">
       <h1 className="text-2xl font-bold">Admin Page</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <FileUpload />
+      <UploadForm />
       <button
         type="button"
         onClick={handleLogout}
