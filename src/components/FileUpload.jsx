@@ -82,7 +82,7 @@ function FileProgress({ file, collectionName, onUpload, onClose }) {
         <div className="flex items-center space-x-2.5">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-white shadow-sm ring-1 ring-gray-200 ring-inset dark:bg-gray-950 dark:ring-gray-800">
             <FileLineIcon
-              className="dark:xx`x size-5 text-gray-300 text-gray-700"
+              className="size-5 text-gray-700 dark:text-gray-300"
               aria-hidden={true}
             />
           </span>
