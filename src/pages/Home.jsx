@@ -8,7 +8,7 @@ const CTASection = lazy(() => import("../components/CTASection"));
 
 function Home() {
   const { headline, subline, cta } = home;
-  const rawImages = useFirestore("images");
+  const rawImages = useFirestore("featured");
   const images = useMemo(
     () => filterAndMapImages(rawImages).slice(0, 6),
     [rawImages],

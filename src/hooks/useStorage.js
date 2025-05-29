@@ -1,21 +1,26 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   projectStorage,
   projectFirestore,
   timeStamp,
+  auth,
 } from "../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
-function useStorage(file) {
+function useStorage(collectionName, file) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
+  const startedRef = useRef(false);
 
   useEffect(() => {
-    const storageRef = ref(projectStorage, file.name);
+    if (!file || startedRef.current) return;
+    startedRef.current = true;
+    const storagePath = `${collectionName}/${file.name}`;
+    const storageRef = ref(projectStorage, storagePath);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    const collectionRef = collection(projectFirestore, "images");
+    const collectionRef = collection(projectFirestore, collectionName);
 
     uploadTask.on(
       "state_changed",
@@ -28,15 +33,24 @@ function useStorage(file) {
         setError(error);
       },
       async () => {
-        await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          const createdAt = timeStamp.now();
-          const fileName = storageRef.name;
-          addDoc(collectionRef, { url, createdAt, fileName });
-          setUrl(url);
-        });
+        try {
+          const currentUser = auth.currentUser;
+          if (!currentUser) {
+            setError("You must be logged in to upload files.");
+            return;
+          }
+          await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            const createdAt = timeStamp.now();
+            const fileName = storageRef.name;
+            addDoc(collectionRef, { url, createdAt, fileName });
+            setUrl(url);
+          });
+        } catch (err) {
+          setError("Failed to upload file: " + err.message);
+        }
       },
     );
-  }, [file]);
+  }, [collectionName, file]);
 
   return { progress, url, error };
 }
