@@ -4,7 +4,7 @@ import useStorage from "../hooks/useStorage";
 import { ProgressBar } from "./ProgressBar";
 import { useDropzone } from "react-dropzone";
 import LazyImage from "./LazyImage";
-import { deleteFile, deleteFileById } from "../hooks/useDeleteFile";
+import { deleteFile } from "../hooks/useDeleteFile";
 
 function FileLineIcon({ className }) {
   return (
@@ -57,8 +57,8 @@ function DeleteBinIcon({ className }) {
   );
 }
 
-function FileProgress({ file, onUpload, onClose }) {
-  const { progress, url, error } = useStorage(file);
+function FileProgress({ file, collectionName, onUpload, onClose }) {
+  const { progress, url, error } = useStorage(collectionName, file);
 
   useEffect(() => {
     if (url && onUpload) {
@@ -216,6 +216,7 @@ export default function FileUpload() {
                   <FileProgress
                     key={file.name}
                     file={file}
+                    collectionName="featured"
                     onUpload={(url) => {
                       setUploaded((prev) =>
                         prev.some((item) => item.file.name === file.name)

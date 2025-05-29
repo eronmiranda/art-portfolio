@@ -8,19 +8,19 @@ import {
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
-function useStorage(file) {
+function useStorage(collectionName, file) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
-  const [docId, setDocId] = useState(null); // <-- Add this line
   const startedRef = useRef(false);
 
   useEffect(() => {
     if (!file || startedRef.current) return;
     startedRef.current = true;
-    const storageRef = ref(projectStorage, `test-images/${file.name}`);
+    const storagePath = `${collectionName}/${file.name}`;
+    const storageRef = ref(projectStorage, storagePath);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    const collectionRef = collection(projectFirestore, "test-images");
+    const collectionRef = collection(projectFirestore, collectionName);
 
     uploadTask.on(
       "state_changed",
@@ -39,24 +39,20 @@ function useStorage(file) {
             setError("You must be logged in to upload files.");
             return;
           }
-          const url = await getDownloadURL(uploadTask.snapshot.ref);
-          const createdAt = timeStamp.now();
-          const fileName = storageRef.name;
-          const docRef = await addDoc(collectionRef, {
-            url,
-            createdAt,
-            fileName,
+          await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            const createdAt = timeStamp.now();
+            const fileName = storageRef.name;
+            addDoc(collectionRef, { url, createdAt, fileName });
+            setUrl(url);
           });
-          setDocId(docRef.id);
-          setUrl(url);
         } catch (err) {
           setError("Failed to upload file: " + err.message);
         }
       },
     );
-  }, [file]);
+  }, [collectionName, file]);
 
-  return { progress, url, error, docId };
+  return { progress, url, error };
 }
 
 export default useStorage;
