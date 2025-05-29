@@ -12,6 +12,7 @@ function useStorage(file) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
+  const [docId, setDocId] = useState(null); // <-- Add this line
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -38,12 +39,16 @@ function useStorage(file) {
             setError("You must be logged in to upload files.");
             return;
           }
-          await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            const createdAt = timeStamp.now();
-            const fileName = storageRef.name;
-            addDoc(collectionRef, { url, createdAt, fileName });
-            setUrl(url);
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          const createdAt = timeStamp.now();
+          const fileName = storageRef.name;
+          const docRef = await addDoc(collectionRef, {
+            url,
+            createdAt,
+            fileName,
           });
+          setDocId(docRef.id);
+          setUrl(url);
         } catch (err) {
           setError("Failed to upload file: " + err.message);
         }
@@ -51,7 +56,7 @@ function useStorage(file) {
     );
   }, [file]);
 
-  return { progress, url, error };
+  return { progress, url, error, docId };
 }
 
 export default useStorage;

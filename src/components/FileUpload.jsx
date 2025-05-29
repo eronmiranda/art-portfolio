@@ -4,6 +4,7 @@ import useStorage from "../hooks/useStorage";
 import { ProgressBar } from "./ProgressBar";
 import { useDropzone } from "react-dropzone";
 import LazyImage from "./LazyImage";
+import { deleteFile, deleteFileById } from "../hooks/useDeleteFile";
 
 function FileLineIcon({ className }) {
   return (
@@ -145,8 +146,13 @@ export default function FileUpload() {
     setFiles(files.filter((file) => file.name !== fileName));
   };
 
-  const handleDeleteFile = (fileName) => {
-    setUploaded(uploaded.filter(({ file }) => file.name !== fileName));
+  const handleDeleteFile = async (fileName) => {
+    try {
+      await deleteFile(fileName);
+      setUploaded(uploaded.filter(({ file }) => file.name !== fileName));
+    } catch (err) {
+      setError("Failed to delete file: " + err.message);
+    }
   };
 
   return (
@@ -246,7 +252,6 @@ export default function FileUpload() {
                         alt={file.name}
                         className="size-10 shrink-0 rounded-md bg-gray-50 dark:bg-gray-900"
                         placeholder="blur"
-                        blurDataURL={url}
                       />
                       <div>
                         <p className="text-xs font-medium text-gray-900 dark:text-gray-50">
