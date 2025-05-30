@@ -31,7 +31,9 @@ export default function FileUpload({
               {file.name}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-500">
-              {file.size} bytes
+              {file.size < 1024 * 1024
+                ? `${(file.size / 1024).toFixed(2)} KB`
+                : `${(file.size / (1024 * 1024)).toFixed(2)} MB`}
             </p>
           </div>
         </div>

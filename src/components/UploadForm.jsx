@@ -33,8 +33,8 @@ export default function UploadForm() {
         );
         return;
       }
-      if (file.size > 10 * 1024 * 1024) {
-        setError("File size exceeds 10MB");
+      if (file.size > 25 * 1024 * 1024) {
+        setError("File size exceeds 25MB");
         return;
       }
       validFiles.push(file);
@@ -100,7 +100,7 @@ export default function UploadForm() {
           </div>
           <p className="mt-2 text-xs/5 text-gray-500 sm:flex sm:items-center sm:justify-between dark:text-gray-500">
             <span>Accepted file types: JPG, JPEG or PNG files.</span>
-            <span className="pl-1 sm:pl-0">Max. size: 10MB</span>
+            <span className="pl-1 sm:pl-0">Max. size: 25MB</span>
           </p>
           {error && (
             <p className="mt-2 text-xs text-red-500 dark:text-red-400">
@@ -160,18 +160,12 @@ export default function UploadForm() {
                           {file.name}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-500">
-                          {file.size} bytes
+                          {file.size < 1024 * 1024
+                            ? `${(file.size / 1024).toFixed(2)} KB`
+                            : `${(file.size / (1024 * 1024)).toFixed(2)} MB`}
                         </p>
                       </div>
                     </div>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:underline"
-                    >
-                      View
-                    </a>
                     <button
                       type="button"
                       className="text-red-500 hover:text-red-600 dark:text-red-500 hover:dark:text-red-400"
