@@ -61,7 +61,7 @@ export default function UploadForm() {
       <div className="sm:mx-auto sm:max-w-lg">
         <form>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-            File Upload
+            File(s) to Upload
           </h3>
           <div
             {...getRootProps()}
@@ -110,7 +110,7 @@ export default function UploadForm() {
           {files.length > 0 && (
             <>
               <h4 className="mt-6 text-sm font-medium text-gray-900 dark:text-gray-50">
-                File(s) to upload
+                In Progress
               </h4>
               <ul role="list" className="mt-4 space-y-4">
                 {files.map((file) => (

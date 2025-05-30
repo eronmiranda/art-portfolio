@@ -19,40 +19,36 @@ export default function FileUpload({
   }, [url, onUpload]);
 
   return (
-    <li key={file.name}>
-      <div className="relative mt-8 rounded-lg bg-gray-50 p-4 dark:bg-gray-900">
-        <div className="absolute top-1 right-1">
-          <button
-            type="button"
-            className="text-gray-400d rounded-md p-2 hover:text-gray-500 dark:text-gray-600 hover:dark:text-gray-500"
-            aria-label="Remove file"
-            onClick={() => onClose(file)}
-          >
-            <CloseIcon className="size-5 shrink-0" aria-hidden={true} />
-          </button>
-        </div>
+    <li key={file.name} className="py-4">
+      <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2.5">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-white shadow-sm ring-1 ring-gray-200 ring-inset dark:bg-gray-950 dark:ring-gray-800">
-            <FileLineIcon
-              className="size-5 text-gray-700 dark:text-gray-300"
-              aria-hidden={true}
-            />
-          </span>
+          <FileLineIcon
+            className="size-7 shrink-0 text-gray-500 dark:text-gray-500"
+            aria-hidden={true}
+          />
           <div>
             <p className="text-xs font-medium text-gray-900 dark:text-gray-50">
               {file.name}
             </p>
-            <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-500">
               {file.size} bytes
             </p>
           </div>
         </div>
-        <div className="mt-4 flex items-center space-x-3">
-          <ProgressBar value={progress} />
-          <span className="text-xs text-gray-500 dark:text-gray-500">
-            {Math.round(progress)}% {error ? "Error uploading" : "Uploading..."}
-          </span>
-        </div>
+        <button
+          type="button"
+          className="text-gray-400 hover:text-gray-500 dark:text-gray-600 hover:dark:text-gray-500"
+          aria-label="Cancel"
+          onClick={() => onClose(file)}
+        >
+          <CloseIcon className="size-5 shrink-0" aria-hidden={true} />
+        </button>
+      </div>
+      <div className="mt-2 flex items-center space-x-3">
+        <ProgressBar value={progress} className="[&>*]:h-1.5" />
+        <span className="text-xs text-gray-500 dark:text-gray-500">
+          {!error ? `${Math.round(progress)}%` : "Error uploading"}
+        </span>
       </div>
     </li>
   );
