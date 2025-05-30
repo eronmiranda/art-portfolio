@@ -5,7 +5,7 @@ import LazyImage from "./LazyImage";
 import { deleteFile } from "../hooks/useDeleteFile";
 import FileUpload from "./FileUpload";
 import FileLineIcon from "./FileLineIcon";
-import DeleteBinIcon from "./DeleteBinIcon";
+import CompletedUpload from "./CompletedUpload";
 
 export default function UploadForm() {
   const [files, setFiles] = useState([]);
@@ -47,10 +47,11 @@ export default function UploadForm() {
     setFiles(files.filter((file) => file.name !== fileName));
   };
 
-  const handleDeleteFile = async (fileName) => {
+  const handleDeleteFile = async (collectionName, fileName) => {
     try {
-      await deleteFile(fileName);
+      await deleteFile(collectionName, fileName);
       setUploaded(uploaded.filter(({ file }) => file.name !== fileName));
+      setError(null);
     } catch (err) {
       setError("Failed to delete file: " + err.message);
     }
@@ -144,40 +145,11 @@ export default function UploadForm() {
                 className="mt-2 divide-y divide-gray-200 dark:divide-gray-800"
               >
                 {uploaded.map(({ file, url }) => (
-                  <li
-                    key={file.name}
-                    className="flex items-center justify-between py-4"
-                  >
-                    <div className="flex items-center space-x-2.5">
-                      <LazyImage
-                        src={url}
-                        alt={file.name}
-                        className="size-10 shrink-0 rounded-md bg-gray-50 dark:bg-gray-900"
-                        placeholder="blur"
-                      />
-                      <div>
-                        <p className="text-xs font-medium text-gray-900 dark:text-gray-50">
-                          {file.name}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500">
-                          {file.size < 1024 * 1024
-                            ? `${(file.size / 1024).toFixed(2)} KB`
-                            : `${(file.size / (1024 * 1024)).toFixed(2)} MB`}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="text-red-500 hover:text-red-600 dark:text-red-500 hover:dark:text-red-400"
-                      aria-label="Remove"
-                      onClick={() => handleDeleteFile(file.name)}
-                    >
-                      <DeleteBinIcon
-                        className="size-5 shrink-0"
-                        aria-hidden={true}
-                      />
-                    </button>
-                  </li>
+                  <CompletedUpload
+                    file={file}
+                    url={url}
+                    onDelete={() => handleDeleteFile("featured", file.name)}
+                  />
                 ))}
               </ul>
             </>
