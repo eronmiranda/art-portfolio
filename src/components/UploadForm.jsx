@@ -7,36 +7,47 @@ import FileLineIcon from "./FileLineIcon";
 export default function UploadForm() {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      setFiles((prev) => {
-        let newFiles = acceptedFiles.filter(
-          (file) => !prev.some((f) => f.name === file.name),
-        );
-        return [...prev, ...newFiles];
-      });
-    },
-  });
 
-  const handleFileChange = (event) => {
-    let selectedFiles = Array.from(event.target.files);
+  const validateFiles = (selectedFiles) => {
     let types = ["image/jpg", "image/jpeg", "image/png"];
     let validFiles = [];
     for (let file of selectedFiles) {
       if (!types.includes(file.type)) {
         setError(
-          "Please select a valid image file (JPG, JPEG, PNG) with size less than 10MB",
+          "Please select a valid image file (JPG, JPEG, PNG) with size less than 25MB",
         );
-        return;
+        return [];
       }
       if (file.size > 25 * 1024 * 1024) {
         setError("File size exceeds 25MB");
-        return;
+        return [];
       }
       validFiles.push(file);
     }
     setError(null);
-    setFiles((prev) => [...prev, ...validFiles]);
+    return validFiles;
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      const validFiles = validateFiles(acceptedFiles);
+      if (validFiles.length > 0) {
+        setFiles((prev) => {
+          let newFiles = validFiles.filter(
+            (file) => !prev.some((f) => f.name === file.name),
+          );
+          return [...prev, ...newFiles];
+        });
+      }
+    },
+  });
+
+  const handleFileChange = (event) => {
+    let selectedFiles = Array.from(event.target.files);
+    const validFiles = validateFiles(selectedFiles);
+    if (validFiles.length > 0) {
+      setFiles((prev) => [...prev, ...validFiles]);
+    }
   };
 
   return (
