@@ -61,7 +61,7 @@ function FileList({ file, collectionName, onClose, onDelete }) {
   const { progress, url, error } = useStorage(collectionName, file);
 
   return (
-    <li className="flex flex-col items-center justify-between py-4">
+    <li className="flex flex-col items-center justify-between p-4">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2.5">
           {url ? (
@@ -88,24 +88,27 @@ function FileList({ file, collectionName, onClose, onDelete }) {
             </p>
           </div>
         </div>
-        {!url ? (
-          <CloseButton onClick={onClose} />
-        ) : (
-          <DeleteButton onClick={() => setIsModalOpen(true)} />
-        )}
+        <div className="flex flex-col items-end justify-between space-y-1.5">
+          {!url ? (
+            <CloseButton onClick={onClose} />
+          ) : (
+            <>
+              <DeleteButton onClick={() => setIsModalOpen(true)} />
+              <span className="ml-auto text-xs text-gray-500 dark:text-gray-500">
+                Completed
+              </span>
+            </>
+          )}
+        </div>
       </div>
       <div className="mt-2 flex w-full items-center space-x-3">
-        {!url ? (
+        {!url && (
           <>
             <ProgressBar value={progress} className="w-full [&>*]:h-1.5" />
             <span className="text-xs text-gray-500 dark:text-gray-500">
               {!error ? `${Math.round(progress)}%` : "Error uploading"}
             </span>
           </>
-        ) : (
-          <span className="ml-auto text-xs text-gray-500 dark:text-gray-500">
-            Completed
-          </span>
         )}
       </div>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -182,7 +185,10 @@ export default function FileUpload({ files, setFiles }) {
       <h4 className="mt-6 text-sm font-medium text-gray-900 dark:text-gray-50">
         File Uploads
       </h4>
-      <ul role="list" className="mt-4 space-y-4">
+      <ul
+        role="list"
+        className="mt-4 divide-y divide-gray-200 dark:divide-gray-800"
+      >
         {files.map((file) => (
           <FileList
             key={file.name}
