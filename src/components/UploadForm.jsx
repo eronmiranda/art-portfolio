@@ -106,14 +106,13 @@ export default function UploadForm() {
                 </label>
                 <p className="pl-1">to upload</p>
               </div>
+              <div>
+                <p class="text-center text-xs/5 text-gray-500 dark:text-gray-500">
+                  JPG, JPEG, PNG up to 25MB
+                </p>
+              </div>
             </div>
           </div>
-          <p className="mt-2 text-xs/5 text-gray-500 sm:flex sm:items-center sm:justify-between dark:text-gray-500">
-            <span className="pr-2">
-              Accepted file types: JPG, JPEG or PNG files.
-            </span>
-            <span className="pl-1 sm:pl-0">Max. size: 25MB</span>
-          </p>
           {error && (
             <div className="mt-6 flex items-center space-x-2.5 rounded-md bg-red-50 p-4 dark:bg-red-500/10">
               <ErrorWarningIcon />
