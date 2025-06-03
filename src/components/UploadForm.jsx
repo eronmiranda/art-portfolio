@@ -4,6 +4,22 @@ import { useDropzone } from "react-dropzone";
 import FileUpload from "./FileUpload";
 import FileLineIcon from "./FileLineIcon";
 
+function ErrorWarningIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="currentColor"
+      aria-hidden="true"
+      className="size-5 shrink-0 text-red-500 dark:text-red-500"
+    >
+      <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 15V17H13V15H11ZM11 7V13H13V7H11Z" />
+    </svg>
+  );
+}
+
 export default function UploadForm() {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
@@ -93,13 +109,16 @@ export default function UploadForm() {
             </div>
           </div>
           <p className="mt-2 text-xs/5 text-gray-500 sm:flex sm:items-center sm:justify-between dark:text-gray-500">
-            <span>Accepted file types: JPG, JPEG or PNG files.</span>
+            <span className="pr-2">
+              Accepted file types: JPG, JPEG or PNG files.
+            </span>
             <span className="pl-1 sm:pl-0">Max. size: 25MB</span>
           </p>
           {error && (
-            <p className="mt-2 text-xs text-red-500 dark:text-red-400">
-              {error}
-            </p>
+            <div className="mt-6 flex items-center space-x-2.5 rounded-md bg-red-50 p-4 dark:bg-red-500/10">
+              <ErrorWarningIcon />
+              <p className="text-xs text-red-600 dark:text-red-500">{error}</p>
+            </div>
           )}
           {files.length > 0 && <FileUpload files={files} setFiles={setFiles} />}
         </form>
