@@ -3,6 +3,7 @@ import { cx } from "../lib/utils";
 import { useDropzone } from "react-dropzone";
 import FileUpload from "./FileUpload";
 import FileLineIcon from "./FileLineIcon";
+import { validateFile } from "../hooks/useValidateFile.js";
 
 function ErrorWarningIcon() {
   return (
@@ -24,29 +25,24 @@ export default function UploadForm() {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
 
-  const validateFiles = (selectedFiles) => {
-    let types = ["image/jpg", "image/jpeg", "image/png"];
-    let validFiles = [];
-    for (let file of selectedFiles) {
-      if (!types.includes(file.type)) {
-        setError(
-          "Please select a valid image file (JPG, JPEG, PNG) with size less than 25MB",
-        );
-        return [];
+  const validateFiles = async (selectedFiles) => {
+    try {
+      const validFiles = [];
+      for (let file of selectedFiles) {
+        let validFile = await validateFile(file, "featured");
+        validFiles.push(validFile);
+        setError(null);
+        return validFiles;
       }
-      if (file.size > 25 * 1024 * 1024) {
-        setError("File size exceeds 25MB");
-        return [];
-      }
-      validFiles.push(file);
+    } catch (err) {
+      setError(err.message);
+      return [];
     }
-    setError(null);
-    return validFiles;
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      const validFiles = validateFiles(acceptedFiles);
+    onDrop: async (acceptedFiles) => {
+      const validFiles = await validateFiles(acceptedFiles);
       if (validFiles.length > 0) {
         setFiles((prev) => {
           let newFiles = validFiles.filter(
@@ -58,9 +54,11 @@ export default function UploadForm() {
     },
   });
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     let selectedFiles = Array.from(event.target.files);
-    const validFiles = validateFiles(selectedFiles);
+    const validFiles = await validateFiles(selectedFiles);
+
+    console.log("validFiles in handleFileChange", validFiles);
     if (validFiles.length > 0) {
       setFiles((prev) => [...prev, ...validFiles]);
     }
@@ -107,7 +105,7 @@ export default function UploadForm() {
                 <p className="pl-1">to upload</p>
               </div>
               <div>
-                <p class="text-center text-xs/5 text-gray-500 dark:text-gray-500">
+                <p className="text-center text-xs/5 text-gray-500 dark:text-gray-500">
                   JPG, JPEG, PNG up to 25MB
                 </p>
               </div>
