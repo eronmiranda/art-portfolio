@@ -2,24 +2,9 @@ import { useState } from "react";
 import { cx } from "../lib/utils";
 import { useDropzone } from "react-dropzone";
 import FileUpload from "./FileUpload";
-import FileLineIcon from "./FileLineIcon";
+import FileLineIcon from "./icons/FileLineIcon";
 import { validateFile } from "../hooks/useValidateFile.js";
-
-function ErrorWarningIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="currentColor"
-      aria-hidden="true"
-      className="size-5 shrink-0 text-red-500 dark:text-red-500"
-    >
-      <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 15V17H13V15H11ZM11 7V13H13V7H11Z" />
-    </svg>
-  );
-}
+import ErrorWarningIcon from "./icons/ErrorWarningIcon.jsx";
 
 export default function UploadForm() {
   const [files, setFiles] = useState([]);

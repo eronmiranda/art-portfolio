@@ -1,4 +1,4 @@
-import { cx } from "../lib/utils";
+import { cx } from "../../lib/utils";
 
 export default function FileLineIcon({ className }) {
   return (
