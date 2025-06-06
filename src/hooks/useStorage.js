@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import {
   projectStorage,
   projectFirestore,
@@ -8,29 +8,31 @@ import {
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
-function useStorage(collectionName, file) {
+function useStorage() {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const startedRef = useRef(false);
 
-  useEffect(() => {
+  const uploadImage = (file, collectionName = "featured") => {
     if (!file || startedRef.current) return;
     startedRef.current = true;
-    const storagePath = `${collectionName}/${file.name}`;
-    const storageRef = ref(projectStorage, storagePath);
+
+    const path = `${collectionName}/${file.name}`;
+    const storageRef = ref(projectStorage, path);
     const uploadTask = uploadBytesResumable(storageRef, file);
     const collectionRef = collection(projectFirestore, collectionName);
 
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        let percentage =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(percentage);
+        const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(Math.round(percent));
       },
-      (error) => {
-        setError(error);
+      (err) => {
+        setError(err);
+        setIsUploading(false);
       },
       async () => {
         try {
@@ -44,15 +46,17 @@ function useStorage(collectionName, file) {
             const fileName = storageRef.name;
             addDoc(collectionRef, { url, createdAt, fileName });
             setUrl(url);
+            setIsUploading(false);
           });
         } catch (err) {
           setError("Failed to upload file: " + err.message);
+          setIsUploading(false);
         }
       },
     );
-  }, [collectionName, file]);
+  };
 
-  return { progress, url, error };
+  return { uploadImage, progress, url, error, isUploading };
 }
 
 export default useStorage;
