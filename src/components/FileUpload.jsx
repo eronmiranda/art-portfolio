@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useStorage from "../hooks/useStorage";
 import { deleteFile } from "../hooks/useDeleteFile";
 import { ProgressBar } from "./ProgressBar";
 import CloseIcon from "./icons/CloseIcon";
@@ -8,6 +7,8 @@ import Modal from "./Modal";
 import DeleteBinIcon from "./icons/DeleteBinIcon";
 import FileLineIcon from "./icons/FileLineIcon";
 import RoundedDangerIcon from "./icons/RoundedDangerIcon";
+import useUploadImage from "../hooks/useUploadImage";
+import ErrorWarningIcon from "./icons/ErrorWarningIcon";
 
 function CloseButton({ onClick }) {
   return (
@@ -35,9 +36,30 @@ function DeleteButton({ onClick }) {
   );
 }
 
-function FileList({ file, collectionName, onClose, onDelete }) {
+function FileList({ file, collectionName = "featured", onRemove }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { progress, url, error } = useStorage(collectionName, file);
+  const { progress, url, error, validationError } = useUploadImage(
+    file,
+    collectionName,
+  );
+  const [deleteError, setDeleteError] = useState(null);
+
+  const errors = [error, validationError, deleteError].filter(Boolean);
+  const hasErrors = errors.length > 0;
+
+  const handleCancelUpload = (fileName) => {
+    onRemove(fileName);
+  };
+
+  const handleDeleteFile = async (fileName, collectionName) => {
+    try {
+      await deleteFile(collectionName, fileName);
+      onRemove(fileName);
+      setDeleteError(null);
+    } catch (err) {
+      setDeleteError("Failed to delete file: " + err.message);
+    }
+  };
 
   return (
     <li className="flex flex-col items-center justify-between p-4">
@@ -52,7 +74,7 @@ function FileList({ file, collectionName, onClose, onDelete }) {
             />
           ) : (
             <FileLineIcon
-              className="size-7 shrink-0 text-gray-500 dark:text-gray-500"
+              className="size-10 shrink-0 text-gray-500 dark:text-gray-500"
               aria-hidden={true}
             />
           )}
@@ -69,7 +91,7 @@ function FileList({ file, collectionName, onClose, onDelete }) {
         </div>
         <div className="flex flex-col items-end justify-between space-y-1.5">
           {!url ? (
-            <CloseButton onClick={onClose} />
+            <CloseButton onClick={() => handleCancelUpload(file.name)} />
           ) : (
             <>
               <DeleteButton onClick={() => setIsModalOpen(true)} />
@@ -80,12 +102,21 @@ function FileList({ file, collectionName, onClose, onDelete }) {
           )}
         </div>
       </div>
-      <div className="mt-2 flex w-full items-center space-x-3">
-        {!url && (
+      <div className="mt-2 flex w-full flex-col items-center space-y-1.5 space-x-3">
+        {hasErrors &&
+          errors.map((error, index) => (
+            <div key={index} class="mt-4 flex items-center space-x-1.5">
+              <ErrorWarningIcon />
+              <span class="text-xs text-red-500 dark:text-red-500">
+                {error}
+              </span>
+            </div>
+          ))}
+        {!url && !hasErrors && (
           <>
             <ProgressBar value={progress} className="w-full [&>*]:h-1.5" />
             <span className="text-xs text-gray-500 dark:text-gray-500">
-              {!error ? `${Math.round(progress)}%` : "Error uploading"}
+              {`${Math.round(progress)}%`}
             </span>
           </>
         )}
@@ -115,7 +146,7 @@ function FileList({ file, collectionName, onClose, onDelete }) {
               className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
               onClick={(event) => {
                 event.preventDefault();
-                onDelete();
+                handleDeleteFile(file.name, collectionName);
                 setIsModalOpen(false);
               }}
             >
@@ -138,29 +169,9 @@ function FileList({ file, collectionName, onClose, onDelete }) {
   );
 }
 
-export default function FileUpload({ files, setFiles }) {
-  const [error, setError] = useState(null);
-  const collectionName = "featured";
-
-  const handleCancelUpload = (fileName) => {
-    setFiles(files.filter((file) => file.name !== fileName));
-  };
-
-  const handleDeleteFile = async (collectionName, fileName) => {
-    try {
-      await deleteFile(collectionName, fileName);
-      setFiles(files.filter((file) => file.name !== fileName));
-      setError(null);
-    } catch (err) {
-      setError("Failed to delete file: " + err.message);
-    }
-  };
-
+export default function FileUpload({ files, onRemove }) {
   return (
     <>
-      {error && (
-        <p className="mt-2 text-xs text-red-500 dark:text-red-400">{error}</p>
-      )}
       <h4 className="mt-6 text-sm font-medium text-gray-900 dark:text-gray-50">
         File Uploads
       </h4>
@@ -169,13 +180,7 @@ export default function FileUpload({ files, setFiles }) {
         className="mt-4 divide-y divide-gray-200 dark:divide-gray-800"
       >
         {files.map((file) => (
-          <FileList
-            key={file.name}
-            collectionName={collectionName}
-            file={file}
-            onClose={() => handleCancelUpload(file.name)}
-            onDelete={() => handleDeleteFile(collectionName, file.name)}
-          />
+          <FileList key={file.name} file={file} onRemove={onRemove} />
         ))}
       </ul>
     </>

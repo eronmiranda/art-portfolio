@@ -3,50 +3,29 @@ import { cx } from "../lib/utils";
 import { useDropzone } from "react-dropzone";
 import FileUpload from "./FileUpload";
 import FileLineIcon from "./icons/FileLineIcon";
-import { validateFile } from "../hooks/useValidateFile.js";
-import ErrorWarningIcon from "./icons/ErrorWarningIcon.jsx";
 
 export default function UploadForm() {
   const [files, setFiles] = useState([]);
-  const [error, setError] = useState(null);
-
-  const validateFiles = async (selectedFiles) => {
-    try {
-      const validFiles = [];
-      for (let file of selectedFiles) {
-        let validFile = await validateFile(file, "featured");
-        validFiles.push(validFile);
-        setError(null);
-        return validFiles;
-      }
-    } catch (err) {
-      setError(err.message);
-      return [];
-    }
-  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: async (acceptedFiles) => {
-      const validFiles = await validateFiles(acceptedFiles);
-      if (validFiles.length > 0) {
-        setFiles((prev) => {
-          let newFiles = validFiles.filter(
-            (file) => !prev.some((f) => f.name === file.name),
-          );
-          return [...prev, ...newFiles];
-        });
-      }
+    onDrop: async (selectedFiles) => {
+      setFiles((prev) => {
+        let newFiles = selectedFiles.filter(
+          (file) => !prev.some((f) => f.name === file.name),
+        );
+        return [...prev, ...newFiles];
+      });
     },
   });
 
   const handleFileChange = async (event) => {
     let selectedFiles = Array.from(event.target.files);
-    const validFiles = await validateFiles(selectedFiles);
-
-    console.log("validFiles in handleFileChange", validFiles);
-    if (validFiles.length > 0) {
-      setFiles((prev) => [...prev, ...validFiles]);
-    }
+    setFiles((prev) => {
+      let newFiles = selectedFiles.filter(
+        (file) => !prev.some((f) => f.name === file.name),
+      );
+      return [...prev, ...newFiles];
+    });
   };
 
   return (
@@ -96,13 +75,14 @@ export default function UploadForm() {
               </div>
             </div>
           </div>
-          {error && (
-            <div className="mt-6 flex items-center space-x-2.5 rounded-md bg-red-50 p-4 dark:bg-red-500/10">
-              <ErrorWarningIcon />
-              <p className="text-xs text-red-600 dark:text-red-500">{error}</p>
-            </div>
+          {files.length > 0 && (
+            <FileUpload
+              files={files}
+              onRemove={(fileName) =>
+                setFiles(files.filter((file) => file.name !== fileName))
+              }
+            />
           )}
-          {files.length > 0 && <FileUpload files={files} setFiles={setFiles} />}
         </form>
       </div>
     </>
