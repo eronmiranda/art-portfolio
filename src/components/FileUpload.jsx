@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteFile } from "../hooks/useDeleteFile";
+import useDeleteFile from "../hooks/useDeleteFile";
 import { ProgressBar } from "./ProgressBar";
 import CloseIcon from "./icons/CloseIcon";
 import LazyImage from "./LazyImage";
@@ -38,13 +38,14 @@ function DeleteButton({ onClick }) {
 
 function FileList({ file, collectionName = "featured", onRemove }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { progress, url, error, validationError } = useUploadImage(
-    file,
-    collectionName,
-  );
-  const [deleteError, setDeleteError] = useState(null);
+  const {
+    progress,
+    url,
+    error: uploadError,
+  } = useUploadImage(file, collectionName);
+  const { deleteFile, error: deleteError } = useDeleteFile();
 
-  const errors = [error, validationError, deleteError].filter(Boolean);
+  const errors = [uploadError, deleteError].filter(Boolean);
   const hasErrors = errors.length > 0;
 
   const handleCancelUpload = (fileName) => {
@@ -52,12 +53,9 @@ function FileList({ file, collectionName = "featured", onRemove }) {
   };
 
   const handleDeleteFile = async (fileName, collectionName) => {
-    try {
-      await deleteFile(collectionName, fileName);
+    await deleteFile(fileName, collectionName);
+    if (!deleteError) {
       onRemove(fileName);
-      setDeleteError(null);
-    } catch (err) {
-      setDeleteError("Failed to delete file: " + err.message);
     }
   };
 

@@ -4,8 +4,14 @@ import { projectFirestore } from "../firebase/config";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 function useUploadImage(file, collectionName = "featured") {
-  const { uploadImage, progress, url, error, isUploading } = useStorage();
-  const [validationError, setValidationError] = useState(null);
+  const {
+    uploadFile,
+    progress,
+    url,
+    error: storageError,
+    isUploading,
+  } = useStorage();
+  const [error, setError] = useState(null);
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -34,15 +40,16 @@ function useUploadImage(file, collectionName = "featured") {
           );
         }
 
-        uploadImage(file, collectionName);
-      } catch (error) {
-        setValidationError(error.message);
+        uploadFile(file, collectionName);
+        if (storageError) setError(storageError);
+      } catch (err) {
+        setError(err.message);
       }
     };
     validateAndUpload();
-  }, [uploadImage, file, collectionName]);
+  }, [uploadFile, file, collectionName, storageError]);
 
-  return { progress, url, isUploading, error, validationError };
+  return { progress, url, isUploading, error };
 }
 
 export default useUploadImage;
