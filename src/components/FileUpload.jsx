@@ -9,6 +9,7 @@ import FileLineIcon from "./icons/FileLineIcon";
 import RoundedDangerIcon from "./icons/RoundedDangerIcon";
 import useUploadImage from "../hooks/useUploadImage";
 import ErrorWarningIcon from "./icons/ErrorWarningIcon";
+import { toast } from "sonner";
 
 function CloseButton({ onClick }) {
   return (
@@ -56,6 +57,9 @@ function FileList({ file, collectionName = "featured", onRemove }) {
     await deleteFile(fileName, collectionName);
     if (!deleteError) {
       onRemove(fileName);
+      toast.success(`Successfully deleted ${fileName}`, {
+        duration: 5000,
+      });
     }
   };
 
