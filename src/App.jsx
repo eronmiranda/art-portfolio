@@ -12,6 +12,7 @@ import { MotionDiv, MotionPresence } from "./components/Motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CircleLoader from "./components/CircleLoader";
+import Toaster from "./components/Toaster";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -114,6 +115,7 @@ function App() {
     <Router>
       <AuthProvider>
         <AnimatedApp />
+        <Toaster />
       </AuthProvider>
     </Router>
   );
