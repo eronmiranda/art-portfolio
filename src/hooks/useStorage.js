@@ -15,7 +15,7 @@ function useStorage() {
   const [isUploading, setIsUploading] = useState(false);
   const startedRef = useRef(false);
 
-  const uploadImage = (file, collectionName = "featured") => {
+  const uploadFile = (file, collectionName = "featured") => {
     if (!file || startedRef.current) return;
     startedRef.current = true;
 
@@ -56,7 +56,7 @@ function useStorage() {
     );
   };
 
-  return { uploadImage, progress, url, error, isUploading };
+  return { uploadFile, progress, url, error, isUploading };
 }
 
 export default useStorage;
