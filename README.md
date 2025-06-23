@@ -1,6 +1,6 @@
 # Digital Stickers Portfolio 🎨
 
-Welcome! This is a digital art portfolio I built for my friend—an artist who wanted a modern, animated space to showcase their creative sticker designs. This case study documents the process, challenges, and features that went into making a portfolio that truly reflects their style and vision.
+A digital art portfolio I built for a friend, an artist who wanted a modern animated space to showcase their creative sticker designs. This case study documents my process, challenges, and features that went into making a portfolio that truly reflects their style and vision.
 
 View the [Live Site Here](https://www.marave.ca) 🔗
 
@@ -9,8 +9,6 @@ View the [Live Site Here](https://www.marave.ca) 🔗
 ## Project Motivation 🎯
 
 My friend is passionate about digital arts and needed a portfolio that was more than just a static gallery. The goal was to create an interactive, visually engaging site that would make their work stand out and be easy to update as their collection grows.
-
-My friend, a passionate digital artist, wanted a portfolio that was more than just a static gallery. The challenge was to create an interactive, visually engaging site that would make their work stand out, feel personal, and be easy to update as their collection grows. Collaborating closely, I aimed to turn their creative vision into a modern web experience that truly reflects their unique style.
 
 ## Features ✨
 
@@ -40,10 +38,10 @@ My friend, a passionate digital artist, wanted a portfolio that was more than ju
 
 ## Future Improvements 🚧
 
-- [ ] Minified navigation menu bar for mobile
+- [x] Minified navigation menu bar for mobile
 - [ ] Make the contact page functional (WIP)
 - [ ] Add social icons
-- [ ] Image filtering
+- [x] Image filtering
 - [ ] Admin dashboard for uploading new stickers
 - [ ] Enhanced accessibility and keyboard shortcuts
 - [ ] Analytics for portfolio views
@@ -59,11 +57,12 @@ My friend, a passionate digital artist, wanted a portfolio that was more than ju
 public/           # Static assets
 src/
 ├── components/   # Reusable UI building blocks
+├── contexts/     # Context providers for global state management
 ├── pages/        # Main pages (Home, About, Work, etc.)
 ├── firebase/     # Firebase config
 ├── hooks/        # Custom React hooks
 ├── lib/          # Utility functions
-├── resources/    # Customizable config and content
+├── resources/    # Customizable app config and content management
 ```
 
 ## Getting Started 🚀
@@ -153,8 +152,6 @@ The app will be available at `http://localhost:5030`
 ## Conclusion 💬
 
 Building this project was a rewarding experience. It challenged me to think about user experience from an artist's perspective and to deliver a product that is both beautiful and functional. It also served as a playground for experimenting with animation, performance, and design. I learned a lot about the nuances of user experience and the power of small details.
-
-If you have feedback or want to collaborate, feel free to reach out!
 
 ---
 
