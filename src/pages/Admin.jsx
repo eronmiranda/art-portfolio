@@ -2,19 +2,24 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import UploadForm from "../components/UploadForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/Tabs";
+import ImageTable from "../components/ImageTable";
+import useFirestore from "../hooks/useFirestore";
+import { toast } from "sonner";
 
 function Admin() {
   const { signOut } = useAuth();
   const [error, setError] = useState(null);
+  const images = useFirestore("images");
 
   async function handleLogout() {
     setError("");
-
-    try {
-      await signOut();
-    } catch {
-      setError("Failed to log out");
-    }
+    await signOut()
+      .then(() => {
+        toast.success("Successfully logged out");
+      })
+      .error(() => {
+        setError("Failed to log out");
+      });
   }
 
   return (
@@ -36,20 +41,7 @@ function Admin() {
             value="portfolio"
             className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
           >
-            <p>
-              We ship worldwide via UPS Expedited. We offer flat rate shipping
-              to customers in Canada ($30), the EU, Japan, and Singapore
-              ($45–$65+), and Australia ($65). Note that most brokerage fees are
-              included in the price of UPS Expedited shipping, with the
-              exception of a possible $10 fee assessed in Canada only if prior
-              arrangements to pay for duties and taxes are not made (see next
-              question and answer).
-            </p>
-            <p>
-              Outside of the United States, tariffs, duties, and taxes are the
-              responsibility of the customer and are usually paid at time of
-              delivery.
-            </p>
+            <ImageTable images={images} />
           </TabsContent>
         </div>
       </Tabs>
