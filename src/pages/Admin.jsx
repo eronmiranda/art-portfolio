@@ -9,7 +9,7 @@ import { toast } from "sonner";
 function Admin() {
   const { signOut } = useAuth();
   const [error, setError] = useState(null);
-  const images = useFirestore("images");
+  const images = useFirestore("featured");
 
   async function handleLogout() {
     setError("");
@@ -17,7 +17,7 @@ function Admin() {
       .then(() => {
         toast.success("Successfully logged out");
       })
-      .error(() => {
+      .catch(() => {
         setError("Failed to log out");
       });
   }

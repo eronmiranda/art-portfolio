@@ -7,8 +7,26 @@ import {
   TableRoot,
   TableRow,
 } from "./ui/Table";
+import useDeleteFile from "../hooks/useDeleteFile";
+import { toast } from "sonner";
 
 export default function ImageTable({ images }) {
+  const { deleteFile } = useDeleteFile();
+  const handleDelete = async (fileName) => {
+    console.log(fileName);
+    await deleteFile(fileName, "featured")
+      .then(() => {
+        toast.success(`Successfully deleted ${fileName}`);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.error(err.message);
+      });
+  };
+
+  const handleEdit = async (fileName) => {
+    console.log(fileName);
+  };
   return (
     <TableRoot className="mt-8 table-fixed">
       <Table>
@@ -36,9 +54,19 @@ export default function ImageTable({ images }) {
                 {Array.isArray(image.tags) ? image.tags.join(", ") : image.tags}
               </TableCell>
               <TableCell className="w-30">
-                <button className="text-blue-500 hover:underline">Edit</button>{" "}
+                <button
+                  className="text-blue-500 hover:underline"
+                  onClick={handleEdit}
+                >
+                  Edit
+                </button>{" "}
                 |{" "}
-                <button className="text-red-500 hover:underline">Delete</button>
+                <button
+                  className="text-red-500 hover:underline"
+                  onClick={() => handleDelete(image.fileName)}
+                >
+                  Delete
+                </button>
               </TableCell>
             </TableRow>
           ))}

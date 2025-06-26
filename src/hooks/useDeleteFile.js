@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { projectStorage, projectFirestore } from "../firebase/config";
 import { ref, deleteObject } from "firebase/storage";
 import {
@@ -10,7 +9,6 @@ import {
 } from "firebase/firestore";
 
 function useDeleteFile() {
-  const [error, setError] = useState(null);
   const deleteFile = async (fileName, collectionName = "featured") => {
     try {
       const storagePath = `${collectionName}/${fileName}`;
@@ -24,11 +22,11 @@ function useDeleteFile() {
         await deleteDoc(doc.ref);
       }
     } catch (err) {
-      setError(err.message);
+      throw new Error(`Error deleting file: ${fileName}: ${err.message}`);
     }
   };
 
-  return { deleteFile, error };
+  return { deleteFile };
 }
 
 export default useDeleteFile;
