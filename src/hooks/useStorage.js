@@ -44,7 +44,14 @@ function useStorage() {
           await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
             const createdAt = timeStamp.now();
             const fileName = storageRef.name;
-            addDoc(collectionRef, { url, createdAt, fileName });
+            addDoc(collectionRef, {
+              url,
+              createdAt,
+              fileName,
+              title: fileName,
+              display: false,
+              tags: [],
+            });
             setUrl(url);
             setIsUploading(false);
           });

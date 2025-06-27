@@ -14,19 +14,32 @@ import Modal from "./Modal";
 import RoundedDangerIcon from "./icons/RoundedDangerIcon";
 import { Switch } from "./ui/Switch";
 import LazyImage from "./LazyImage";
+import useUpdateDoc from "../hooks/useUpdateDoc";
 
 function EditModal({ isModalOpen, setIsModalOpen, onEdit, art }) {
   const [display, setDisplay] = useState(art.display);
+  const { updateDoc } = useUpdateDoc();
+
   useEffect(() => {
     setDisplay(art.display || false);
   }, [art.display]);
-  const handleForm = (event) => {
+
+  const handleForm = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    console.log("Form submitted:", data);
-    console.log("Display status:", display);
-    // onEdit(data);
+    await updateDoc("featured", art.id, {
+      ...data,
+      display: display,
+    })
+      .then(() => {
+        toast.success("Successfully updated art details");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.error(err.message);
+      });
+    setIsModalOpen(false);
   };
   return (
     <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -160,6 +173,7 @@ export default function ImageTable({ images }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { deleteFile } = useDeleteFile();
+
   const handleDelete = async (fileName) => {
     console.log(fileName);
     await deleteFile(fileName, "featured")
@@ -172,13 +186,9 @@ export default function ImageTable({ images }) {
       });
   };
 
-  const handleEdit = async (file) => {
-    console.log(file);
-  };
-
   return (
     <>
-      <TableRoot className="mt-8 table-fixed">
+      <TableRoot className="mt-8 table-fixed rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900">
         <Table>
           <TableHead>
             <TableRow>
@@ -239,7 +249,6 @@ export default function ImageTable({ images }) {
       <EditModal
         isModalOpen={isEditModalOpen}
         setIsModalOpen={setIsEditModalOpen}
-        onEdit={handleEdit}
         art={selectedArt || ""}
       />
     </>
