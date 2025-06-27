@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   Table,
   TableBody,
@@ -15,6 +15,7 @@ import RoundedDangerIcon from "./icons/RoundedDangerIcon";
 import { Switch } from "./ui/Switch";
 import LazyImage from "./LazyImage";
 import useUpdateDoc from "../hooks/useUpdateDoc";
+import { Badge, badgeVariants } from "./ui/Badge";
 
 function EditModal({ isModalOpen, setIsModalOpen, onEdit, art }) {
   const [display, setDisplay] = useState(art.display);
@@ -173,6 +174,17 @@ export default function ImageTable({ images }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { deleteFile } = useDeleteFile();
+  const tagVariants = Object.keys(badgeVariants.variants.variant);
+  const tags = useMemo(
+    () => Array.from(new Set(images.flatMap((image) => image.tags ?? []))),
+    [images],
+  );
+
+  // Helper to get the variant for a tag based on its index in the unique tags array
+  const getTagVariant = (tag) => {
+    const tagIndex = tags.indexOf(tag);
+    return tagVariants[tagIndex % tagVariants.length];
+  };
 
   const handleDelete = async (fileName) => {
     console.log(fileName);
@@ -210,9 +222,17 @@ export default function ImageTable({ images }) {
                 </TableCell>
                 <TableCell className="w-auto">{image.title}</TableCell>
                 <TableCell className="w-auto">
-                  {Array.isArray(image.tags)
-                    ? image.tags.join(", ")
-                    : image.tags}
+                  {!image.tags || image.tags.length === 0
+                    ? "No tags"
+                    : image.tags.map((tag, index) => (
+                        <Badge
+                          key={index}
+                          variant={getTagVariant(tag)}
+                          className="mr-1"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
                 </TableCell>
                 <TableCell className="w-30">
                   <button
