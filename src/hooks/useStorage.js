@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   projectStorage,
   projectFirestore,
@@ -10,41 +10,37 @@ import { collection, addDoc } from "firebase/firestore";
 
 function useStorage() {
   const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
-  const [url, setUrl] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const startedRef = useRef(false);
 
   const uploadFile = (file, collectionName = "featured") => {
-    if (!file || startedRef.current) return;
-    startedRef.current = true;
+    return new Promise((resolve, reject) => {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        reject(new Error("You must be logged in to upload files."));
+        return;
+      }
 
-    const path = `${collectionName}/${file.name}`;
-    const storageRef = ref(projectStorage, path);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    const collectionRef = collection(projectFirestore, collectionName);
+      const path = `${collectionName}/${file.name}`;
+      const storageRef = ref(projectStorage, path);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      const collectionRef = collection(projectFirestore, collectionName);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(Math.round(percent));
-      },
-      (err) => {
-        setError(err);
-        setIsUploading(false);
-      },
-      async () => {
-        try {
-          const currentUser = auth.currentUser;
-          if (!currentUser) {
-            setError("You must be logged in to upload files.");
-            return;
-          }
-          await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percent =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(Math.round(percent));
+        },
+        (err) => {
+          reject(err);
+        },
+        async () => {
+          try {
+            const url = await getDownloadURL(uploadTask.snapshot.ref);
             const createdAt = timeStamp.now();
             const fileName = storageRef.name;
-            addDoc(collectionRef, {
+
+            await addDoc(collectionRef, {
               url,
               createdAt,
               fileName,
@@ -52,18 +48,17 @@ function useStorage() {
               display: false,
               tags: [],
             });
-            setUrl(url);
-            setIsUploading(false);
-          });
-        } catch (err) {
-          setError("Failed to upload file: " + err.message);
-          setIsUploading(false);
-        }
-      },
-    );
+
+            resolve({ url, fileName });
+          } catch (err) {
+            reject(new Error("Failed to upload file: " + err.message));
+          }
+        },
+      );
+    });
   };
 
-  return { uploadFile, progress, url, error, isUploading };
+  return { uploadFile, progress };
 }
 
 export default useStorage;

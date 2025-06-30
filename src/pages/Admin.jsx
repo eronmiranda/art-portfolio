@@ -36,6 +36,7 @@ function Admin() {
             className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
           >
             <UploadForm />
+            <ImageTable images={images} />
           </TabsContent>
           <TabsContent
             value="portfolio"

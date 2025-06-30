@@ -1,30 +1,45 @@
-import { useState } from "react";
 import { cx } from "../lib/utils";
 import { useDropzone } from "react-dropzone";
-import FileUpload from "./FileUpload";
 import FileLineIcon from "./icons/FileLineIcon";
+import { toast } from "sonner";
+import useUploadImage from "../hooks/useUploadImage";
 
 export default function UploadForm() {
-  const [files, setFiles] = useState([]);
+  const { uploadImage } = useUploadImage();
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: async (selectedFiles) => {
-      setFiles((prev) => {
-        let newFiles = selectedFiles.filter(
-          (file) => !prev.some((f) => f.name === file.name),
-        );
-        return [...prev, ...newFiles];
+      selectedFiles.forEach((file) => {
+        const uploadPromise = uploadImage(file, "featured");
+
+        toast.promise(uploadPromise, {
+          loading: `Uploading ${file.name}...`,
+          success: (data) => {
+            return `${data.name} uploaded successfully!`;
+          },
+          error: (error) => {
+            return `Failed to upload ${file.name}: ${error.message}`;
+          },
+        });
       });
     },
   });
 
   const handleFileChange = async (event) => {
     let selectedFiles = Array.from(event.target.files);
-    setFiles((prev) => {
-      let newFiles = selectedFiles.filter(
-        (file) => !prev.some((f) => f.name === file.name),
-      );
-      return [...prev, ...newFiles];
+
+    selectedFiles.forEach((file) => {
+      const uploadPromise = uploadImage(file, "featured");
+
+      toast.promise(uploadPromise, {
+        loading: `Uploading ${file.name}...`,
+        success: (data) => {
+          return `${data.name} uploaded successfully!`;
+        },
+        error: (error) => {
+          return `Failed to upload ${file.name}: ${error.message}`;
+        },
+      });
     });
   };
 
@@ -74,14 +89,6 @@ export default function UploadForm() {
             </div>
           </div>
         </div>
-        {files.length > 0 && (
-          <FileUpload
-            files={files}
-            onRemove={(fileName) =>
-              setFiles(files.filter((file) => file.name !== fileName))
-            }
-          />
-        )}
       </form>
     </>
   );
