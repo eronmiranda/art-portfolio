@@ -107,9 +107,9 @@ function FileList({ file, collectionName = "featured", onRemove }) {
       <div className="mt-2 flex w-full flex-col items-center space-y-1.5 space-x-3">
         {hasErrors &&
           errors.map((error, index) => (
-            <div key={index} class="mt-4 flex items-center space-x-1.5">
+            <div key={index} className="mt-4 flex items-center space-x-1.5">
               <ErrorWarningIcon />
-              <span class="text-xs text-red-500 dark:text-red-500">
+              <span className="text-xs text-red-500 dark:text-red-500">
                 {error}
               </span>
             </div>

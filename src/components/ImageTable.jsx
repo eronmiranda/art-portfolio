@@ -15,23 +15,30 @@ import RoundedDangerIcon from "./icons/RoundedDangerIcon";
 import { Switch } from "./ui/Switch";
 import LazyImage from "./LazyImage";
 import useUpdateDoc from "../hooks/useUpdateDoc";
-import { Badge, badgeVariants } from "./ui/Badge";
+import { Badge, badgeVariants, BadgeDismiss } from "./ui/Badge";
 
-function EditModal({ isModalOpen, setIsModalOpen, onEdit, art }) {
-  const [display, setDisplay] = useState(art.display);
+function EditModal({ isModalOpen, setIsModalOpen, art, tagList }) {
+  const [display, setDisplay] = useState(!!art.display);
+  const [title, setTitle] = useState(art.title || "");
+  const [tags, setTags] = useState(art.tags || []);
   const { updateDoc } = useUpdateDoc();
 
   useEffect(() => {
-    setDisplay(art.display || false);
-  }, [art.display]);
+    setDisplay(!!art.display);
+    setTitle(art.title || "");
+    setTags(Array.from(new Set(art.tags)).sort() || []);
+  }, [art]);
 
   const handleForm = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
+
+    console.log("tags", tags);
     await updateDoc("featured", art.id, {
       ...data,
       display: display,
+      tags: tags,
     })
       .then(() => {
         toast.success("Successfully updated art details");
@@ -42,14 +49,29 @@ function EditModal({ isModalOpen, setIsModalOpen, onEdit, art }) {
       });
     setIsModalOpen(false);
   };
+
+  const handleTagInputKeyDown = (event) => {
+    if (event.key === "Enter" && event.target.value.trim() !== "") {
+      event.preventDefault();
+      const newTag = event.target.value.trim().toLowerCase();
+      if (!tags.includes(newTag)) {
+        setTags((prevTags) => [...prevTags, newTag].sort());
+        event.target.value = "";
+      }
+    }
+  };
+
   return (
     <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
       <div className="max-w-sm rounded-lg bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 md:max-w-lg">
+        <h3 className="text-xl font-semibold text-gray-900" id="modal-title">
+          {art.title || art.fileName}
+        </h3>
         <form
           onSubmit={handleForm}
           action="#"
           method="POST"
-          className="mx-auto max-w-xl"
+          className="mx-auto mt-8 max-w-xl shadow-xs"
         >
           <div className="mb-8 flex flex-col gap-y-3">
             <LazyImage
@@ -83,12 +105,48 @@ function EditModal({ isModalOpen, setIsModalOpen, onEdit, art }) {
                   id="title"
                   name="title"
                   type="text"
-                  autoComplete="title"
                   placeholder="Image Title"
                   className="input-base"
-                  defaultValue={art.title || ""}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                 />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="tags"
+                className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+              >
+                Tags
+              </label>
+              <div>
+                <input
+                  id="tags"
+                  name="tags"
+                  type="text"
+                  autoComplete="tags"
+                  className="input-base"
+                  onKeyDown={handleTagInputKeyDown}
+                  aria-describedby="tags-hint"
+                />
+                <p id="tags-hint" className="mt-1 text-xs text-gray-500">
+                  Press <kbd>Enter</kbd> to add a tag
+                </p>
+              </div>
+              <div>
+                {tags.map((tag, index) => (
+                  <BadgeDismiss
+                    key={index}
+                    variant="neutral"
+                    className="mt-2"
+                    onDismiss={() => {
+                      setTags((prevTags) => prevTags.filter((t) => t !== tag));
+                    }}
+                  >
+                    {tag}
+                  </BadgeDismiss>
+                ))}
               </div>
             </div>
           </div>
@@ -97,7 +155,6 @@ function EditModal({ isModalOpen, setIsModalOpen, onEdit, art }) {
               type="submit"
               className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto"
               onClick={() => {
-                onEdit(art);
                 setIsModalOpen(false);
               }}
             >
@@ -176,7 +233,8 @@ export default function ImageTable({ images }) {
   const { deleteFile } = useDeleteFile();
   const tagVariants = Object.keys(badgeVariants.variants.variant);
   const tags = useMemo(
-    () => Array.from(new Set(images.flatMap((image) => image.tags ?? []))),
+    () =>
+      Array.from(new Set(images.flatMap((image) => image.tags ?? []))).sort(),
     [images],
   );
 
@@ -224,15 +282,17 @@ export default function ImageTable({ images }) {
                 <TableCell className="w-auto">
                   {!image.tags || image.tags.length === 0
                     ? "No tags"
-                    : image.tags.map((tag, index) => (
-                        <Badge
-                          key={index}
-                          variant={getTagVariant(tag)}
-                          className="mr-1"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
+                    : Array.from(new Set(image.tags))
+                        .sort()
+                        .map((tag, index) => (
+                          <Badge
+                            key={index}
+                            variant={getTagVariant(tag)}
+                            className="mr-1"
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
                 </TableCell>
                 <TableCell className="w-30">
                   <button
@@ -270,6 +330,7 @@ export default function ImageTable({ images }) {
         isModalOpen={isEditModalOpen}
         setIsModalOpen={setIsEditModalOpen}
         art={selectedArt || ""}
+        tagList={tags}
       />
     </>
   );
