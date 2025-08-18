@@ -45,7 +45,7 @@ function useStorage() {
               createdAt,
               fileName,
               title: fileName,
-              display: false,
+              display: true,
               tags: [],
             });
 

@@ -6,7 +6,7 @@ import { filterAndMapImages } from "../lib/utils";
 const Gallery = lazy(() => import("../components/Gallery"));
 
 function Work() {
-  const rawImages = useFirestore("arts");
+  const rawImages = useFirestore("portfolio");
 
   const images = useMemo(() => filterAndMapImages(rawImages), [rawImages]);
 

@@ -4,13 +4,14 @@ import FileLineIcon from "./icons/FileLineIcon";
 import { toast } from "sonner";
 import useUploadImage from "../hooks/useUploadImage";
 
-export default function UploadForm() {
+export default function UploadForm({ collectionName }) {
   const { uploadImage } = useUploadImage();
+  console.log("collectionName:", collectionName);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: async (selectedFiles) => {
       selectedFiles.forEach((file) => {
-        const uploadPromise = uploadImage(file, "featured");
+        const uploadPromise = uploadImage(file, collectionName);
 
         toast.promise(uploadPromise, {
           loading: `Uploading ${file.name}...`,
@@ -29,7 +30,7 @@ export default function UploadForm() {
     let selectedFiles = Array.from(event.target.files);
 
     selectedFiles.forEach((file) => {
-      const uploadPromise = uploadImage(file, "featured");
+      const uploadPromise = uploadImage(file, collectionName);
 
       toast.promise(uploadPromise, {
         loading: `Uploading ${file.name}...`,
@@ -37,6 +38,7 @@ export default function UploadForm() {
           return `${data.name} uploaded successfully!`;
         },
         error: (error) => {
+          console.error(error.message);
           return `Failed to upload ${file.name}: ${error.message}`;
         },
       });

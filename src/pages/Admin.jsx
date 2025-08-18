@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import UploadForm from "../components/UploadForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/Tabs";
@@ -8,17 +7,16 @@ import { toast } from "sonner";
 
 function Admin() {
   const { signOut } = useAuth();
-  const [error, setError] = useState(null);
-  const images = useFirestore("featured");
+  const featuredCollection = useFirestore("featured");
+  const portfolioCollection = useFirestore("portfolio");
 
   async function handleLogout() {
-    setError("");
     await signOut()
       .then(() => {
         toast.success("Successfully logged out");
       })
       .catch(() => {
-        setError("Failed to log out");
+        toast.error("Failed to log out");
       });
   }
 
@@ -35,18 +33,21 @@ function Admin() {
             value="featured"
             className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
           >
-            <UploadForm />
-            <ImageTable images={images} />
+            <UploadForm collectionName="featured" />
+            <ImageTable collectionName="featured" images={featuredCollection} />
           </TabsContent>
           <TabsContent
             value="portfolio"
             className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
           >
-            <ImageTable images={images} />
+            <UploadForm collectionName="portfolio" />
+            <ImageTable
+              collectionName="portfolio"
+              images={portfolioCollection}
+            />
           </TabsContent>
         </div>
       </Tabs>
-      {error && <p className="text-red-500">{error}</p>}
 
       <button
         type="button"

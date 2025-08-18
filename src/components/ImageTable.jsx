@@ -15,9 +15,15 @@ import RoundedDangerIcon from "./icons/RoundedDangerIcon";
 import { Switch } from "./ui/Switch";
 import LazyImage from "./LazyImage";
 import useUpdateDoc from "../hooks/useUpdateDoc";
-import { Badge, badgeVariants, BadgeDismiss } from "./ui/Badge";
+import { BadgeDismiss } from "./ui/Badge";
 
-function EditModal({ isModalOpen, setIsModalOpen, art, tagList }) {
+function EditModal({
+  isModalOpen,
+  setIsModalOpen,
+  art,
+  tagList,
+  collectionName,
+}) {
   const [display, setDisplay] = useState(!!art.display);
   const [title, setTitle] = useState(art.title || "");
   const [tags, setTags] = useState(art.tags || []);
@@ -44,8 +50,7 @@ function EditModal({ isModalOpen, setIsModalOpen, art, tagList }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
 
-    console.log("tags", tags);
-    await updateDoc("featured", art.id, {
+    await updateDoc(collectionName, art.id, {
       ...data,
       display: display,
       tags: tags,
@@ -54,8 +59,8 @@ function EditModal({ isModalOpen, setIsModalOpen, art, tagList }) {
         toast.success("Successfully updated art details");
       })
       .catch((err) => {
-        toast.error(err.message);
         console.error(err.message);
+        toast.error(err.message);
       });
     setIsModalOpen(false);
   };
@@ -266,12 +271,11 @@ function DeleteModal({ isModalOpen, setIsModalOpen, onDelete, fileName }) {
   );
 }
 
-export default function ImageTable({ images }) {
+export default function ImageTable({ collectionName = "featured", images }) {
   const [selectedArt, setSelectedArt] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { deleteFile } = useDeleteFile();
-  const tagVariants = Object.keys(badgeVariants.variants.variant);
   const tags = useMemo(
     () =>
       Array.from(new Set(images.flatMap((image) => image.tags ?? []))).sort(),
@@ -279,20 +283,16 @@ export default function ImageTable({ images }) {
   );
 
   // Helper to get the variant for a tag based on its index in the unique tags array
-  const getTagVariant = (tag) => {
-    const tagIndex = tags.indexOf(tag);
-    return tagVariants[tagIndex % tagVariants.length];
-  };
 
   const handleDelete = async (fileName) => {
     console.log(fileName);
-    await deleteFile(fileName, "featured")
+    await deleteFile(fileName, collectionName)
       .then(() => {
         toast.success(`Successfully deleted ${fileName}`);
       })
       .catch((err) => {
-        toast.error(err.message);
         console.error(err.message);
+        toast.error(err.message);
       });
   };
 
@@ -302,61 +302,136 @@ export default function ImageTable({ images }) {
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Image</TableHeaderCell>
-              <TableHeaderCell>Title</TableHeaderCell>
-              <TableHeaderCell>Tags</TableHeaderCell>
-              <TableHeaderCell>Actions</TableHeaderCell>
+              <TableHeaderCell className="text-center">Image</TableHeaderCell>
+              <TableHeaderCell className="text-center">Title</TableHeaderCell>
+              <TableHeaderCell className="text-center">Display</TableHeaderCell>
+              <TableHeaderCell className="text-center">Tags</TableHeaderCell>
+              <TableHeaderCell className="text-center">Actions</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {images.map((image) => (
-              <TableRow key={image.url}>
-                <TableCell className="w-30">
-                  <LazyImage
-                    src={image.url}
-                    alt={image.title}
-                    className="size-21 object-contain"
-                  />
-                </TableCell>
-                <TableCell className="w-auto">{image.title}</TableCell>
-                <TableCell className="w-auto">
-                  {!image.tags || image.tags.length === 0
-                    ? "No tags"
-                    : Array.from(new Set(image.tags))
-                        .sort()
-                        .map((tag, index) => (
-                          <Badge
-                            key={index}
-                            variant={getTagVariant(tag)}
-                            className="mr-1"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                </TableCell>
-                <TableCell className="w-30">
-                  <button
-                    className="text-blue-500 hover:underline"
-                    onClick={() => {
-                      setIsEditModalOpen(true);
-                      setSelectedArt(image);
-                    }}
-                  >
-                    Edit
-                  </button>{" "}
-                  |{" "}
-                  <button
-                    className="text-red-500 hover:underline"
-                    onClick={() => {
-                      setIsDeleteModalOpen(true);
-                      setSelectedArt(image);
-                    }}
-                  >
-                    Delete
-                  </button>
+            {images.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="py-8 text-center text-gray-500"
+                >
+                  No images found. Upload some images to get started!
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              images.map((image) => (
+                <TableRow key={image.url}>
+                  <TableCell className="w-30">
+                    <LazyImage
+                      src={image.url}
+                      alt={image.title}
+                      className="size-21 object-contain"
+                    />
+                  </TableCell>
+                  <TableCell className="w-auto">{image.title}</TableCell>
+                  <TableCell className="w-20">
+                    <div className="flex items-center justify-center">
+                      <div
+                        className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
+                          image.display
+                            ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
+                            : "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300"
+                        }`}
+                      >
+                        <div
+                          className={`mr-1.5 h-1.5 w-1.5 rounded-full ${
+                            image.display ? "bg-green-500" : "bg-gray-400"
+                          }`}
+                        ></div>
+                        {image.display ? "Active" : "Hidden"}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="w-auto">
+                    <div className="flex flex-wrap gap-1">
+                      {!image.tags || image.tags.length === 0 ? (
+                        <span className="text-sm text-gray-500 italic">
+                          No tags
+                        </span>
+                      ) : (
+                        Array.from(new Set(image.tags))
+                          .sort()
+                          .map((tag, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center rounded-md border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300"
+                            >
+                              <svg
+                                className="mr-1 h-2.5 w-2.5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100 2 1 1 0 000-2z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                              {tag}
+                            </span>
+                          ))
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="w-30">
+                    <div className="flex gap-2">
+                      <button
+                        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:outline-none"
+                        onClick={() => {
+                          setIsEditModalOpen(true);
+                          setSelectedArt(image);
+                        }}
+                        title="Edit image details"
+                      >
+                        <svg
+                          className="mr-1 h-3 w-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                        Edit
+                      </button>
+                      <button
+                        className="inline-flex items-center justify-center rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:outline-none"
+                        onClick={() => {
+                          setIsDeleteModalOpen(true);
+                          setSelectedArt(image);
+                        }}
+                        title="Delete image permanently"
+                      >
+                        <svg
+                          className="mr-1 h-3 w-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                        Delete
+                      </button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableRoot>
@@ -371,6 +446,7 @@ export default function ImageTable({ images }) {
         setIsModalOpen={setIsEditModalOpen}
         art={selectedArt || ""}
         tagList={tags}
+        collectionName={collectionName}
       />
     </>
   );
