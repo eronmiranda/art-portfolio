@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import CircleLoader from "./components/CircleLoader";
 import Toaster from "./components/Toaster";
 
+// Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Work = lazy(() => import("./pages/Work"));
@@ -23,7 +24,7 @@ const SignIn = lazy(() => import("./pages/SignIn"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-const routeOrder = [
+const ROUTE_ORDER = [
   "/",
   "/work",
   "/about",
@@ -34,70 +35,78 @@ const routeOrder = [
   "/404",
 ];
 
-function AnimatedApp() {
-  const location = useLocation();
-  const prevIndex = useRef(routeOrder.indexOf(location.pathname));
-  const currentIndex = routeOrder.indexOf(location.pathname);
+const ADMIN_ROUTE = "/admin";
 
-  const direction = currentIndex > prevIndex.current ? 1 : -1;
+const MOTION_CONFIG = {
+  spring: { stiffness: 300, damping: 30 },
+  opacity: { duration: 0.2 },
+};
 
-  useLayoutEffect(() => {
-    prevIndex.current = currentIndex;
-  }, [currentIndex]);
-
-  const motionVariants = {
-    initial: (direction) => {
-      return {
-        x: direction > 0 ? 1000 : -1000,
-        opacity: 0,
-      };
+const MOTION_VARIANTS = {
+  initial: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      x: { type: "spring", ...MOTION_CONFIG.spring },
+      opacity: MOTION_CONFIG.opacity,
     },
-    animate: {
-      x: 0,
-      opacity: 1,
-      // transition: 'ease-in',
-      transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
-      },
+  },
+  exit: (direction) => ({
+    x: direction > 0 ? -1000 : 1000,
+    opacity: 0,
+    transition: {
+      x: { type: "spring", ...MOTION_CONFIG.spring },
+      opacity: MOTION_CONFIG.opacity,
     },
-    exit: (direction) => {
-      return {
-        x: direction > 0 ? -1000 : 1000,
-        opacity: 0,
-        // transition: 'ease-in',
-        transition: {
-          x: { type: "spring", stiffness: 300, damping: 30 },
-          opacity: { duration: 0.2 },
-        },
-      };
-    },
-  };
+  }),
+};
 
-  // Check if current route is admin to apply different layout
-  const isAdminRoute = location.pathname === "/admin";
+// Public routes configuration
+const PUBLIC_ROUTES = [
+  { path: "/", component: Home },
+  { path: "/work", component: Work },
+  { path: "/about", component: About },
+  { path: "/contact", component: Contact },
+  { path: "/signin", component: SignIn },
+  { path: "/forgot-password", component: ForgotPassword },
+  { path: "/404", component: NotFound },
+];
 
-  if (isAdminRoute) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
-          <Routes location={location} key={location.pathname}>
-            <Route element={<PrivateRoute />}>
-              <Route path="/admin" element={<Admin />} />
-            </Route>
-          </Routes>
-        </Suspense>
-      </div>
-    );
-  }
+function PageWithHeader({ children }) {
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
+}
 
+function AdminLayout() {
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
+        <Routes>
+          <Route element={<PrivateRoute />}>
+            <Route path={ADMIN_ROUTE} element={<Admin />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </div>
+  );
+}
+
+function PublicLayout({ location, direction }) {
   return (
     <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden">
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 sm:px-8 lg:px-12">
         <MotionPresence mode="popLayout" initial={false} custom={direction}>
           <MotionDiv
             key={location.pathname}
-            variants={motionVariants}
+            variants={MOTION_VARIANTS}
             custom={direction}
             initial="initial"
             animate="animate"
@@ -105,69 +114,17 @@ function AnimatedApp() {
           >
             <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
               <Routes location={location} key={location.pathname}>
-                <Route
-                  path="/"
-                  element={
-                    <>
-                      <Header />
-                      <Home />
-                    </>
-                  }
-                />
-                <Route
-                  path="/work"
-                  element={
-                    <>
-                      <Header />
-                      <Work />
-                    </>
-                  }
-                />
-                <Route
-                  path="/about"
-                  element={
-                    <>
-                      <Header />
-                      <About />
-                    </>
-                  }
-                />
-                <Route
-                  path="/contact"
-                  element={
-                    <>
-                      <Header />
-                      <Contact />
-                    </>
-                  }
-                />
-                <Route
-                  path="/signin"
-                  element={
-                    <>
-                      <Header />
-                      <SignIn />
-                    </>
-                  }
-                />
-                <Route
-                  path="/forgot-password"
-                  element={
-                    <>
-                      <Header />
-                      <ForgotPassword />
-                    </>
-                  }
-                />
-                <Route
-                  path="/404"
-                  element={
-                    <>
-                      <Header />
-                      <NotFound />
-                    </>
-                  }
-                />
+                {PUBLIC_ROUTES.map(({ path, component: Component }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={
+                      <PageWithHeader>
+                        <Component />
+                      </PageWithHeader>
+                    }
+                  />
+                ))}
                 <Route path="*" element={<Navigate to="/404" />} />
               </Routes>
             </Suspense>
@@ -177,6 +134,31 @@ function AnimatedApp() {
       <Footer />
     </div>
   );
+}
+
+// Custom hook for route animation logic
+function useRouteAnimation() {
+  const location = useLocation();
+  const prevIndex = useRef(ROUTE_ORDER.indexOf(location.pathname));
+  const currentIndex = ROUTE_ORDER.indexOf(location.pathname);
+  const direction = currentIndex > prevIndex.current ? 1 : -1;
+
+  useLayoutEffect(() => {
+    prevIndex.current = currentIndex;
+  }, [currentIndex]);
+
+  return { location, direction };
+}
+
+function AnimatedApp() {
+  const { location, direction } = useRouteAnimation();
+  const isAdminRoute = location.pathname === ADMIN_ROUTE;
+
+  if (isAdminRoute) {
+    return <AdminLayout />;
+  }
+
+  return <PublicLayout location={location} direction={direction} />;
 }
 
 function App() {
