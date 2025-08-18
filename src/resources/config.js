@@ -1,13 +1,13 @@
 const routes = [
   {
     isEnabled: true,
-    to: "/work",
-    label: "Work",
+    to: "/",
+    label: "Home",
   },
   {
     isEnabled: true,
-    to: "/about",
-    label: "About",
+    to: "/work",
+    label: "Portfolio",
   },
   {
     isEnabled: true,
