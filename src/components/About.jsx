@@ -1,8 +1,8 @@
 import { useState, lazy } from "react";
 import { about } from "../resources/content";
-import LazyImage from "../components/LazyImage";
+import LazyImage from "./LazyImage";
 
-const CTASection = lazy(() => import("../components/CTASection"));
+const CTASection = lazy(() => import("./CTASection"));
 
 function AvatarSection({ src, alt }) {
   const [imageLoaded, setImageLoaded] = useState(false);

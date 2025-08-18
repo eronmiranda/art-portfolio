@@ -16,7 +16,6 @@ import Toaster from "./components/Toaster";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
 const Work = lazy(() => import("./pages/Work"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Admin = lazy(() => import("./pages/Admin"));
@@ -27,7 +26,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const ROUTE_ORDER = [
   "/",
   "/work",
-  "/about",
   "/contact",
   "/admin",
   "/signin",
@@ -69,7 +67,6 @@ const MOTION_VARIANTS = {
 const PUBLIC_ROUTES = [
   { path: "/", component: Home },
   { path: "/work", component: Work },
-  { path: "/about", component: About },
   { path: "/contact", component: Contact },
   { path: "/signin", component: SignIn },
   { path: "/forgot-password", component: ForgotPassword },
