@@ -8,7 +8,7 @@ const CTASection = lazy(() => import("../components/CTASection"));
 
 function Home() {
   const { headline, subline, cta } = home;
-  const rawImages = useFirestore("images");
+  const rawImages = useFirestore("featured");
   const images = useMemo(
     () => filterAndMapImages(rawImages).slice(0, 6),
     [rawImages],
@@ -26,7 +26,7 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-4">
         <h2 className="mb-8 text-3xl font-bold text-zinc-800 dark:text-zinc-100">
-          Featured Artworks
+          Some of my favourites
         </h2>
         <Gallery
           images={images}

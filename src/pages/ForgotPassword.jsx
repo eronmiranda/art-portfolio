@@ -1,16 +1,13 @@
 import FormCard from "../components/FormCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { cx } from "../lib/utils";
-import Toast from "../components/Toast";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword() {
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
   const { resetPassword } = useAuth();
   const navigate = useNavigate();
 
@@ -19,43 +16,24 @@ export default function ForgotPassword() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
 
-    try {
-      setError("");
-      setMessage("");
-      setLoading(true);
-      await resetPassword(data.email);
-      setMessage("Check your inbox for further instructions");
-      setShowToast(true);
-      setLoading(false);
-      setTimeout(() => {
+    setLoading(true);
+    await resetPassword(data.email)
+      .then(() => {
+        toast.success("Check your inbox for further instructions", {
+          duration: 5000,
+        });
+        setLoading(false);
         navigate("/signin");
-      }, 5000);
-    } catch (error) {
-      console.error(error);
-      setError("Invalid email: failed to reset password");
-      setShowToast(true);
-      setLoading(false);
-    }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(error.message);
+        setLoading(false);
+      });
   }
 
   return (
     <>
-      {error && (
-        <Toast
-          variant="danger"
-          text={error}
-          open={showToast}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-      {message && (
-        <Toast
-          variant="success"
-          text={message}
-          open={showToast}
-          onClose={() => setShowToast(false)}
-        />
-      )}
       <div className="mt-15 flex flex-1 flex-col justify-center px-4 lg:px-6">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h3 className="text-center text-lg font-semibold text-zinc-900 dark:text-zinc-50">
