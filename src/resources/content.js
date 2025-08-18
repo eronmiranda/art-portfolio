@@ -18,10 +18,10 @@ const about = {
   altText: "A digital artwork of a character with a colorful background",
   intro: {
     display: true,
-    headline: `Hey, I'm ${person.firstName}. I create digital art and stickers.`,
+    headline: `Hey, I'm ${person.firstName}. I draw weird little things that somehow make people happy.`,
     subline: [
-      "My journey began in 2020 with a simple drawing app on my phone. What started as casual experimentation quickly became a passion. I was captivated by the endless possibilities of digital art and spent countless hours honing my craft.",
-      "Today, I explore different digital design techniques and always pushing creative boundaries. My work is a blend of styles and techniques, each piece a story waiting to be told.",
+      "Back in 2020, I downloaded a drawing app on my iPad just to mess around. Turns out I couldn't stop. What started as doodling during lunch breaks turned into staying up way too late creating characters and weird little designs.",
+      "Now I'm constantly experimenting with new styles and techniques. Some pieces work, some don't, but that's the fun part. Each one feels like a little experiment that might surprise me.",
     ],
   },
   cta: {
@@ -42,11 +42,11 @@ const home = {
     "Stickers by Marave - A digital artist creating unique stickers and illustrations.",
   headline: "Stickers by Marave",
   subline:
-    "Discover vibrant digital art and stickers that capture stories, emotions, and imagination.",
+    "I make digital stickers that live somewhere between cute and chaotic. Perfect for anyone who wants their laptop to have more personality than they do.",
   cta: {
     display: true,
-    description: "Ready to see more?",
-    label: "Explore Portfolio",
+    description: "Want to see what else I've been up to?",
+    label: "Check out more stuff",
     link: "/work",
   },
 };
@@ -54,9 +54,10 @@ const home = {
 const contact = {
   title: "Contact | Stickers by Marave",
   description:
-    "Get in touch with Marave for collaborations, commissions, or inquiries about stickers and digital art.",
-  headline: "Let's connect",
-  subline: "Get in touch for buying sticker or just to say hi! 👋🏼",
-  submitLabel: "Let's talk",
+    "Drop me a line about stickers, commissions, or just to chat about art and creativity.",
+  headline: "Want to chat?",
+  subline:
+    "Shoot me a message if you want some stickers, have a project idea, or just want to say hey! 👋🏼",
+  submitLabel: "Send it over",
 };
 export { person, about, home, contact };

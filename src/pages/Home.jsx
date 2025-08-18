@@ -26,7 +26,7 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-4">
         <h2 className="mb-8 text-3xl font-bold text-zinc-800 dark:text-zinc-100">
-          Featured Artworks
+          Some of my favourites
         </h2>
         <Gallery
           images={images}

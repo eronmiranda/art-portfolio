@@ -74,9 +74,25 @@ function AnimatedApp() {
     },
   };
 
+  // Check if current route is admin to apply different layout
+  const isAdminRoute = location.pathname === "/admin";
+
+  if (isAdminRoute) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
+          <Routes location={location} key={location.pathname}>
+            <Route element={<PrivateRoute />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </div>
+    );
+  }
+
   return (
     <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden">
-      <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow px-4 sm:px-8 lg:px-12">
         <MotionPresence mode="popLayout" initial={false} custom={direction}>
           <MotionDiv
@@ -89,16 +105,69 @@ function AnimatedApp() {
           >
             <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
               <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<Home />} />
-                <Route path="/work" element={<Work />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route element={<PrivateRoute />}>
-                  <Route path="/admin" element={<Admin />} />
-                </Route>
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/404" element={<NotFound />} />
+                <Route
+                  path="/"
+                  element={
+                    <>
+                      <Header />
+                      <Home />
+                    </>
+                  }
+                />
+                <Route
+                  path="/work"
+                  element={
+                    <>
+                      <Header />
+                      <Work />
+                    </>
+                  }
+                />
+                <Route
+                  path="/about"
+                  element={
+                    <>
+                      <Header />
+                      <About />
+                    </>
+                  }
+                />
+                <Route
+                  path="/contact"
+                  element={
+                    <>
+                      <Header />
+                      <Contact />
+                    </>
+                  }
+                />
+                <Route
+                  path="/signin"
+                  element={
+                    <>
+                      <Header />
+                      <SignIn />
+                    </>
+                  }
+                />
+                <Route
+                  path="/forgot-password"
+                  element={
+                    <>
+                      <Header />
+                      <ForgotPassword />
+                    </>
+                  }
+                />
+                <Route
+                  path="/404"
+                  element={
+                    <>
+                      <Header />
+                      <NotFound />
+                    </>
+                  }
+                />
                 <Route path="*" element={<Navigate to="/404" />} />
               </Routes>
             </Suspense>

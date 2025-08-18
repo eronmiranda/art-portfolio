@@ -298,39 +298,77 @@ export default function ImageTable({ collectionName = "featured", images }) {
 
   return (
     <>
-      <TableRoot className="mt-8 table-fixed rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900">
+      <div className="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell className="text-center">Image</TableHeaderCell>
-              <TableHeaderCell className="text-center">Title</TableHeaderCell>
-              <TableHeaderCell className="text-center">Display</TableHeaderCell>
-              <TableHeaderCell className="text-center">Tags</TableHeaderCell>
-              <TableHeaderCell className="text-center">Actions</TableHeaderCell>
+          <TableHead className="bg-gray-50 dark:bg-gray-800/50">
+            <TableRow className="border-b border-gray-200 dark:border-gray-700">
+              <TableHeaderCell className="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase dark:text-gray-300">
+                Image
+              </TableHeaderCell>
+              <TableHeaderCell className="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase dark:text-gray-300">
+                Title
+              </TableHeaderCell>
+              <TableHeaderCell className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-gray-700 uppercase dark:text-gray-300">
+                Status
+              </TableHeaderCell>
+              <TableHeaderCell className="px-6 py-4 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase dark:text-gray-300">
+                Tags
+              </TableHeaderCell>
+              <TableHeaderCell className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-gray-700 uppercase dark:text-gray-300">
+                Actions
+              </TableHeaderCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
             {images.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={5}
-                  className="py-8 text-center text-gray-500"
-                >
-                  No images found. Upload some images to get started!
+                <TableCell colSpan={5} className="px-6 py-12 text-center">
+                  <div className="flex flex-col items-center justify-center">
+                    <svg
+                      className="mb-4 h-12 w-12 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <h3 className="mb-1 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      No images found
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Upload some images to get started!
+                    </p>
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (
-              images.map((image) => (
-                <TableRow key={image.url}>
-                  <TableCell className="w-30">
-                    <LazyImage
-                      src={image.url}
-                      alt={image.title}
-                      className="size-21 object-contain"
-                    />
+              images.map((image, index) => (
+                <TableRow
+                  key={image.url}
+                  className={`transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50 ${index % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50/30 dark:bg-gray-800/20"}`}
+                >
+                  <TableCell className="px-6 py-4">
+                    <div className="flex items-center">
+                      <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+                        <LazyImage
+                          src={image.url}
+                          alt={image.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    </div>
                   </TableCell>
-                  <TableCell className="w-auto">{image.title}</TableCell>
-                  <TableCell className="w-20">
+                  <TableCell className="px-6 py-4">
+                    <div className="max-w-xs truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {image.title}
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-6 py-4">
                     <div className="flex items-center justify-center">
                       <div
                         className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -348,8 +386,8 @@ export default function ImageTable({ collectionName = "featured", images }) {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="w-auto">
-                    <div className="flex flex-wrap gap-1">
+                  <TableCell className="px-6 py-4">
+                    <div className="flex max-w-xs flex-wrap gap-1">
                       {!image.tags || image.tags.length === 0 ? (
                         <span className="text-sm text-gray-500 italic">
                           No tags
@@ -357,6 +395,7 @@ export default function ImageTable({ collectionName = "featured", images }) {
                       ) : (
                         Array.from(new Set(image.tags))
                           .sort()
+                          .slice(0, 3)
                           .map((tag, index) => (
                             <span
                               key={index}
@@ -377,10 +416,15 @@ export default function ImageTable({ collectionName = "featured", images }) {
                             </span>
                           ))
                       )}
+                      {image.tags && image.tags.length > 3 && (
+                        <span className="inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+                          +{image.tags.length - 3} more
+                        </span>
+                      )}
                     </div>
                   </TableCell>
-                  <TableCell className="w-30">
-                    <div className="flex gap-2">
+                  <TableCell className="px-6 py-4">
+                    <div className="flex justify-center gap-2">
                       <button
                         className="inline-flex items-center justify-center rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:outline-none"
                         onClick={() => {
@@ -434,7 +478,7 @@ export default function ImageTable({ collectionName = "featured", images }) {
             )}
           </TableBody>
         </Table>
-      </TableRoot>
+      </div>
       <DeleteModal
         isModalOpen={isDeleteModalOpen}
         setIsModalOpen={setIsDeleteModalOpen}

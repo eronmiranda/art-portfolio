@@ -12,7 +12,7 @@ function Contact() {
           {contact.subline}
         </p>
       </div>
-      <ContactForm submitLabel={contact.submitButtonText} />
+      <ContactForm submitLabel={contact.submitLabel} />
     </div>
   );
 }
