@@ -29,16 +29,6 @@ function ModalMenu({ open, onClose }) {
         </div>
         <nav className="mt-6">
           <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            <li key="home" className="relative" onClick={onClose}>
-              <Link
-                to="/"
-                className="block py-2"
-                aria-label="Home"
-                aria-current={location.pathname === "/" ? "page" : undefined}
-              >
-                Home
-              </Link>
-            </li>
             {routes.map(
               ({ isEnabled, to, label }) =>
                 isEnabled && (
