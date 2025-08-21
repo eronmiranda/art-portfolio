@@ -8,7 +8,7 @@ function AvatarSection({ src, alt }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div className="relative flex flex-shrink-0 justify-center md:justify-end">
+    <div className="relative flex flex-shrink-0 justify-center md:justify-center lg:justify-end">
       <div className="relative max-w-sm lg:max-w-md">
         {/* Background decoration */}
         <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100 opacity-30 blur-2xl dark:from-pink-900/20 dark:via-purple-900/20 dark:to-cyan-900/20" />

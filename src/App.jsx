@@ -99,7 +99,7 @@ function AdminLayout() {
 function PublicLayout({ location, direction }) {
   return (
     <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden">
-      <main className="mx-auto w-full max-w-7xl flex-grow px-4 sm:px-8 lg:px-12">
+      <main className="mx-auto w-full max-w-7xl flex-grow lg:px-12">
         <MotionPresence mode="popLayout" initial={false} custom={direction}>
           <MotionDiv
             key={location.pathname}

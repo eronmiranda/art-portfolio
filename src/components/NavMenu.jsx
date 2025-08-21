@@ -14,7 +14,7 @@ function ModalMenu({ open, onClose }) {
 
   return (
     <Modal open={open} onClose={onClose} className="items-start pt-6">
-      <div className="w-[90vw] rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 duration-150 dark:bg-zinc-900 dark:ring-zinc-800">
+      <div className="w-[90vw] rounded-3xl bg-white px-8 pt-6 pb-8 ring-1 ring-zinc-900/5 duration-150 dark:bg-zinc-900 dark:ring-zinc-800">
         <div className="flex flex-row-reverse items-center justify-between">
           <button
             aria-label="Close menu"
@@ -23,9 +23,6 @@ function ModalMenu({ open, onClose }) {
           >
             <CrossIcon />
           </button>
-          <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            Navigation
-          </h2>
         </div>
         <nav className="mt-6">
           <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
