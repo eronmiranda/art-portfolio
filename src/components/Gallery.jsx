@@ -151,6 +151,7 @@ function Gallery({
               tags={tags}
               selectedTag={selectedTag}
               setSelectedTag={setSelectedTag}
+              images={images}
             />
           )}
           {/* Gallery Grid */}
