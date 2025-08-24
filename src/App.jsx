@@ -73,15 +73,6 @@ const PUBLIC_ROUTES = [
   { path: "/404", component: NotFound },
 ];
 
-function PageWithHeader({ children }) {
-  return (
-    <>
-      <Header />
-      {children}
-    </>
-  );
-}
-
 function AdminLayout() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -99,6 +90,7 @@ function AdminLayout() {
 function PublicLayout({ location, direction }) {
   return (
     <div className="relative isolate flex min-h-screen w-full flex-col overflow-hidden">
+      <Header />
       <main className="mx-auto w-full max-w-7xl flex-grow lg:px-12">
         <MotionPresence mode="popLayout" initial={false} custom={direction}>
           <MotionDiv
@@ -112,15 +104,7 @@ function PublicLayout({ location, direction }) {
             <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
               <Routes location={location} key={location.pathname}>
                 {PUBLIC_ROUTES.map(({ path, component: Component }) => (
-                  <Route
-                    key={path}
-                    path={path}
-                    element={
-                      <PageWithHeader>
-                        <Component />
-                      </PageWithHeader>
-                    }
-                  />
+                  <Route key={path} path={path} element={<Component />} />
                 ))}
                 <Route path="*" element={<Navigate to="/404" />} />
               </Routes>
