@@ -65,6 +65,7 @@ function Home() {
         <Gallery
           images={images}
           showTags={false}
+          showSearch={false}
           breakpointCols={{ default: 3, 720: 2 }}
         />
       </section>
