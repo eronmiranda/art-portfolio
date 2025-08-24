@@ -6,7 +6,6 @@ import useUploadImage from "../hooks/useUploadImage";
 
 export default function UploadForm({ collectionName }) {
   const { uploadImage } = useUploadImage();
-  console.log("collectionName:", collectionName);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: async (selectedFiles) => {

@@ -16,7 +16,6 @@ const toasterStyles = {
 
 export default function Toaster() {
   const [theme] = useTheme();
-  console.log(theme);
   return (
     <Sonner
       theme={theme}
