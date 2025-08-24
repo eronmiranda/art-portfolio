@@ -1,5 +1,6 @@
 import { contact } from "../resources/content";
 import ContactForm from "../components/ContactForm";
+import SocialLinks from "../components/SocialLinks";
 
 function Contact() {
   return (
@@ -11,8 +12,20 @@ function Contact() {
         <p className="mt-6 max-w-2xl text-xl text-zinc-600 dark:text-zinc-300">
           {contact.subline}
         </p>
+
+        <div className="mt-8">
+          <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+            Find me here on my socials
+          </h3>
+          <SocialLinks />
+        </div>
+        <div className="mt-8">
+          <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+            Or, get in touch with me via the form below
+          </h3>
+          <ContactForm submitLabel={contact.submitLabel} />
+        </div>
       </div>
-      <ContactForm submitLabel={contact.submitLabel} />
     </div>
   );
 }
