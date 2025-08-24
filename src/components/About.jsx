@@ -48,7 +48,7 @@ function IntroSection({ headline, subline }) {
       </div>
 
       <div className="prose prose-lg prose-zinc dark:prose-invert max-w-none">
-        <div className="space-y-6 text-lg leading-8 text-zinc-600 dark:text-zinc-300">
+        <div className="space-y-6 px-4 text-lg leading-8 text-zinc-600 dark:text-zinc-300">
           {subline.map((line, index) => (
             <p key={index} className="relative">
               {index === 0 && (

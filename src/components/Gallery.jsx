@@ -12,7 +12,7 @@ const defaultBreakpointCols = {
   560: 2,
 };
 
-function TestGallery({
+function Gallery({
   images = [],
   breakpointCols = defaultBreakpointCols,
   showTags = true,
@@ -40,7 +40,7 @@ function TestGallery({
   );
 
   return (
-    <>
+    <div className="px-6 md:px-4 lg:px-4">
       {images.length === 0 ? (
         <div className="mt-6 md:mt-9">
           <SkeletonGallery />
@@ -83,8 +83,8 @@ function TestGallery({
           </Modal>
         </>
       )}
-    </>
+    </div>
   );
 }
 
-export default TestGallery;
+export default Gallery;
