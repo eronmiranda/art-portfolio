@@ -5,13 +5,18 @@ function GalleryCard({ index = 0, label, onClick, children, className }) {
   return (
     <div
       className={cx(
-        "fade-in-from-top group component-image-bg relative overflow-hidden shadow-md duration-300 hover:scale-105 hover:opacity-90 hover:shadow-2xl active:scale-95 dark:hover:shadow-lg dark:hover:shadow-zinc-100",
+        "image-reveal group component-image-bg relative overflow-hidden shadow-md transition-all duration-300 hover:shadow-2xl dark:hover:shadow-lg dark:hover:shadow-zinc-100",
         className,
       )}
       onClick={onClick}
-      style={{ animationDelay: `${index * 80}ms` }}
+      style={{
+        animationDelay: `${index * 80}ms`,
+        "--hover-scale": "1.03",
+      }}
     >
-      <ImageOverlay label={label}>{children}</ImageOverlay>
+      <div className="transition-transform duration-300 ease-out hover:scale-[var(--hover-scale)] active:scale-98">
+        <ImageOverlay label={label}>{children}</ImageOverlay>
+      </div>
     </div>
   );
 }

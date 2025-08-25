@@ -24,15 +24,29 @@
     }
   }
 
-  --animate-fade-in-from-top: fade-in-from-top 0.5s linear both running;
+  --animate-fade-in-from-top: fade-in-from-top 0.6s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both running;
   @keyframes fade-in-from-top {
     0% {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translate3d(0, 0, 0) scale(0.95);
     }
     100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  --animate-image-reveal: image-reveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both running;
+  @keyframes image-reveal {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
@@ -78,6 +92,10 @@
   @apply animate-fade-in-from-top;
 }
 
+@utility image-reveal {
+  @apply animate-image-reveal;
+}
+
 @utility fade-in-from-bottom {
   @apply animate-fade-in-from-bottom;
 }
@@ -119,5 +137,30 @@
 @layer components {
   .component-image-bg {
     @apply rounded-lg bg-[#eee3df];
+  }
+
+  /* Safari performance optimizations */
+  .image-reveal {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    will-change: transform, opacity;
+  }
+
+  .image-reveal > div {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .image-reveal img {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: auto;
   }
 }
