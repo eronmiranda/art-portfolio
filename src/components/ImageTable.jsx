@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
+import { cx } from "../lib/utils";
 import {
   Table,
   TableBody,
@@ -42,16 +43,18 @@ const EmptyState = () => (
 
 const StatusBadge = ({ isActive }) => (
   <div
-    className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
+    className={cx(
+      "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium",
       isActive
         ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
-        : "bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300"
-    }`}
+        : "bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300",
+    )}
   >
     <div
-      className={`mr-1.5 h-1.5 w-1.5 rounded-full ${
-        isActive ? "bg-green-500" : "bg-zinc-400"
-      }`}
+      className={cx(
+        "mr-1.5 h-1.5 w-1.5 rounded-full",
+        isActive ? "bg-green-500" : "bg-zinc-400",
+      )}
     />
     {isActive ? "Active" : "Hidden"}
   </div>
@@ -61,7 +64,7 @@ const TagList = ({ tags, maxTags = 3, compact = false }) => {
   if (!tags || tags.length === 0) {
     return (
       <span
-        className={`text-zinc-500 italic ${compact ? "text-xs" : "text-sm"}`}
+        className={cx("text-zinc-500 italic", compact ? "text-xs" : "text-sm")}
       >
         No tags
       </span>
@@ -77,9 +80,10 @@ const TagList = ({ tags, maxTags = 3, compact = false }) => {
       {displayTags.map((tag, index) => (
         <span
           key={index}
-          className={`inline-flex items-center rounded-md border border-blue-200 bg-blue-50 font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300 ${
-            compact ? "px-1.5 py-0.5 text-xs" : "px-2 py-1 text-xs"
-          }`}
+          className={cx(
+            "inline-flex items-center rounded-md border border-blue-200 bg-blue-50 font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300",
+            compact ? "px-1.5 py-0.5 text-xs" : "px-2 py-1 text-xs",
+          )}
         >
           {!compact && (
             <svg
@@ -99,9 +103,10 @@ const TagList = ({ tags, maxTags = 3, compact = false }) => {
       ))}
       {remainingCount > 0 && (
         <span
-          className={`inline-flex items-center rounded-md bg-zinc-100 font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 ${
-            compact ? "px-1.5 py-0.5 text-xs" : "px-2 py-1 text-xs"
-          }`}
+          className={cx(
+            "inline-flex items-center rounded-md bg-zinc-100 font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400",
+            compact ? "px-1.5 py-0.5 text-xs" : "px-2 py-1 text-xs",
+          )}
         >
           +{remainingCount} {compact ? "" : "more"}
         </span>
@@ -111,11 +116,12 @@ const TagList = ({ tags, maxTags = 3, compact = false }) => {
 };
 
 const ActionButtons = ({ onEdit, onDelete, compact = false }) => (
-  <div className={`flex gap-2 ${compact ? "flex-col" : "justify-center"}`}>
+  <div className={cx("flex gap-2", compact ? "flex-col" : "justify-center")}>
     <button
-      className={`inline-flex items-center justify-center rounded-md bg-blue-600 text-xs font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:outline-none ${
-        compact ? "flex-1 px-3 py-2" : "px-3 py-1.5"
-      }`}
+      className={cx(
+        "inline-flex items-center justify-center rounded-md bg-blue-600 text-xs font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:outline-none",
+        compact ? "flex-1 px-3 py-2" : "px-3 py-1.5",
+      )}
       onClick={onEdit}
       title="Edit image details"
     >
@@ -135,9 +141,10 @@ const ActionButtons = ({ onEdit, onDelete, compact = false }) => (
       Edit
     </button>
     <button
-      className={`inline-flex items-center justify-center rounded-md bg-red-600 text-xs font-medium text-white shadow-sm transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:outline-none ${
-        compact ? "flex-1 px-3 py-2" : "px-3 py-1.5"
-      }`}
+      className={cx(
+        "inline-flex items-center justify-center rounded-md bg-red-600 text-xs font-medium text-white shadow-sm transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:outline-none",
+        compact ? "flex-1 px-3 py-2" : "px-3 py-1.5",
+      )}
       onClick={onDelete}
       title="Delete image permanently"
     >
@@ -670,11 +677,12 @@ const DesktopTable = ({ images, onEdit, onDelete }) => (
           images.map((image, index) => (
             <TableRow
               key={image.url}
-              className={`transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/50 ${
+              className={cx(
+                "transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/50",
                 index % 2 === 0
                   ? "bg-white dark:bg-zinc-900"
-                  : "bg-zinc-50/30 dark:bg-zinc-800/20"
-              }`}
+                  : "bg-zinc-50/30 dark:bg-zinc-800/20",
+              )}
             >
               <TableCell className="px-6 py-4">
                 <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">

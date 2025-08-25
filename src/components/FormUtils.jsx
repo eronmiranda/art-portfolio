@@ -1,4 +1,5 @@
 // Shared form utilities and components
+import { cx } from "../lib/utils";
 
 // Common input validation functions
 export const validators = {
@@ -45,10 +46,16 @@ export const getInputClassName = (fieldName, errors, touched, formData) => {
     touched[fieldName] && !errors[fieldName] && formData[fieldName];
 
   if (hasError) {
-    return `${baseClass} !outline-rose-300 dark:!outline-rose-400/60 focus:!outline-rose-400 dark:focus:!outline-rose-400/80`;
+    return cx(
+      baseClass,
+      "!outline-rose-300 focus:!outline-rose-400 dark:!outline-rose-400/60 dark:focus:!outline-rose-400/80",
+    );
   }
   if (isValid) {
-    return `${baseClass} !outline-teal-300 dark:!outline-teal-400/60 focus:!outline-teal-400 dark:focus:!outline-teal-400/80`;
+    return cx(
+      baseClass,
+      "!outline-teal-300 focus:!outline-teal-400 dark:!outline-teal-400/60 dark:focus:!outline-teal-400/80",
+    );
   }
   return baseClass;
 };
@@ -57,7 +64,7 @@ export const getInputClassName = (fieldName, errors, touched, formData) => {
 export function LoadingSpinner({ size = "h-5 w-5", className = "" }) {
   return (
     <svg
-      className={`${size} animate-spin text-white ${className}`}
+      className={cx(size, "animate-spin text-white", className)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
