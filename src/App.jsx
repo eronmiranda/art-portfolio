@@ -11,7 +11,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import { MotionDiv, MotionPresence } from "./components/Motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import CircleLoader from "./components/CircleLoader";
+import Loader from "./components/Loader";
 import Toaster from "./components/Toaster";
 
 // Lazy load pages for better performance
@@ -76,7 +76,7 @@ const PUBLIC_ROUTES = [
 function AdminLayout() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
+      <Suspense fallback={<Loader size="h-9 w-9" className="mt-35" />}>
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route path={ADMIN_ROUTE} element={<Admin />} />
@@ -101,7 +101,7 @@ function PublicLayout({ location, direction }) {
             animate="animate"
             exit="exit"
           >
-            <Suspense fallback={<CircleLoader size="36" className="mt-35" />}>
+            <Suspense fallback={<Loader size="h-9 w-9" className="mt-35" />}>
               <Routes location={location} key={location.pathname}>
                 {PUBLIC_ROUTES.map(({ path, component: Component }) => (
                   <Route key={path} path={path} element={<Component />} />
