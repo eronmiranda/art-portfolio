@@ -1,5 +1,4 @@
 import { cx } from "../lib/utils";
-import ImageOverlay from "./ImageOverlay";
 
 function GalleryCard({ index = 0, label, onClick, children, className }) {
   return (
@@ -14,8 +13,15 @@ function GalleryCard({ index = 0, label, onClick, children, className }) {
         "--hover-scale": "1.03",
       }}
     >
-      <div className="transition-transform duration-300 ease-out hover:scale-[var(--hover-scale)] active:scale-98">
-        <ImageOverlay label={label}>{children}</ImageOverlay>
+      <div className="relative transition-transform duration-300 ease-out hover:scale-[var(--hover-scale)] active:scale-98">
+        {children}
+
+        {/* Title badge */}
+        {label && (
+          <div className="absolute bottom-3 left-3 rounded-full bg-black/80 px-3 py-1 shadow-lg">
+            <h4 className="text-xs font-medium text-white">{label}</h4>
+          </div>
+        )}
       </div>
     </div>
   );
