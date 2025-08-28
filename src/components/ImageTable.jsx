@@ -16,7 +16,67 @@ import LazyImage from "./LazyImage";
 import useDeleteFile from "../hooks/useDeleteFile";
 import useUpdateDoc from "../hooks/useUpdateDoc";
 
-// UTILITY COMPONENTS
+// Constants
+const FILTER_TYPES = {
+  ALL: "All",
+  FEATURED: "Featured",
+  NO_TAGS: "No Tags",
+};
+
+// Small utility components
+const getFilterButtonStyles = (filterType, isSelected) => {
+  const baseStyles =
+    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors";
+
+  const styles = {
+    [FILTER_TYPES.FEATURED]: {
+      selected:
+        "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-300",
+      unselected:
+        "bg-yellow-50 text-yellow-600 hover:bg-yellow-100 dark:bg-yellow-900/10 dark:text-yellow-400 dark:hover:bg-yellow-900/20",
+    },
+    [FILTER_TYPES.NO_TAGS]: {
+      selected: "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-300",
+      unselected:
+        "bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/10 dark:text-red-400 dark:hover:bg-red-900/20",
+    },
+    default: {
+      selected:
+        "bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300",
+      unselected:
+        "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700",
+    },
+  };
+
+  const styleSet = styles[filterType] || styles.default;
+  return cx(baseStyles, isSelected ? styleSet.selected : styleSet.unselected);
+};
+
+const getCountBadgeStyles = (filterType, isSelected) => {
+  const baseStyles = "rounded-full px-1.5 py-0.5 text-xs";
+
+  const styles = {
+    [FILTER_TYPES.FEATURED]: {
+      selected:
+        "bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200",
+      unselected:
+        "bg-yellow-100 text-yellow-600 dark:bg-yellow-800 dark:text-yellow-300",
+    },
+    [FILTER_TYPES.NO_TAGS]: {
+      selected: "bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200",
+      unselected: "bg-red-100 text-red-600 dark:bg-red-800 dark:text-red-300",
+    },
+    default: {
+      selected: "bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200",
+      unselected:
+        "bg-zinc-200 text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400",
+    },
+  };
+
+  const styleSet = styles[filterType] || styles.default;
+  return cx(baseStyles, isSelected ? styleSet.selected : styleSet.unselected);
+};
+
 const EmptyState = () => (
   <div className="flex flex-col items-center justify-center">
     <svg
@@ -198,7 +258,157 @@ const ActionButtons = ({ onEdit, onDelete, compact = false }) => (
   </div>
 );
 
-// MODAL COMPONENTS
+// Search and Filter components
+const SearchBar = ({ searchQuery, onSearchChange, onClearSearch }) => (
+  <div className="relative mx-auto max-w-md">
+    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+      <svg
+        className="h-5 w-5 text-zinc-400 dark:text-zinc-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+    </div>
+    <input
+      type="text"
+      placeholder="Search images by title or tags..."
+      value={searchQuery}
+      onChange={onSearchChange}
+      className="input-base w-full pr-10 pl-10"
+    />
+    {searchQuery && (
+      <button
+        onClick={onClearSearch}
+        className="absolute inset-y-0 right-0 flex items-center pr-3 text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+        aria-label="Clear search"
+      >
+        <svg
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    )}
+  </div>
+);
+
+const FilterButton = ({ tag, isSelected, onClick, count }) => {
+  const isFeatured = tag === FILTER_TYPES.FEATURED;
+  const isNoTags = tag === FILTER_TYPES.NO_TAGS;
+
+  return (
+    <button
+      onClick={() => onClick(tag)}
+      className={getFilterButtonStyles(tag, isSelected)}
+    >
+      {isFeatured && (
+        <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+        </svg>
+      )}
+      {isNoTags && (
+        <svg
+          className="h-3.5 w-3.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L5.636 5.636"
+          />
+        </svg>
+      )}
+      {tag}
+      <span className={getCountBadgeStyles(tag, isSelected)}>{count}</span>
+    </button>
+  );
+};
+
+const FilterTabs = ({ selectedTag, onTagChange, tags, images }) => {
+  const getCounts = () => ({
+    [FILTER_TYPES.ALL]: images.length,
+    [FILTER_TYPES.FEATURED]: images.filter((img) => img.featured === true)
+      .length,
+    [FILTER_TYPES.NO_TAGS]: images.filter(
+      (img) => !img.tags || img.tags.length === 0,
+    ).length,
+  });
+
+  const counts = getCounts();
+  const allTags = [
+    FILTER_TYPES.ALL,
+    FILTER_TYPES.FEATURED,
+    FILTER_TYPES.NO_TAGS,
+    ...tags,
+  ];
+
+  const getTagCount = (tag) => {
+    if (counts[tag] !== undefined) return counts[tag];
+    return images.filter((img) => img.tags?.includes(tag)).length;
+  };
+
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {allTags.map((tag) => (
+        <FilterButton
+          key={tag}
+          tag={tag}
+          isSelected={selectedTag === tag}
+          onClick={onTagChange}
+          count={getTagCount(tag)}
+        />
+      ))}
+    </div>
+  );
+};
+
+const SearchResults = ({ searchQuery, resultCount, onClearSearch }) => {
+  if (!searchQuery) return null;
+
+  return (
+    <div className="py-2 text-center">
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        {resultCount === 0 ? (
+          <>
+            No results found for "
+            <span className="font-medium">{searchQuery}</span>"{" - "}
+            <button
+              onClick={onClearSearch}
+              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              clear search
+            </button>
+          </>
+        ) : (
+          <>
+            Found {resultCount} result{resultCount !== 1 ? "s" : ""} for "
+            <span className="font-medium">{searchQuery}</span>"
+          </>
+        )}
+      </p>
+    </div>
+  );
+};
+
+// Modal components
 function EditModal({
   isModalOpen,
   setIsModalOpen,
@@ -272,7 +482,6 @@ function EditModal({
   return (
     <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
       <div className="w-full max-w-md rounded-xl bg-white shadow-2xl ring-1 ring-zinc-900/10 dark:bg-zinc-900 dark:ring-zinc-800">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4 dark:border-zinc-700">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20">
@@ -321,7 +530,6 @@ function EditModal({
 
         <form onSubmit={handleForm} className="p-6">
           <div className="space-y-6">
-            {/* Image Preview */}
             <div className="flex justify-center">
               <div className="relative">
                 <LazyImage
@@ -347,7 +555,6 @@ function EditModal({
               </div>
             </div>
 
-            {/* Visibility Toggle */}
             <div className="flex items-center justify-between rounded-lg border border-zinc-200 p-4 dark:border-zinc-700">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/20">
@@ -391,7 +598,6 @@ function EditModal({
               />
             </div>
 
-            {/* Featured Toggle */}
             <div className="flex items-center justify-between rounded-lg border border-zinc-200 p-4 dark:border-zinc-700">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-yellow-100 dark:bg-yellow-900/20">
@@ -423,7 +629,6 @@ function EditModal({
               />
             </div>
 
-            {/* Title Input */}
             <div className="space-y-2">
               <label
                 htmlFor="title"
@@ -443,7 +648,6 @@ function EditModal({
               />
             </div>
 
-            {/* Tags Input */}
             <div className="space-y-2">
               <label
                 htmlFor="tags"
@@ -508,7 +712,6 @@ function EditModal({
                 to add a tag
               </p>
 
-              {/* Current Tags */}
               {tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {tags.map((tag, index) => (
@@ -527,7 +730,6 @@ function EditModal({
             </div>
           </div>
 
-          {/* Footer */}
           <div className="mt-8 flex gap-3">
             <button
               type="button"
@@ -553,7 +755,6 @@ function DeleteModal({ isModalOpen, setIsModalOpen, onDelete, fileName }) {
   return (
     <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
       <div className="w-full max-w-md rounded-xl bg-white shadow-2xl ring-1 ring-zinc-900/10 dark:bg-zinc-900 dark:ring-zinc-800">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4 dark:border-zinc-700">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/20">
@@ -600,7 +801,6 @@ function DeleteModal({ isModalOpen, setIsModalOpen, onDelete, fileName }) {
           </button>
         </div>
 
-        {/* Content */}
         <div className="p-6">
           <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800/50 dark:bg-red-900/10">
             <div className="flex items-start gap-3">
@@ -684,7 +884,6 @@ function DeleteModal({ isModalOpen, setIsModalOpen, onDelete, fileName }) {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="mt-8 flex gap-3">
             <button
               type="button"
@@ -710,7 +909,7 @@ function DeleteModal({ isModalOpen, setIsModalOpen, onDelete, fileName }) {
   );
 }
 
-// TABLE COMPONENTS
+// Table Components
 const DesktopTable = ({ images, onEdit, onDelete }) => (
   <div className="mt-8 hidden overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm md:block dark:border-zinc-800 dark:bg-zinc-900">
     <Table>
@@ -845,11 +1044,13 @@ const MobileCardList = ({ images, onEdit, onDelete }) => (
   </div>
 );
 
-// MAIN COMPONENT
+// Main component
 export default function ImageTable({ collectionName = "portfolio", images }) {
   const [selectedArt, setSelectedArt] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTag, setSelectedTag] = useState(FILTER_TYPES.ALL);
   const { deleteFile } = useDeleteFile();
 
   const tags = useMemo(
@@ -857,6 +1058,56 @@ export default function ImageTable({ collectionName = "portfolio", images }) {
       Array.from(new Set(images.flatMap((image) => image.tags ?? []))).sort(),
     [images],
   );
+
+  const filteredImages = useMemo(() => {
+    let filtered = images;
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter((image) => {
+        const titleMatch = image.title?.toLowerCase().includes(query);
+        const tagsMatch = image.tags?.some((tag) =>
+          tag.toLowerCase().includes(query),
+        );
+        return titleMatch || tagsMatch;
+      });
+    }
+
+    // Filter by selected tag, featured status, or no tags
+    if (selectedTag === FILTER_TYPES.FEATURED) {
+      filtered = filtered.filter((image) => image.featured === true);
+    } else if (selectedTag === FILTER_TYPES.NO_TAGS) {
+      filtered = filtered.filter(
+        (image) => !image.tags || image.tags.length === 0,
+      );
+    } else if (selectedTag !== FILTER_TYPES.ALL) {
+      filtered = filtered.filter((image) => image.tags?.includes(selectedTag));
+    }
+
+    return filtered;
+  }, [images, selectedTag, searchQuery]);
+
+  // Event handlers
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    // Resets tag filter when searching to show all matching results
+    if (e.target.value.trim() && selectedTag !== FILTER_TYPES.ALL) {
+      setSelectedTag(FILTER_TYPES.ALL);
+    }
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
+  const handleTagChange = (tag) => {
+    setSelectedTag(tag);
+    // Clear search when filtering by tag
+    if (searchQuery.trim()) {
+      setSearchQuery("");
+    }
+  };
 
   const handleEdit = (image) => {
     setSelectedArt(image);
@@ -880,17 +1131,44 @@ export default function ImageTable({ collectionName = "portfolio", images }) {
 
   return (
     <>
+      {images.length > 0 && (
+        <div className="mb-6 space-y-4">
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            onClearSearch={clearSearch}
+          />
+
+          <SearchResults
+            searchQuery={searchQuery}
+            resultCount={filteredImages.length}
+            onClearSearch={clearSearch}
+          />
+
+          {!searchQuery && tags.length > 0 && (
+            <FilterTabs
+              selectedTag={selectedTag}
+              onTagChange={handleTagChange}
+              tags={tags}
+              images={images}
+            />
+          )}
+        </div>
+      )}
+
+      {/* Table Views */}
       <DesktopTable
-        images={images}
+        images={filteredImages}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
       <MobileCardList
-        images={images}
+        images={filteredImages}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
 
+      {/* Modals */}
       <DeleteModal
         isModalOpen={isDeleteModalOpen}
         setIsModalOpen={setIsDeleteModalOpen}
