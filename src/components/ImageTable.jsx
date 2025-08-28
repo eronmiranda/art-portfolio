@@ -60,6 +60,38 @@ const StatusBadge = ({ isActive }) => (
   </div>
 );
 
+const FeaturedStar = ({ isFeatured, size = "default" }) => {
+  const sizeClasses = {
+    small: "h-4 w-4",
+    default: "h-5 w-5",
+    large: "h-6 w-6",
+  };
+
+  return (
+    <div className="flex items-center justify-center">
+      <svg
+        className={cx(
+          sizeClasses[size],
+          isFeatured
+            ? "fill-yellow-500 text-yellow-500"
+            : "text-zinc-300 dark:text-zinc-600",
+        )}
+        fill={isFeatured ? "currentColor" : "none"}
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        title={isFeatured ? "Featured image" : "Not featured"}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={isFeatured ? 0 : 2}
+          d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+        />
+      </svg>
+    </div>
+  );
+};
+
 const TagList = ({ tags, maxTags = 3, compact = false }) => {
   if (!tags || tags.length === 0) {
     return (
@@ -175,6 +207,7 @@ function EditModal({
   collectionName,
 }) {
   const [display, setDisplay] = useState(!!art.display);
+  const [featured, setFeatured] = useState(!!art.featured);
   const [title, setTitle] = useState(art.title || "");
   const [tags, setTags] = useState(art.tags || []);
   const [tagInput, setTagInput] = useState("");
@@ -183,6 +216,7 @@ function EditModal({
 
   useEffect(() => {
     setDisplay(!!art.display);
+    setFeatured(!!art.featured);
     setTitle(art.title || "");
     setTags(Array.from(new Set(art.tags)).sort() || []);
   }, [art]);
@@ -204,6 +238,7 @@ function EditModal({
       await updateDoc(collectionName, art.id, {
         ...data,
         display: display,
+        featured: featured,
         tags: tags,
       });
       toast.success("Successfully updated art details");
@@ -353,6 +388,38 @@ function EditModal({
                 id="display"
                 checked={display}
                 onCheckedChange={setDisplay}
+              />
+            </div>
+
+            {/* Featured Toggle */}
+            <div className="flex items-center justify-between rounded-lg border border-zinc-200 p-4 dark:border-zinc-700">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-yellow-100 dark:bg-yellow-900/20">
+                  <svg
+                    className="h-4 w-4 text-yellow-600 dark:text-yellow-400"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                </div>
+                <div>
+                  <label
+                    htmlFor="featured"
+                    className="text-sm font-medium text-zinc-900 dark:text-zinc-100"
+                  >
+                    Featured image
+                  </label>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                    Highlight this image as featured content
+                  </p>
+                </div>
+              </div>
+              <Switch
+                size="default"
+                id="featured"
+                checked={featured}
+                onCheckedChange={setFeatured}
               />
             </div>
 
@@ -656,6 +723,9 @@ const DesktopTable = ({ images, onEdit, onDelete }) => (
             Title
           </TableHeaderCell>
           <TableHeaderCell className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-700 uppercase dark:text-zinc-300">
+            Featured
+          </TableHeaderCell>
+          <TableHeaderCell className="px-6 py-4 text-center text-xs font-semibold tracking-wider text-zinc-700 uppercase dark:text-zinc-300">
             Status
           </TableHeaderCell>
           <TableHeaderCell className="px-6 py-4 text-left text-xs font-semibold tracking-wider text-zinc-700 uppercase dark:text-zinc-300">
@@ -669,7 +739,7 @@ const DesktopTable = ({ images, onEdit, onDelete }) => (
       <TableBody className="divide-y divide-zinc-200 bg-white dark:divide-zinc-700 dark:bg-zinc-900">
         {images.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={5} className="px-6 py-12 text-center">
+            <TableCell colSpan={6} className="px-6 py-12 text-center">
               <EmptyState />
             </TableCell>
           </TableRow>
@@ -697,6 +767,9 @@ const DesktopTable = ({ images, onEdit, onDelete }) => (
                 <div className="max-w-xs truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">
                   {image.title}
                 </div>
+              </TableCell>
+              <TableCell className="px-6 py-4">
+                <FeaturedStar isFeatured={image.featured} />
               </TableCell>
               <TableCell className="px-6 py-4">
                 <div className="flex items-center justify-center">
@@ -744,9 +817,12 @@ const MobileCardList = ({ images, onEdit, onDelete }) => (
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between">
-                <h3 className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                  {image.title}
-                </h3>
+                <div className="flex min-w-0 flex-1 items-center gap-2">
+                  <h3 className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                    {image.title}
+                  </h3>
+                  <FeaturedStar isFeatured={image.featured} size="small" />
+                </div>
                 <div className="ml-2">
                   <StatusBadge isActive={image.display} />
                 </div>
@@ -770,7 +846,7 @@ const MobileCardList = ({ images, onEdit, onDelete }) => (
 );
 
 // MAIN COMPONENT
-export default function ImageTable({ collectionName = "featured", images }) {
+export default function ImageTable({ collectionName = "portfolio", images }) {
   const [selectedArt, setSelectedArt] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

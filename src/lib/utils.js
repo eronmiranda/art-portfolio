@@ -14,5 +14,6 @@ export function filterAndMapImages(rawImages) {
       alt: image.title,
       title: image.title,
       tags: image.tags,
+      featured: image.featured || false,
     }));
 }

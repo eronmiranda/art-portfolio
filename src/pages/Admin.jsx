@@ -7,7 +7,6 @@ import { toast } from "sonner";
 
 function Admin() {
   const { signOut } = useAuth();
-  const featuredCollection = useFirestore("featured");
   const portfolioCollection = useFirestore("portfolio");
 
   async function handleLogout() {
@@ -22,7 +21,6 @@ function Admin() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <header className="border-b border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
@@ -60,26 +58,19 @@ function Admin() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
             Content Management
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Manage your featured artwork and portfolio collections
+            Manage your portfolio collection
           </p>
         </div>
 
-        <Tabs defaultValue="featured" className="w-full">
+        <Tabs defaultValue="portfolio" className="w-full">
           <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
             <TabsList className="h-auto bg-transparent p-0">
-              <TabsTrigger
-                value="featured"
-                className="rounded-none px-4 py-3 font-medium text-gray-500 hover:text-gray-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none dark:text-gray-400 dark:hover:text-gray-300"
-              >
-                Featured Collection
-              </TabsTrigger>
               <TabsTrigger
                 value="portfolio"
                 className="rounded-none px-4 py-3 font-medium text-gray-500 hover:text-gray-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none dark:text-gray-400 dark:hover:text-gray-300"
@@ -88,13 +79,6 @@ function Admin() {
               </TabsTrigger>
             </TabsList>
           </div>
-
-          <TabsContent value="featured" className="space-y-8">
-            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-              <UploadForm collectionName="featured" />
-            </div>
-            <ImageTable collectionName="featured" images={featuredCollection} />
-          </TabsContent>
 
           <TabsContent value="portfolio" className="space-y-8">
             <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">

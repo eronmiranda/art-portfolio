@@ -37,11 +37,15 @@ function HighlightsSection() {
 
 function Home() {
   const { cta } = home;
-  const rawImages = useFirestore("featured");
+  const rawImages = useFirestore("portfolio");
   const images = useMemo(
-    () => filterAndMapImages(rawImages).slice(0, 6),
+    () =>
+      filterAndMapImages(rawImages)
+        .filter((image) => image.featured === true)
+        .slice(0, 6),
     [rawImages],
   );
+  console.log(images);
 
   return (
     <main className="min-h-screen">
