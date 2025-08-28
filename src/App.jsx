@@ -1,10 +1,9 @@
-import { lazy, Suspense, useRef, useLayoutEffect } from "react";
+import { lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
@@ -13,6 +12,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Toaster from "./components/Toaster";
+import useRouteAnimation from "./hooks/useRouteAnimation";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("./pages/Home"));
@@ -22,16 +22,6 @@ const Admin = lazy(() => import("./pages/Admin"));
 const SignIn = lazy(() => import("./pages/SignIn"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-
-const ROUTE_ORDER = [
-  "/",
-  "/work",
-  "/contact",
-  "/admin",
-  "/signin",
-  "/forgot-password",
-  "/404",
-];
 
 const ADMIN_ROUTE = "/admin";
 
@@ -115,20 +105,6 @@ function PublicLayout({ location, direction }) {
       <Footer />
     </div>
   );
-}
-
-// Custom hook for route animation logic
-function useRouteAnimation() {
-  const location = useLocation();
-  const prevIndex = useRef(ROUTE_ORDER.indexOf(location.pathname));
-  const currentIndex = ROUTE_ORDER.indexOf(location.pathname);
-  const direction = currentIndex > prevIndex.current ? 1 : -1;
-
-  useLayoutEffect(() => {
-    prevIndex.current = currentIndex;
-  }, [currentIndex]);
-
-  return { location, direction };
 }
 
 function AnimatedApp() {
