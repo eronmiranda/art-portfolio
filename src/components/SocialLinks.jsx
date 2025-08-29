@@ -11,18 +11,21 @@ function SocialLinks({ className = "", compact = false }) {
       href: "https://instagram.com/stickersbymarave",
       icon: InstagramIcon,
       color: "hover:text-pink-500",
+      hideLabel: false,
     },
     {
       name: "Email",
       href: "mailto:stickersbymarave@gmail.com",
       icon: EmailIcon,
       color: "hover:text-blue-600",
+      hideLabel: false,
     },
     {
       name: "Phone",
       href: "tel:587-936-2253",
       icon: PhoneIcon,
       color: "hover:text-green-600",
+      hideLabel: false,
     },
     {
       name: "Etsy",
@@ -30,6 +33,7 @@ function SocialLinks({ className = "", compact = false }) {
       icon: EtsyIcon,
       color: "hover:text-orange-500",
       comingSoon: true,
+      hideLabel: true,
     },
   ];
 
@@ -55,7 +59,9 @@ function SocialLinks({ className = "", compact = false }) {
               )}
             >
               <IconComponent className={cx("h-6 w-6")} />
-              <span className="text-sm">{social.name}</span>
+              {!social.hideLabel && (
+                <span className="text-sm">{social.name}</span>
+              )}
               <span
                 className={cx(
                   "rounded-full px-2 py-1 text-xs",
@@ -83,7 +89,9 @@ function SocialLinks({ className = "", compact = false }) {
             aria-label={`Follow on ${social.name}`}
           >
             <IconComponent className={cx(compact ? "h-5 w-5" : "h-6 w-6")} />
-            {!compact && <span className="text-sm">{social.name}</span>}
+            {!compact && !social.hideLabel && (
+              <span className="text-sm">{social.name}</span>
+            )}
           </a>
         );
       })}
