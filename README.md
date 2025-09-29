@@ -74,7 +74,7 @@ _Why these choices?_
 ### ⚡ **Safari Performance Issues**
 
 **Problem:** Smooth animations in Firefox became choppy on Safari, affecting 50% of users  
-**Solution:** Implemented browser-specific optimization strategies and reduced animation complexity without sacrificing visual impact
+**Solution:** Reduced animation complexity without sacrificing visual impact and removed the use of Motion in images
 
 ### 📊 **Content Management Complexity**
 
@@ -95,18 +95,17 @@ _Why these choices?_
 - Mobile-responsive navigation
 - Category-based image filtering
 - Performance optimization for core animations
+- Admin dashboard for content management
+- Social media integration
 
 **In Progress 🚧**
 
 - Contact form integration with email service
-- Admin dashboard for content management (WIP)
-- Advanced analytics and user behavior tracking
 
 **Planned 📋**
 
-- Social media integration
+- Advanced analytics and user behavior tracking
 - Enhanced keyboard shortcuts
-- A/B testing framework for conversion optimization
 
 ## Project Structure
 
@@ -172,14 +171,8 @@ npm run format  # Optional: format code
 **Technical Achievements:**
 
 - Zero-dependency content management for non-technical users
-<!-- - Smooth animations across all major browsers
-- Fully accessible interface with keyboard navigation -->
-
----
-
-## Disclaimer
-
-_This project is in active development. All artwork and images are drafts or sample pieces and do not represent current digital stickers being sold by the artist._
+- Smooth animations across all major browsers
+<!-- - Fully accessible interface with keyboard navigation -->
 
 ---
 
