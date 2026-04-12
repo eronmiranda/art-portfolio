@@ -84,7 +84,7 @@ Complex transitions between pages caused state conflicts. Wrote custom hooks to 
 
 ## What's Done and What's Next
 
-### Completed ✅
+### Completed
 
 - Mobile-responsive navigation
 - Category filtering for images
@@ -92,7 +92,7 @@ Complex transitions between pages caused state conflicts. Wrote custom hooks to 
 - Admin dashboard for managing content
 - Social media links
 
-### In Progress 🚧
+### In Progress
 
 - Contact form with email integration
 
