@@ -36,7 +36,7 @@ export default function SignInForm() {
       <div>
         <label
           htmlFor="email"
-          className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+          className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
         >
           Email
         </label>
@@ -54,7 +54,7 @@ export default function SignInForm() {
         <div className="flex items-center justify-between">
           <label
             htmlFor="password"
-            className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+            className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
           >
             Password
           </label>

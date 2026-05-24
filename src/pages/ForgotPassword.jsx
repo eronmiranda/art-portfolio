@@ -48,7 +48,7 @@ export default function ForgotPassword() {
                 <div id="email">
                   <label
                     htmlFor="email"
-                    className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+                    className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
                   >
                     Email
                   </label>

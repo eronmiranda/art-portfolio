@@ -130,7 +130,7 @@ function ContactForm({ submitLabel }) {
         <div>
           <label
             htmlFor="firstName"
-            className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+            className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
           >
             First name *
           </label>
@@ -173,7 +173,7 @@ function ContactForm({ submitLabel }) {
         <div>
           <label
             htmlFor="lastName"
-            className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+            className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
           >
             Last name *
           </label>
@@ -216,7 +216,7 @@ function ContactForm({ submitLabel }) {
         <div className="sm:col-span-2">
           <label
             htmlFor="email"
-            className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+            className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
           >
             Email *
           </label>
@@ -250,7 +250,7 @@ function ContactForm({ submitLabel }) {
         <div className="sm:col-span-2">
           <label
             htmlFor="message"
-            className="text-md font-semibold text-zinc-900 dark:text-zinc-100"
+            className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
           >
             Message
             {formData.message && (
