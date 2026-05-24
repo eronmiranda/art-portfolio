@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Toaster from "./components/Toaster";
+import ErrorBoundary from "./components/ErrorBoundary";
 import useRouteAnimation from "./hooks/useRouteAnimation";
 
 // Lazy load pages for better performance
@@ -122,8 +123,10 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <AnimatedApp />
-        <Toaster />
+        <ErrorBoundary>
+          <AnimatedApp />
+          <Toaster />
+        </ErrorBoundary>
       </AuthProvider>
     </Router>
   );
