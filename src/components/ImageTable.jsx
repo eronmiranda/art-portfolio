@@ -42,7 +42,7 @@ const getFilterButtonStyles = (filterType, isSelected) => {
     },
     default: {
       selected:
-        "bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300",
+        "bg-teal-100 text-teal-700 dark:bg-teal-900/20 dark:text-teal-300",
       unselected:
         "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700",
     },
@@ -67,7 +67,7 @@ const getCountBadgeStyles = (filterType, isSelected) => {
       unselected: "bg-red-100 text-red-600 dark:bg-red-800 dark:text-red-300",
     },
     default: {
-      selected: "bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200",
+      selected: "bg-teal-200 text-teal-800 dark:bg-teal-800 dark:text-teal-200",
       unselected:
         "bg-zinc-200 text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400",
     },
@@ -173,7 +173,7 @@ const TagList = ({ tags, maxTags = 3, compact = false }) => {
         <span
           key={index}
           className={cx(
-            "inline-flex items-center rounded-md border border-blue-200 bg-blue-50 font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300",
+            "inline-flex items-center rounded-md border border-teal-200 bg-teal-50 font-medium text-teal-700 dark:border-teal-800 dark:bg-teal-900/20 dark:text-teal-300",
             compact ? "px-1.5 py-0.5 text-xs" : "px-2 py-1 text-xs",
           )}
         >
@@ -211,7 +211,7 @@ const ActionButtons = ({ onEdit, onDelete, compact = false }) => (
   <div className={cx("flex gap-2", compact ? "flex-col" : "justify-center")}>
     <button
       className={cx(
-        "inline-flex items-center justify-center rounded-md bg-blue-600 text-xs font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:outline-none",
+        "inline-flex items-center justify-center rounded-md bg-teal-600 text-xs font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:outline-none",
         compact ? "flex-1 px-3 py-2" : "px-3 py-1.5",
       )}
       onClick={onEdit}
@@ -392,7 +392,7 @@ const SearchResults = ({ searchQuery, resultCount, onClearSearch }) => {
             <span className="font-medium">{searchQuery}</span>"{" - "}
             <button
               onClick={onClearSearch}
-              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
             >
               clear search
             </button>
@@ -484,9 +484,9 @@ function EditModal({
       <div className="w-full max-w-md rounded-xl bg-white shadow-2xl ring-1 ring-zinc-900/10 dark:bg-zinc-900 dark:ring-zinc-800">
         <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4 dark:border-zinc-700">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-100 dark:bg-teal-900/20">
               <svg
-                className="h-5 w-5 text-blue-600 dark:text-blue-400"
+                className="h-5 w-5 text-teal-600 dark:text-teal-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -740,7 +740,7 @@ function EditModal({
             </button>
             <button
               type="submit"
-              className="flex-1 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-zinc-900"
+              className="flex-1 rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-zinc-900"
             >
               Save Changes
             </button>

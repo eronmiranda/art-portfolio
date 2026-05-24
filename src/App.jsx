@@ -66,7 +66,7 @@ const PUBLIC_ROUTES = [
 
 function AdminLayout() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
       <Suspense fallback={<Loader size="h-9 w-9" className="mt-35" />}>
         <Routes>
           <Route element={<PrivateRoute />}>

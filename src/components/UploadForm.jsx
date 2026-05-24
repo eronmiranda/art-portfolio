@@ -48,31 +48,31 @@ export default function UploadForm({ collectionName }) {
     <>
       <form>
         <div className="mb-6">
-          <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <h3 className="mb-1 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
             Upload Images
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Add new images to your collection
           </p>
         </div>
         <div
           {...getRootProps()}
           className={cx(
-            "mt-4 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-20 dark:border-gray-800",
+            "mt-4 flex justify-center rounded-lg border border-dashed border-zinc-300 px-6 py-20 dark:border-zinc-800",
             isDragActive &&
               "border-teal-500 bg-teal-50 dark:border-teal-500 dark:bg-teal-950",
           )}
         >
           <div>
             <FileLineIcon
-              className="mx-auto size-12 text-gray-400 dark:text-gray-500"
+              className="mx-auto size-12 text-zinc-400 dark:text-zinc-500"
               aria-hidden={true}
             />
-            <div className="mt-4 flex text-sm/6 text-gray-500 dark:text-gray-500">
+            <div className="mt-4 flex text-sm/6 text-zinc-500 dark:text-zinc-500">
               <p>Drag and drop or</p>
               <label
                 htmlFor="file-upload"
-                className="relative cursor-pointer rounded-md pl-1 font-medium text-blue-500 hover:underline hover:underline-offset-4 dark:text-blue-500"
+                className="relative cursor-pointer rounded-md pl-1 font-medium text-teal-600 hover:underline hover:underline-offset-4 dark:text-teal-400"
               >
                 <span>choose file</span>
                 <input
@@ -89,7 +89,7 @@ export default function UploadForm({ collectionName }) {
               <p className="pl-1">to upload</p>
             </div>
             <div>
-              <p className="text-center text-xs/5 text-gray-500 dark:text-gray-500">
+              <p className="text-center text-xs/5 text-zinc-500 dark:text-zinc-500">
                 JPG, JPEG, PNG up to 25MB
               </p>
             </div>
