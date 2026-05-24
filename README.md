@@ -1,168 +1,103 @@
 # Digital Art Portfolio
 
-A modern web portfolio built for a digital artist who needed more than just a gallery. They needed an experience.
+A portfolio site for a digital artist, built to actually show off their work instead of just listing it.
 
-[Check it out →](https://www.marave.ca)
-
----
-
-## Why This Exists
-
-A digital artist came to me with a problem. Their static portfolio wasn't showing off their sticker designs the way they deserved. They wanted something that felt alive and made browsing their work actually enjoyable.
-
-What they needed:
-
-- Smooth animations that make the site feel premium
-- Easy updates without needing a developer
-- Perfect mobile experience (most visitors browse on phones and safari)
-- Something that stands out from other art portfolios
-
-They needed it fast.
+[See it live →](https://www.marave.ca)
 
 ---
 
-## What I Built
+## Background
 
-This portfolio turns browsing art into an interactive experience. You get smooth transitions between images and intuitive category filtering. It feels more like using an app than visiting a website.
+A digital artist came to me with a portfolio that wasn't keeping up with their work. Static images on a flat page. No flow, no feel. They wanted something that made browsing their work genuinely enjoyable, and they needed to be able to update it themselves without calling me every time they dropped new work.
 
-## Features That Matter
-
-### Smooth Transitions
-
-I used Motion React to create seamless animations between pages. No jarring jumps, just smooth flows that make the portfolio feel polished.
-
-### Built for Mobile First
-
-Since most people view art portfolios on their phones, I designed everything with touch in mind. Every interaction works perfectly whether you're on a phone, tablet, or desktop.
-
-### Update Anytime
-
-The artist can add new work or change content instantly through Firebase. No code required, no waiting for a developer.
-
-### Smart Theming
-
-The site automatically switches between light and dark modes to show artwork in the best light. Users can override it if they prefer one over the other.
-
-### Fast Loading
-
-Lazy loading with skeleton placeholders keeps the site feeling fast even on slower connections. Images load as you need them, not all at once.
-
-### Accessible to Everyone
-
-Full keyboard navigation and proper ARIA labels mean everyone can use the portfolio, regardless of how they browse the web.
-
-## How It Works
-
-Built with React 19, Vite, Motion React, and Tailwind CSS v4 on the frontend. Firebase handles the backend (Firestore for data, Storage for images).
-
-Why these tools?
-
-- React 19 for the latest features and smooth animations
-- Motion React for complex page transitions
-- Tailwind v4 for quick prototyping with consistency
-- Firebase for real-time updates without backend complexity
-
-## Challenges I Solved
-
-### Turning Vision Into Reality
-
-The artist knew what they wanted but couldn't describe it in technical terms. Built quick prototypes and iterated based on their feedback. By the first major revision, we hit 95% satisfaction.
-
-### Safari Performance
-
-Animations that looked smooth in Firefox were choppy in Safari, affecting half the users. Simplified the animations without losing visual impact and removed Motion from images.
-
-### Making Updates Easy
-
-The artist needed to update their portfolio frequently but didn't know how to code. Built a Firebase-powered system that lets them manage everything through an intuitive interface (still improving this).
-
-### Managing Animation State
-
-Complex transitions between pages caused state conflicts. Wrote custom hooks to orchestrate the animations properly so everything flows smoothly.
+The main constraints: smooth on mobile (most of their audience is on iPhone/Safari), easy content updates, and fast enough that people don't bounce.
 
 ---
 
-## What's Done and What's Next
+## What's in here
 
-### Completed
+React 19 + Vite on the frontend, Motion React for animations, Tailwind v4 for styling, and Firebase for the backend (Firestore + Storage). The artist manages content through an admin dashboard. No code, no deploy pipeline, just upload and done.
 
-- Mobile-responsive navigation
-- Category filtering for images
+Notable details:
+
+- **Page transitions:** Motion React handles the animation choreography. Pages slide and fade instead of hard-cutting.
+- **Category filtering:** work is grouped by type; filtering is instant and animated.
+- **Dark/light mode:** auto-detects system preference, user can override. Matters more for art than most sites.
+- **Lazy loading:** skeleton placeholders while images load. Feels faster than it is.
+- **Keyboard nav + ARIA:** full accessibility support throughout.
+
+---
+
+## What actually took time
+
+**Safari.** Animations that were smooth in every other browser turned choppy on Safari, which is most of the traffic. Ended up stripping Motion from image elements and simplifying some transitions. Still looks good, just less ambitious.
+
+**Translating creative feedback into code.** "It should feel more floaty" is not a spec. Did a few rapid prototypes early on to establish a shared visual language. By the first real revision we were mostly aligned.
+
+**Animation state.** Complex page transitions caused state conflicts, things animating out while new content was already animating in. Wrote some custom hooks to sequence everything properly.
+
+---
+
+## Status
+
+Done:
+
+- Mobile navigation
+- Category filtering
 - Optimized animations
-- Admin dashboard for managing content
-- Social media links
+- Admin dashboard
+- Social links
 
-### In Progress
+In progress:
 
-- Contact form with email integration
+- Contact form with email
 
-### Planned 📋
+Planned:
 
-- Analytics to track user behavior
+- Analytics
 - Enhanced keyboard shortcuts
 
-## Project Structure
+---
 
-```sh
+## Project structure
+
+```text
 public/           # Static assets
 src/
 ├── components/   # Reusable UI components
-├── contexts/     # Global state management
-├── pages/        # Main pages (Home, About, Work, etc.)
-├── firebase/     # Firebase configuration
-├── hooks/        # Custom React hooks
-├── lib/          # Utility functions
-├── resources/    # App config and content management
+├── contexts/     # Global state
+├── pages/        # Home, About, Work, etc.
+├── firebase/     # Firebase config
+├── hooks/        # Custom hooks
+├── lib/          # Utilities
+├── resources/    # App config and content
 ```
 
-## Getting Started
+---
 
-### Clone and Install
+## Running it locally
 
 ```sh
 git clone https://github.com/eronmiranda/art-portfolio.git
 cd art-portfolio
-npm install
+bun install
+bun dev
 ```
 
-### Configure and Run
+Runs at [http://localhost:5173](http://localhost:5173). To customize content, edit `src/app/resources/config` and `src/app/resources/content`.
 
-```sh
-# Edit these files to customize
-src/app/resources/config
-src/app/resources/content
-
-# Start the dev server
-npm run dev
-```
-
-Visit [http://localhost:5173](http://localhost:5173) to see it running.
-
-### Deploy to Production
-
-#### Using Docker (Recommended)
+**Docker:**
 
 ```sh
 docker compose up -d
-# App runs at http://localhost:5030
+# http://localhost:5030
 ```
 
-#### Manual Build
+**Production build:**
 
 ```sh
-npm run build
-npm run format  # Optional: format your code
+bun run build
 ```
-
-## Results
-
-The portfolio delivers a smooth, professional experience across all devices. The artist can update their work independently, and visitors get an engaging way to browse their collection.
-
-Performance:
-
-- 95% client satisfaction on first major revision
-- 30% faster animations in Safari after optimization
-- Mobile-first design serving 70% of traffic
 
 ---
 
